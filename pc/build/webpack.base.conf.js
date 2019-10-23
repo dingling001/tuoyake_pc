@@ -84,5 +84,8 @@ module.exports = {
     net: "empty",
     tls: "empty",
     child_process: "empty"
+  },
+  externals: {
+    'AMap': 'AMap'
   }
 };

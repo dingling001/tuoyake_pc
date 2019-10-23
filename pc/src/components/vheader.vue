@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="thead">
+      <div id="map"></div>
       <div class="taddress">
         <span class="iconfont iconchakantiezidingwei"></span>
         <span class="city">{{city}}</span>
@@ -76,6 +77,35 @@
     },
     computed: {},
     methods: {
+      // 初始化地图
+      initMap() {
+        var _ = this;
+        let map = new AMap.Map('map', {
+          zoom: 0
+        });
+        map.plugin(['AMap.Autocomplete', 'AMap.Geolocation'], function () {
+          let getlocation = new AMap.Geolocation({
+            timeout: 6000,
+          })
+          map.addControl(getlocation)
+          getlocation.getCurrentPosition(function (status, res) {
+            if (status == 'complete' && res.status == 1) {
+              // console.log(res)
+              _.city = res.addressComponent.province;
+              _.keyword = res.addressComponent.street;
+              _.lat = res.position.lat;
+              _.lng = res.position.lng;
+              _._GetAreaPidByName()
+            } else {
+              Bus.$emit("citypid", 2)
+              Bus.$emit("city", '天津市');
+              Bus.$emit('lat', 0);
+              Bus.$emit('lng', 0);
+            }
+            _._GetSlideList();
+          })
+        })
+      },
       // 切换城市
       changCity() {
         console.log('切换城市')
