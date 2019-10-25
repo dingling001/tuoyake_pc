@@ -7,7 +7,6 @@ export default {
   // 请求头信息
   headers: {
     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-    Accept: "application/json"
   },
   // 设置超时时间
   timeout: 10000,

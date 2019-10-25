@@ -9,7 +9,17 @@ module.exports = {
     // Paths
     assetsSubDirectory: "static",
     assetsPublicPath: "/",
-    proxyTable: {},
+    // proxyTable: {},
+    proxyTable: {
+      '/api': {
+        target: 'http://admin.tuoyake.com/',
+        secure: false,
+        changeOrigin: true,
+        pathRewrite: {
+          "^/api": "/api"
+        }
+      }
+    },
 
     // Various Dev Server settings
     host: "0.0.0.0", // can be overwritten by process.env.HOST
@@ -31,7 +41,8 @@ module.exports = {
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
     cacheBusting: true,
 
-    cssSourceMap: true
+    cssSourceMap: false,
+
   },
 
   build: {

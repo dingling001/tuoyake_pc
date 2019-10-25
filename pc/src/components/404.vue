@@ -1,6 +1,5 @@
 <template>
   <div class="lost">
-    <img src=".././img/404.png" alt />
     <p>抱歉，您访问的页面丢失。</p>
     <a href="/" class="btn">返回首页</a>
   </div>
