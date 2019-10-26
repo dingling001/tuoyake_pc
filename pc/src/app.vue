@@ -1,11 +1,11 @@
 <template>
   <div v-cloak class="app">
+    <div id="map"></div>
     <vHeader ref="nav" v-if="nav"></vHeader>
     <div class="contains">
       <router-view></router-view>
     </div>
     <vFooter v-if="footer"></vFooter>
-    <router-view v-else></router-view>
   </div>
 </template>
 <script>
@@ -30,11 +30,12 @@
       vFooter
     },
     created() {
-      var vm = this;
-
+      var _ = this;
     },
 
-    methods: {}
+    methods: {
+      // 初始化地图
+    }
   };
 </script>
 <style lang="scss" scoped>
@@ -50,10 +51,6 @@
     min-height: 63.5vh;
   }
 
-  .lang {
-    padding-top: 100px;
-    min-height: 65.5vh;
-  }
 
 
 </style>

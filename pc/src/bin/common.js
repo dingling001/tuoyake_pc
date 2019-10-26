@@ -1,3 +1,4 @@
+import {Message} from 'element-ui'
 // 验证手机号
 const checkPhone = phone => {
   return /^1\d{10}$/gi.test(phone);
@@ -156,12 +157,20 @@ const getCookie = c_name => {
  * 删除cookie
  * @param name cookie的名称
  */
-const delCookie = function(name) {
+const delCookie = function (name) {
   var domain =
     window.location.host == "www.hymuseum.org.cn"
       ? STATIC_WEB_URL.substr(11, STATIC_WEB_URL.length)
       : STATIC_WEB_URL.substr(13, STATIC_WEB_URL.length);
   document.cookie = "" + name + "=" + escape("") + ";domain=" + domain;
+};
+const showToast = function (message, type,duration) {
+  Message({
+    showClose: true,
+    message,
+    type: type || 'error',
+    duration:duration|| 1500
+  })
 };
 export default {
   checkPhone,
@@ -169,5 +178,6 @@ export default {
   dateFtt,
   delCookie,
   analyzeIDCard,
-  getCookie
+  getCookie,
+  showToast
 };

@@ -13,6 +13,9 @@ import store from "./store";
 import 'swiper/dist/css/swiper.min.css'
 import VueQrcode from "@xkeshi/vue-qrcode";
 import '@/style/animate.css';
+import Common from "./bin/common";
+Vue.prototype.$common = Common;
+
 Vue.component(VueQrcode.name, VueQrcode);
 Vue.use(api);
 Vue.use(Element);

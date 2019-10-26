@@ -11,21 +11,21 @@
   <!--<meta name="description"-->
   <!--content="国家海洋博物馆以“海洋与人类”为主题，具有中国海洋文化特色，以收藏、研究、展示、教育为主要功能，是一座融展示与教育、收藏与研究、文化与休闲、科学与艺术于一体的现代化、综合性海洋类博物馆。">-->
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1340030_27epczj9rjw.css"/>
-
 </head>
 
 <body>
-<div id="app">
+<div id="app" v-cloak>
   <app></app>
 </div>
 </body>
 </html>
 <script type="text/javascript">
-  window.onresize=function () {
-    var bodywidth=1200
+  window.onresize = function () {
+    var bodywidth = document.body.scrollWidth;
+    console.log(bodywidth)
     if (/Android|webOS| iPhone | iPad | iPod |BlackBerry|opera mini|opera mobile|appleWebkit.*mobile|mobile/i.test(navigator.userAgent)) {
       window.location.replace('http://mobile.tuoyake.com');
-    }else if(bodywidth<960){
+    } else if (bodywidth < 960) {
       window.location.replace('http://mobile.tuoyake.com');
     }
   }

@@ -3,8 +3,13 @@
     <div class="bannerbox">
       <div class="swiper-container banner">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="../../img/indexs/index_banner.jpg" alt=""></div>
-          <div class="swiper-slide">1111</div>
+          <div
+            class="slide"
+            v-for="(item,index) in swiperlist"
+            :key="index"
+            :class="{'active':ind==index}"
+            :style="{'background':'url('+item.image+')no-repeat','background-size':'cover','background-position':'center center'}"
+          ></div>
         </div>
         <!-- 如果需要分页器 -->
         <div class="swiper-pagination"></div>
@@ -131,36 +136,49 @@
   </div>
 </template>
 <script>
-  import Swiper from "swiper";
 
   export default {
     name: "home",
     data() {
       return {
-        cur: 0
+        cur: 0,
+        swiperlist: [],
+        city: '天津市',
+        ind: 0
       };
     },
 
     mounted() {
       // window.addEventListener("scroll", this.handleScroll);
       // this.height = document.body.clientHeight;
-      var swiper = new Swiper('.banner', {
-        spaceBetween: 30,
-        effect: 'fade',
-        fade: {
-          crossFade: false,
-        },
-        pagination: '.swiper-pagination',
-        observer: true,
-        observeParents: true,
-        autoplay: 3000,
-        loop: true,
-        paginationClickable: true
-      });
 
+      this._GetSlideList();
+      var timer = setInterval(() => {
+        if (this.ind <= this.swiperlist.length - 2) {
+          this.ind = this.ind + 1;
+        } else {
+          this.ind = 0;
+        }
+      }, 5000);
     },
     inject: ["app"],
-    methods: {}
+    methods: {
+      // 获取轮播图
+      _GetSlideList() {
+        this.$api.GetSlideList(this.city).then((res) => {
+          if (res.code == 1) {
+            this.swiperlist = res.data;
+          } else {
+            this.$common.showToast(res.msg)
+          }
+        })
+      },
+    },
+    computed: {
+      swiper() {
+        return this.$refs.mySwiper.swiper
+      },
+    },
   };
 </script>
 <style lang="scss" scoped>
@@ -177,10 +195,32 @@
       .banner {
         width: 1200px;
         margin: 40px auto 18px auto;
+        height: 420px;
 
-        .swiper-slide img {
-          width: 100%;
+        /deep/ .swiper-wrapper {
+          overflow: hidden;
+
+          .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: scale(1, 1);
+            opacity: 0;
+            z-index: -1;
+            transition: transform 5000ms linear 0s;
+
+            &.active {
+              animation: scale 5000ms linear;
+            }
+          }
         }
+
+
+        /*.swiper-slide img {*/
+        /*width: 100%;*/
+        /*}*/
       }
     }
 
@@ -319,6 +359,35 @@
           }
         }
       }
+    }
+  }
+
+  @keyframes scale {
+    0% {
+      transform: scale(1, 1);
+      opacity: 0.5;
+      z-index: 1;
+      transition: opacity z-index transform 500ms "cubic-bezier(0,1,1,1)";
+    }
+    30% {
+      opacity: 1;
+    }
+    60% {
+      transform: scale(1.05);
+      z-index: 1;
+      opacity: 1;
+      transition: opacity z-index transform 200ms "cubic-bezier(0,1,1,1)" 0.3s;
+    }
+    80% {
+      transform: scale(1.05);
+      z-index: 1;
+      opacity: 1;
+      transition: opacity z-index transform 200ms "cubic-bezier(0,1,1,1)" 0.3s;
+    }
+    100% {
+      transform: scale(1.5);
+      z-index: 1;
+      transition: scale 100ms "cubic-bezier(0.5,0,0.2,1)";
     }
   }
 </style>
