@@ -4,7 +4,7 @@ const Competition = [
     meta: {
       cur: 1,
       title: "电竞馆",
-      building:true,
+      building:false,
     },
     component: () => import('../../pages/competition/competition'),
   }

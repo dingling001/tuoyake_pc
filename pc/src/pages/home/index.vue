@@ -22,113 +22,18 @@
           class="iconfont iconjiantou"></span></span></div>
       </div>
       <div class="recommentlist">
-        <div class="recmmentitem">
-          <div class="rec_img"><img src="../../img/indexs/g.png" alt=""></div>
-          <div class="rec_name">网鱼网咖</div>
+        <div class="recmmentitem" v-for="(item ,index) in netlist" :key="item.id">
+          <div class="rec_img"><img :src="item.image" alt=""></div>
+          <div class="rec_name">{{item.name}}</div>
           <div class="rec_type">
             <div class="starbox">
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
+              <span class="iconfont iconstar-fill iconactive" v-for="i in parseInt(item.star)"></span>
             </div>
             <div class="typebox">
-              <span>环境优雅</span>
-              <span>有空调</span>
+              <span v-for="c in item.label_ids">{{c}}</span>
             </div>
           </div>
-          <div class="rec_address">朝阳区七圣中街12号院爱琴海购物公园2层</div>
-        </div>
-        <div class="recmmentitem">
-          <div class="rec_img"><img src="../../img/indexs/g.png" alt=""></div>
-          <div class="rec_name">网鱼网咖</div>
-          <div class="rec_type">
-            <div class="starbox">
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-            </div>
-            <div class="typebox">
-              <span>环境优雅</span>
-              <span>有空调</span>
-            </div>
-          </div>
-          <div class="rec_address">朝阳区七圣中街12号院爱琴海购物公园2层</div>
-        </div>
-        <div class="recmmentitem">
-          <div class="rec_img"><img src="../../img/indexs/g.png" alt=""></div>
-          <div class="rec_name">网鱼网咖</div>
-          <div class="rec_type">
-            <div class="starbox">
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-            </div>
-            <div class="typebox">
-              <span>环境优雅</span>
-              <span>有空调</span>
-            </div>
-          </div>
-          <div class="rec_address">朝阳区七圣中街12号院爱琴海购物公园2层</div>
-        </div>
-        <div class="recmmentitem">
-          <div class="rec_img"><img src="../../img/indexs/g.png" alt=""></div>
-          <div class="rec_name">网鱼网咖</div>
-          <div class="rec_type">
-            <div class="starbox">
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-            </div>
-            <div class="typebox">
-              <span>环境优雅</span>
-              <span>有空调</span>
-            </div>
-          </div>
-          <div class="rec_address">朝阳区七圣中街12号院爱琴海购物公园2层</div>
-        </div>
-        <div class="recmmentitem">
-          <div class="rec_img"><img src="../../img/indexs/g.png" alt=""></div>
-          <div class="rec_name">网鱼网咖</div>
-          <div class="rec_type">
-            <div class="starbox">
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-            </div>
-            <div class="typebox">
-              <span>环境优雅</span>
-              <span>有空调</span>
-            </div>
-          </div>
-          <div class="rec_address">朝阳区七圣中街12号院爱琴海购物公园2层</div>
-        </div>
-        <div class="recmmentitem">
-          <div class="rec_img"><img src="../../img/indexs/g.png" alt=""></div>
-          <div class="rec_name">网鱼网咖</div>
-          <div class="rec_type">
-            <div class="starbox">
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-              <span class="iconfont iconstar-fill iconactive"></span>
-            </div>
-            <div class="typebox">
-              <span>环境优雅</span>
-              <span>有空调</span>
-            </div>
-          </div>
-          <div class="rec_address">朝阳区七圣中街12号院爱琴海购物公园2层</div>
+          <div class="rec_address">{{item.address}}</div>
         </div>
 
       </div>
@@ -144,6 +49,33 @@
         cur: 0,
         swiperlist: [],
         city: '天津市',
+        page: 0,
+        keyword: '',
+        lat: 0,
+        lng: 0,
+        recommend: 1,
+        label: '',
+        district: '',
+        circle: '',
+        netlist: [],
+        offset: 0,
+        labellist: [
+          {value: '', text: '全部服务'}
+        ],
+        districtlist: [
+          {
+            id: '',
+            childlist: [],
+            name: " 全部地区",
+            pid: '',
+            spacer: ""
+          }
+        ],
+        citypid: '',
+        lindex: 0,
+        rindex: 0,
+        totop: false,
+        showoverlay: false,
         ind: 0
       };
     },
@@ -153,6 +85,8 @@
       // this.height = document.body.clientHeight;
 
       this._GetSlideList();
+      this._GetLabelList();
+      this._GetBarList();
       var timer = setInterval(() => {
         if (this.ind <= this.swiperlist.length - 2) {
           this.ind = this.ind + 1;
@@ -173,6 +107,42 @@
           }
         })
       },
+      _GetLabelList() {
+        this.$api.GetLabelList().then(res => {
+          if (res.code == 1) {
+            var labellist = res.data;
+            for (let i in labellist) {
+              this.labellist.push({
+                value: labellist[i],
+                text: labellist[i]
+              })
+            }
+            ;
+            this.label = this.labellist[0].value;
+            // console.log(this.labellist)
+          }
+        })
+      },
+      // 获取列表
+      _GetBarList() {
+        this.$api.GetBarList(
+          this.page,
+          this.keyword,
+          this.city,
+          this.lat,
+          this.lng,
+          this.recommend,
+          this.label,
+          this.district,
+          this.circle,
+        ).then(res => {
+          if (res.code == 1) {//请求成功
+            this.netlist = res.data.data
+          }
+          console.log(this.netlist)
+        })
+      },
+
     },
     computed: {
       swiper() {
@@ -253,9 +223,18 @@
           float: right;
           font-size: 12px;
           color: #777777;
+          cursor: pointer;
 
           &:hover {
             color: $baseRed;
+          }
+
+          &:hover .iconbox .iconfont {
+            color: #fff;
+          }
+
+          &:hover .iconbox {
+            background-color: $baseRed;
           }
 
           .iconbox {
@@ -269,13 +248,6 @@
             line-height: 20px;
             cursor: pointer;
 
-            &:hover .iconfont {
-              color: #fff;
-            }
-
-            &:hover {
-              background-color: $baseRed;
-            }
 
             .iconfont {
               color: #666666;
@@ -294,9 +266,15 @@
           width: 240px;
           margin-bottom: 50px;
           margin-right: 48px;
+          cursor: pointer;
 
           &:nth-child(4n) {
             margin-right: 0;
+          }
+
+          &:hover .rec_name {
+            color: $baseBlue;
+            font-weight: bold;
           }
 
           .rec_img {

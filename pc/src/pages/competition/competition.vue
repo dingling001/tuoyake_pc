@@ -1,11 +1,18 @@
 <template>
-
+  <div class="cbox">
+    <city-select></city-select>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "competition"
+  import CitySelect from '../../components/CitySelect'
+
+  export default {
+    name: "competition",
+    components: {
+      CitySelect
     }
+  }
 </script>
 
 <style scoped>

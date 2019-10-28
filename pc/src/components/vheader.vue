@@ -46,7 +46,7 @@
     data() {
       return {
         cur: 0,
-        city: '北京',
+        city: '天津市',
         top: 0,
         tyktoken: null,
         tkeyword: '',
