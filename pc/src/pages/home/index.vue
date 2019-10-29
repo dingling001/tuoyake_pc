@@ -2,20 +2,21 @@
   <div class="index">
     <div class="bannerbox">
       <div class="swiper-container banner">
+        <!--        <div class="swiper-wrapper">-->
+        <!--          &lt;!&ndash;          <div&ndash;&gt;-->
+        <!--          &lt;!&ndash;            class="slide"&ndash;&gt;-->
+        <!--          &lt;!&ndash;            v-for="(item,index) in swiperlist"&ndash;&gt;-->
+        <!--          &lt;!&ndash;            :key="index"&ndash;&gt;-->
+        <!--          &lt;!&ndash;            :class="{'active':ind==index}"&ndash;&gt;-->
+        <!--          &lt;!&ndash;            :style="{'background':'url('+item.image+')no-repeat','background-size':'cover','background-position':'center center'}"&ndash;&gt;-->
+        <!--          &lt;!&ndash;          ></div>&ndash;&gt;-->
+        <!--      -->
+        <!--        </div>-->
         <div class="swiper-wrapper">
-          <!--          <div-->
-          <!--            class="slide"-->
-          <!--            v-for="(item,index) in swiperlist"-->
-          <!--            :key="index"-->
-          <!--            :class="{'active':ind==index}"-->
-          <!--            :style="{'background':'url('+item.image+')no-repeat','background-size':'cover','background-position':'center center'}"-->
-          <!--          ></div>-->
-          <div class="swiper-wrapper">
-            <div class="swiper-slide"
-                 v-for="(item,index) in swiperlist"
-                 :key="index"
-            ><img :src="item.image" alt=""></div>
-          </div>
+          <div class="swiper-slide"
+               v-for="(item,index) in swiperlist"
+               :key="index"
+          ><img :src="item.image" alt=""></div>
         </div>
         <!-- 如果需要分页器 -->
         <div class="swiper-pagination"></div>
@@ -41,7 +42,6 @@
           </div>
           <div class="rec_address single-line-text">{{item.address}}</div>
         </div>
-
       </div>
     </div>
   </div>
@@ -116,7 +116,6 @@
                 pagination: '.swiper-pagination',
                 observer: true,
                 observeParents: true,
-                autoplayDisableOnInteraction: false,
                 paginationClickable: true,
                 // 如果需要分页器
 //pagination : '#swiper-pagination1',
@@ -206,9 +205,9 @@
           }
         }
 
-        .swiper-slide  {
+        .swiper-slide {
 
-          img{
+          img {
             width: 100%;
 
           }
