@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <div class="bannerbox">
+    <div class="bannerbox" v-if="swiperlist.length">
       <div class="swiper-container banner">
         <!--        <div class="swiper-wrapper">-->
         <!--          &lt;!&ndash;          <div&ndash;&gt;-->
@@ -13,10 +13,7 @@
         <!--      -->
         <!--        </div>-->
         <div class="swiper-wrapper">
-          <div class="swiper-slide"
-               v-for="(item,index) in swiperlist"
-               :key="index"
-          ><img :src="item.image" alt=""></div>
+          <div class="swiper-slide" v-for="(item,index) in swiperlist" :key="index"><img :src="item.image" alt=""></div>
         </div>
         <!-- 如果需要分页器 -->
         <div class="swiper-pagination"></div>
@@ -112,7 +109,7 @@
           if (res.code == 1) {
             this.swiperlist = res.data;
             setTimeout(() => {
-              this.mySwiper = new Swiper('.banner', {
+              this.mySwiper = new Swiper('.swiper-container', {
                 pagination: '.swiper-pagination',
                 observer: true,
                 observeParents: true,
@@ -260,13 +257,13 @@
 
           .iconbox {
             display: inline-block;
-            width: 20px;
-            height: 20px;
+            width: 15px;
+            height: 15px;
             border-radius: 50%;
             background-color: #E4E4E4;
             margin-left: 8px;
             text-align: center;
-            line-height: 20px;
+            line-height: 15px;
             cursor: pointer;
 
 
