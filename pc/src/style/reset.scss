@@ -218,12 +218,24 @@ li {
 
 /*多行文本超出后省略号代替方案*/
 
-.three-line-text {
+.single-line-text {
+  overflow: hidden;
+  /*内容超出后隐藏*/
+  text-overflow: ellipsis;
+  /* 超出内容显示为省略号*/
+  white-space: nowrap;
+  /*文本不进行换行*/
+}
+
+/*多行文本超出后省略号代替方案*/
+
+.two-line-text {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   overflow: hidden;
 }
+
 
 input,
 select {

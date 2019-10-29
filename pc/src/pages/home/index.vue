@@ -3,13 +3,19 @@
     <div class="bannerbox">
       <div class="swiper-container banner">
         <div class="swiper-wrapper">
-          <div
-            class="slide"
-            v-for="(item,index) in swiperlist"
-            :key="index"
-            :class="{'active':ind==index}"
-            :style="{'background':'url('+item.image+')no-repeat','background-size':'cover','background-position':'center center'}"
-          ></div>
+          <!--          <div-->
+          <!--            class="slide"-->
+          <!--            v-for="(item,index) in swiperlist"-->
+          <!--            :key="index"-->
+          <!--            :class="{'active':ind==index}"-->
+          <!--            :style="{'background':'url('+item.image+')no-repeat','background-size':'cover','background-position':'center center'}"-->
+          <!--          ></div>-->
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"
+                 v-for="(item,index) in swiperlist"
+                 :key="index"
+            ><img :src="item.image" alt=""></div>
+          </div>
         </div>
         <!-- 如果需要分页器 -->
         <div class="swiper-pagination"></div>
@@ -33,7 +39,7 @@
               <span v-for="c in item.label_ids">{{c}}</span>
             </div>
           </div>
-          <div class="rec_address">{{item.address}}</div>
+          <div class="rec_address single-line-text">{{item.address}}</div>
         </div>
 
       </div>
@@ -41,6 +47,7 @@
   </div>
 </template>
 <script>
+  import Swiper from 'swiper'
 
   export default {
     name: "home",
@@ -76,7 +83,8 @@
         rindex: 0,
         totop: false,
         showoverlay: false,
-        ind: 0
+        ind: 0,
+        mySwiper: null
       };
     },
 
@@ -94,6 +102,7 @@
           this.ind = 0;
         }
       }, 5000);
+
     },
     inject: ["app"],
     methods: {
@@ -102,6 +111,17 @@
         this.$api.GetSlideList(this.city).then((res) => {
           if (res.code == 1) {
             this.swiperlist = res.data;
+            setTimeout(() => {
+              this.mySwiper = new Swiper('.banner', {
+                pagination: '.swiper-pagination',
+                observer: true,
+                observeParents: true,
+                autoplayDisableOnInteraction: false,
+                paginationClickable: true,
+                // 如果需要分页器
+//pagination : '#swiper-pagination1',
+              })
+            }, 500)
           } else {
             this.$common.showToast(res.msg)
           }
@@ -117,7 +137,6 @@
                 text: labellist[i]
               })
             }
-            ;
             this.label = this.labellist[0].value;
             // console.log(this.labellist)
           }
@@ -187,10 +206,13 @@
           }
         }
 
+        .swiper-slide  {
 
-        /*.swiper-slide img {*/
-        /*width: 100%;*/
-        /*}*/
+          img{
+            width: 100%;
+
+          }
+        }
       }
     }
 
