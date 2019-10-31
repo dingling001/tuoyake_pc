@@ -74,6 +74,14 @@
         ]
       };
     },
+    watch: {
+      $route: {
+        handler(val) {
+          console.log(val)
+          this.cur = val.meta.cur;
+        }
+      }
+    },
     computed: {},
     methods: {
 
@@ -113,6 +121,7 @@
 
   .thead {
     background-color: #f4f4f4;
+
     .taddress {
       width: 1200px;
       margin: 0 auto;
