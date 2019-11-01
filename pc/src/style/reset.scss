@@ -11,6 +11,7 @@ $baseBlue: #2C6BEA;
   tap-highlight-color: transparent;
   -webkit-tap-highlight-color: transparent;
   -ms-tap-highlight-color: transparent;
+  outline: none;
 }
 
 /* reset */
@@ -367,6 +368,9 @@ input[type="number"] {
     color: $baseBlue;
     background-color: #fff;
     font-weight: bold;
+  }
+  .popper__arrow{
+    display: none!important;
   }
 }
 

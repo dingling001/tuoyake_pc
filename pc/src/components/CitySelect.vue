@@ -4,19 +4,19 @@
       <span>已选条件</span>
       <span class="labeled" v-if="cityarea" @click="removecity">{{cityarea}}</span>
       <span class="labeled" v-if="labeled" @click="removelabel">{{labeled}}</span>
-      <span class="clearall">.清除全部</span>
+      <span class="clearall" @click="removeall">.清除全部</span>
     </div>
     <div class="cityitem">
       <div class="label"><label>区域</label><span :class="['all', cityindex==-1?'activetag':'']">全部</span></div>
       <div class="tagbox">
-        <el-dropdown v-for="(item,index) in districtlist" class="tag" :key="item.id" @command="commandid"
+        <el-dropdown v-for="(item,index) in districtlist" class="tag" :key="item.id" @command="commandid($event,index)"
                      @visible-change="getchildlist($event,index)">
           <span :class="['el-dropdown-link',index==cityindex?'cityactive':'']">
             <span>{{item.name}}</span>
             <i class=" el-icon-caret-right"></i>
           </span>
           <el-dropdown-menu slot="dropdown" class="cityslot">
-            <div class="bigtag">{{item.name}}</div>
+            <div class="bigtag">{{item.childlist.area}}</div>
             <el-dropdown-item v-for="(i,iindex)  in item.childlist" :key="i.id" :class="{'liactve':iindex==childindex}"
                               :command="i.id+'-'+index+'-'+i.name+'-'+iindex"> {{i.name}}
             </el-dropdown-item>
@@ -28,8 +28,8 @@
       <div class="label"><label>服务</label><span :class="['all', labelindex==-1?'activetag':'']">全部</span>
       </div>
       <div class="tagbox">
-        <div :class="['tag',index==labelindex?'activetag':'' ]" v-for="(item,index) in labellist"
-             @click="lableselect(index,item)">{{item}}
+        <div class="tag" v-for="(item,index) in labellist"
+             @click="lableselect(index,item)"><span :class="{'activetag':index==labelindex}">{{item}}</span>
         </div>
       </div>
     </div>
@@ -83,6 +83,7 @@
                 pid: '',
                 spacer: "&nbsp;├"
               })
+              this.districtlist[i].childlist.area = this.districtlist[i].name;
             }
           }
         })
@@ -96,16 +97,16 @@
         })
       },
       // 选中地区
-      commandid(e) {
+      commandid(e, index) {
         this.einfo = e.split('-');
         if (this.einfo[0] == 0) {
-          return
+          this.districtlist[this.einfo[1]].name = this.districtlist[index].childlist.area;
+          this.cityarea = this.districtlist[index].childlist.area;
         } else {
           this.cityarea = this.districtlist[this.einfo[1]].childlist[this.einfo[3]].name;
           this.districtlist[this.einfo[1]].name = this.districtlist[this.einfo[1]].childlist[this.einfo[3]].name;
           this.cityindex = this.einfo[1];
         }
-
       },
       // 触发下拉的行为
       getchildlist(e, index) {
@@ -128,10 +129,11 @@
         this.labeled = '';
         this.labelindex = -1;
       },
-      clearall() {
+      removeall() {
         this.labeled = '';
         this.labelindex = -1;
         this.cityarea = '';
+        this.cityindex = -1;
       }
 
     }
@@ -200,6 +202,7 @@
         cursor: pointer;
         padding: 0 10px;
         border-radius: 15px;
+        transition: ease-in-out .2s;
 
         &.activetag {
           color: #fff;
@@ -217,9 +220,10 @@
 
     .tagbox {
       padding-left: 160px;
+      min-height: 30px;
 
       .tag {
-        min-width: 120px;
+        min-width: 130px;
         display: inline-block;
         font-size: 14px;
         color: #666;
@@ -232,10 +236,18 @@
           font-weight: bold;
         }
 
-        &.activetag {
-          color: $baseBlue;
-          font-weight: bold;
-          background-color: $baseBlue;
+        span {
+
+          border-radius: 20px;
+          transition: ease-in-out .1s;
+
+          &.activetag {
+            color: #fff;
+            font-weight: bold;
+            background-color: $baseBlue;
+            padding: 0 10px;
+
+          }
         }
 
         .el-dropdown-link {
