@@ -7,23 +7,26 @@
       <span class="clearall">.清除全部</span>
     </div>
     <div class="cityitem">
-      <div class="label"><span>区域</span><span class="all">全部</span></div>
+      <div class="label"><label>区域</label><span :class="['all', cityindex==-1?'activetag':'']">全部</span></div>
       <div class="tagbox">
-        <el-dropdown v-for="(item,index) in districtlist" class="tag" :key="item.id" @command="commandid">
-          <span class="el-dropdown-link">{{item.name}}<i class=" el-icon-caret-right"></i></span>
+        <el-dropdown v-for="(item,index) in districtlist" class="tag" :key="item.id" @command="commandid"
+                     @visible-change="getchildlist($event,index)">
+          <span :class="['el-dropdown-link',index==cityindex?'cityactive':'']">
+            <span>{{item.name}}</span>
+            <i class=" el-icon-caret-right"></i>
+          </span>
           <el-dropdown-menu slot="dropdown" class="cityslot">
-            <div class="bigtag" v-if="einfo[0]!=0">{{item.name}}</div>
-            <div class="bigtag" v-else>{{selcetname}}</div>
+            <div class="bigtag">{{item.name}}</div>
             <el-dropdown-item v-for="(i,iindex)  in item.childlist" :key="i.id" :class="{'liactve':iindex==childindex}"
-                              :command="i.id+'-'+index+'-'+i.name+'-'+iindex">
-              {{i.name}}
+                              :command="i.id+'-'+index+'-'+i.name+'-'+iindex"> {{i.name}}
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
     </div>
     <div class="cityitem">
-      <div class="label"><span>服务</span><span class="all">全部</span></div>
+      <div class="label"><label>服务</label><span :class="['all', labelindex==-1?'activetag':'']">全部</span>
+      </div>
       <div class="tagbox">
         <div :class="['tag',index==labelindex?'activetag':'' ]" v-for="(item,index) in labellist"
              @click="lableselect(index,item)">{{item}}
@@ -49,8 +52,9 @@
         labelindex: -1,
         labeled: '',
         cityarea: '',
-        childindex: -1
-    }
+        childindex: -1,
+        cityindex: -1
+      }
     },
     created() {
       this._GetAreaPidByName();
@@ -60,15 +64,10 @@
       // 根据城市换取id
       _GetAreaPidByName() {
         this.$api.GetAreaPidByName(this.city).then(res => {
-          console.log(res)
-          // console.log(`${JSON.stringify(res)}res`)
-          // Bus.$emit("citypid", res.data)
-          // Bus.$emit("city", this.city);
-          // Bus.$emit('lat', this.lat);
-          // Bus.$emit('lng', this.lng);
-          this.citypid = res.data;
-          this._GetAreaListTree();
-
+          if (res.code == 1) {
+            this.citypid = res.data;
+            this._GetAreaListTree();
+          }
         })
       },
       // 获取当前城市的区
@@ -98,17 +97,27 @@
       },
       // 选中地区
       commandid(e) {
-        console.log(e)
         this.einfo = e.split('-');
         if (this.einfo[0] == 0) {
-          this.cityarea = this.districtlist[this.einfo[1]].name;
+          return
         } else {
-          this.cityarea = this.einfo[2];
+          this.cityarea = this.districtlist[this.einfo[1]].childlist[this.einfo[3]].name;
+          this.districtlist[this.einfo[1]].name = this.districtlist[this.einfo[1]].childlist[this.einfo[3]].name;
+          this.cityindex = this.einfo[1];
         }
-        this.childindex=this.einfo[3]
+
+      },
+      // 触发下拉的行为
+      getchildlist(e, index) {
+        if (e) {
+          // this.childlist = this.districtlist[index].childlist;
+
+        } else {
+        }
       },
       removecity() {
         this.cityarea = '';
+        this.cityindex = -1;
       },
       // 选中服务标签
       lableselect(index, labeled) {
@@ -179,22 +188,30 @@
       position: absolute;
       width: 160px;
 
-      span {
+      label {
         width: 80px;
         display: inline-block;
-        line-height: 22px;
+        line-height: 28px;
         color: #222;
+      }
 
-        &.all {
-          color: #333;
-          cursor: pointer;
+      .all {
+        color: #333;
+        cursor: pointer;
+        padding: 0 10px;
+        border-radius: 15px;
 
-          &:hover {
-            color: $baseBlue;
-            font-weight: bold;
-          }
+        &.activetag {
+          color: #fff;
+          font-weight: bold;
+          background-color: $baseBlue;
         }
 
+        &:hover {
+          color: #fff;
+          font-weight: bold;
+          background-color: $baseBlue;
+        }
       }
     }
 
@@ -218,6 +235,17 @@
         &.activetag {
           color: $baseBlue;
           font-weight: bold;
+          background-color: $baseBlue;
+        }
+
+        .el-dropdown-link {
+          padding: 0 5px;
+
+          &.cityactive {
+            background-color: $baseBlue;
+            border-radius: 20px;
+            color: #fff;
+          }
         }
       }
     }
