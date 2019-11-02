@@ -105,8 +105,8 @@
         } else {
           this.cityarea = this.districtlist[this.einfo[1]].childlist[this.einfo[3]].name;
           this.districtlist[this.einfo[1]].name = this.districtlist[this.einfo[1]].childlist[this.einfo[3]].name;
-          this.cityindex = this.einfo[1];
         }
+        this.cityindex = this.einfo[1];
       },
       // 触发下拉的行为
       getchildlist(e, index) {
