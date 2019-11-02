@@ -40,11 +40,14 @@
           <div class="rec_address single-line-text">{{item.address}}</div>
         </div>
       </div>
+      <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
+                :scrollTo="680"></pcpaging>
     </div>
   </div>
 </template>
 <script>
   import Swiper from 'swiper'
+  import pcpaging from '../../components/pcpaging'
 
   export default {
     name: "home",
@@ -53,7 +56,8 @@
         cur: 0,
         swiperlist: [],
         city: '天津市',
-        page: 0,
+        page: 1,
+        per_page: 8,
         keyword: '',
         lat: 0,
         lng: 0,
@@ -81,7 +85,8 @@
         totop: false,
         showoverlay: false,
         ind: 0,
-        mySwiper: null
+        mySwiper: null,
+        totalPages: 0
       };
     },
 
@@ -102,6 +107,9 @@
 
     },
     inject: ["app"],
+    components: {
+      pcpaging
+    },
     methods: {
       // 获取轮播图
       _GetSlideList() {
@@ -150,14 +158,20 @@
           this.label,
           this.district,
           this.circle,
+          this.per_page
         ).then(res => {
           if (res.code == 1) {//请求成功
-            this.netlist = res.data.data
+            this.netlist = res.data.data;
+            this.totalPages = res.data.total / this.per_page;
           }
           console.log(this.netlist)
         })
       },
-
+      // 分页
+      getPresentPage(val) {
+        this.page = val;
+        this._GetBarList();
+      },
     },
     computed: {
       swiper() {
@@ -277,13 +291,14 @@
 
       .recommentlist {
         overflow: hidden;
-        padding: 40px 48px;
+        padding: 40px 48px 0 48px;
 
         .recmmentitem {
           float: left;
           width: 240px;
           margin-bottom: 50px;
           margin-right: 48px;
+          /*padding: 0 48px 50px 0;*/
           cursor: pointer;
 
           &:nth-child(4n) {
@@ -293,6 +308,10 @@
           &:hover .rec_name {
             color: $baseBlue;
             font-weight: bold;
+          }
+
+          &:hover {
+            /*background-color: #F8F8F8;*/
           }
 
           .rec_img {

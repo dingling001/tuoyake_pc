@@ -1,41 +1,55 @@
 <template>
   <div class="cbox">
-    <city-select></city-select>
+    <city-select @removeall="removeAll"></city-select>
     <div class="listbox">
       <div class="listtab"><span>智能排序</span><span>评分最高</span></div>
       <div class="list">
         <div class="recmmentitem" v-for="(item ,index) in netlist" :key="item.id">
           <div class="rec_img"><img :src="item.image" alt=""></div>
-          <div>
+          <div class="rec_right">
             <div class="rec_name">{{item.name}}</div>
-            <div class="rec_type">
-              <div class="starbox">
-                <span class="iconfont iconstar-fill iconactive" v-for="i in parseInt(item.star)"></span>
-              </div>
-              <div class="typebox">
-                <span v-for="c in item.label_ids">{{c}}</span>
-              </div>
+            <!--            <div class="rec_type">-->
+            <div class="starbox">
+              <span class="iconfont iconstar-fill iconactive" v-for="i in parseInt(item.star)"></span>
             </div>
-            <div class="rec_address single-line-text">{{item.address}}</div>
+            <div class="typebox">
+              <span v-for="c in item.label_ids">{{c}}</span>
+            </div>
+            <!--            </div>-->
+            <div class="rec_address single-line-text"><span class="el-icon-location-outline"></span>{{item.address}}
+            </div>
           </div>
         </div>
       </div>
+      <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
+                :scrollTo="200"></pcpaging>
     </div>
   </div>
 </template>
 
 <script>
   import CitySelect from '../../components/CitySelect'
+  import pcpaging from '../../components/pcpaging'
 
   export default {
     name: "competition",
     data() {
       return {
-        netlist: []
+        netlist: [],
+        totalPages: 0,
+        per_page: 10,
+        city:localStorage.city||'天津市',
+        lat:0,
+        lng:0,
+        recommend:0,
+        circle:'',
+        keyword:'',
+        district:''
       }
     },
     components: {
-      CitySelect
+      CitySelect,
+      pcpaging
     },
     created() {
       this._GetBarList()
@@ -52,15 +66,26 @@
           this.lng,
           this.recommend,
           this.label,
-          this.lindex == 0 ? '' : this.district,
+          this.district,
           this.circle,
+          this.per_page
         ).then(res => {
           if (res.code == 1) {//请求成功
             this.netlist = res.data.data
+            this.totalPages = res.data.total / this.per_page;
           }
           // console.log(this.netlist)
         })
       },
+      // 分页
+      getPresentPage(val) {
+        this.page = val;
+        this._GetBarList();
+      },
+      // 清除所有条件
+      removeAll(val) {
+        console.log(val)
+      }
     }
   }
 </script>
@@ -95,46 +120,51 @@
         .recmmentitem {
           /*float: left;*/
           /*width: 240px;*/
-          margin-bottom: 50px;
-          margin-right: 48px;
+          margin: 0 28px 0 30px;
           cursor: pointer;
           overflow: hidden;
+          padding: 45px 0 40px 0;
+          border-top: 1px dashed #EEEEEE;
 
-          &:hover .rec_name {
+          &:hover .rec_right .rec_name {
             color: $baseBlue;
             font-weight: bold;
           }
 
           .rec_img {
-            width: 240px;
-            height: 240px;
+            width: 220px;
+            height: 220px;
+            text-align: center;
+            line-height: 220px;
             border-radius: 5px;
             overflow: hidden;
             float: left;
+            background-color: #f8f8f8;
 
             img {
               width: 100%;
+              vertical-align: middle;
             }
           }
 
-          .rec_name {
-            padding: 18px 0;
-            font-size: 16px;
-            color: #333333;
-          }
+          .rec_right {
+            float: left;
+            margin-left: 34px;
 
-          .rec_type {
-            overflow: hidden;
+            .rec_name {
+              padding: 18px 0;
+              font-size: 20px;
+              color: #333333;
+            }
 
             .starbox {
-              float: left;
-              width: 96px;
-              margin-right: 28px;
+              /*float: left;*/
+              /*width: 96px;*/
+              padding-bottom: 28px;
 
               .iconfont {
                 color: #c3c3c3;
-                margin-left: -2px;
-                /*margin-right: 5px;*/
+                margin-right: 5px;
               }
 
               .iconactive {
@@ -143,26 +173,33 @@
             }
 
             .typebox {
-              float: left;
+              /*float: left;*/
+              padding-bottom: 33px;
 
               span {
                 background-color: #FEEAEB;
                 color: #E03A43;
-                padding: 1px 0;
-                width: 56px;
+                padding: 5px 12px;
                 text-align: center;
                 border-radius: 10px;
                 display: inline-block;
-                font-size: 13px;
+                font-size: 14px;
+                margin-right: 34px;
               }
             }
 
-          }
+            .rec_type {
+              overflow: hidden;
+            }
 
-          .rec_address {
-            color: #999999;
-            font-size: 12px;
-            padding-top: 18px;
+            .rec_address {
+              color: #999999;
+              font-size: 16px;
+
+              .el-icon-location-outline {
+                margin-right: 5px;
+              }
+            }
           }
         }
       }

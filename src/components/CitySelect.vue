@@ -134,6 +134,7 @@
         this.labelindex = -1;
         this.cityarea = '';
         this.cityindex = -1;
+        this.$emit('removeall','clearall')
       }
 
     }
