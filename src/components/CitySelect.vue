@@ -24,7 +24,7 @@
         </el-dropdown>
       </div>
     </div>
-    <div class="cityitem">
+    <div class="cityitem" v-if="showlabel">
       <div class="label"><label>服务</label><span :class="['all', labelindex==-1?'activetag':'']">全部</span>
       </div>
       <div class="tagbox">
@@ -54,6 +54,12 @@
         cityarea: '',
         childindex: -1,
         cityindex: -1
+      }
+    },
+    props: {
+      'showlabel': {
+        default: true,
+        type: Boolean
       }
     },
     created() {
@@ -107,6 +113,8 @@
           this.districtlist[this.einfo[1]].name = this.districtlist[this.einfo[1]].childlist[this.einfo[3]].name;
         }
         this.cityindex = this.einfo[1];
+        this.$emit('cityarea', this.cityarea)
+
       },
       // 触发下拉的行为
       getchildlist(e, index) {
@@ -123,7 +131,8 @@
       // 选中服务标签
       lableselect(index, labeled) {
         this.labelindex = index;
-        this.labeled = labeled
+        this.labeled = labeled;
+        this.$emit('labeled', labeled)
       },
       removelabel() {
         this.labeled = '';
@@ -134,7 +143,7 @@
         this.labelindex = -1;
         this.cityarea = '';
         this.cityindex = -1;
-        this.$emit('removeall','clearall')
+        this.$emit('removeall', 'clearall')
       }
 
     }

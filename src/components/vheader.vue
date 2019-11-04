@@ -23,13 +23,13 @@
         <div class="tlogo">
           <img src="../img/index/index_logo.png" alt="">
         </div>
-        <div class="tinput">
+        <div class="tinput" >
           <el-input
             placeholder="搜索网吧或相关赛事"
             v-model="tkeyword">
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
           </el-input>
-          <el-button type="primary">搜索</el-button>
+          <el-button type="primary" @click="gosearch">搜索</el-button>
         </div>
         <el-button type="danger"><i class="iconfont iconshouji"></i> 下载APP</el-button>
       </div>
@@ -99,6 +99,9 @@
           window.pageYOffset ||
           document.documentElement.scrollTop ||
           document.body.scrollTop;
+      },
+      // 搜索
+      gosearch(){
       }
     },
     beforeRouteEnter(to, form, next) {

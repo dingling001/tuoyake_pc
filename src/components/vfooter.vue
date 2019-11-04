@@ -1,7 +1,9 @@
 <template>
   <div class="footer">
     <p class="copyright">
-      <a href="http://www.beian.miit.gov.cn/state/outPortal/loginPortal.action;jsessionid=PjAlxu21ql9vTut7sJMAEHxDT1V91UUTkhUMjar8XFGpWQeZtll8!1935156451">CopyRight 2019 北京澎龙科技有限公司 京ICP备19041153号-1</a>
+      <a
+        href="http://www.beian.miit.gov.cn/state/outPortal/loginPortal.action;jsessionid=PjAlxu21ql9vTut7sJMAEHxDT1V91UUTkhUMjar8XFGpWQeZtll8!1935156451">CopyRight
+        2019 北京澎龙科技有限公司 京ICP备19041153号-1</a>
     </p>
   </div>
 </template>
@@ -22,7 +24,7 @@
     padding-top: 40px;
     position: relative;
     height: 111px;
-
+    min-width: 1200px;
   }
 
   .footer p {

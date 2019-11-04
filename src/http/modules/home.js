@@ -15,7 +15,7 @@ export const GetSlideList = (city) =>
 /**
  * 获取首页列表接口
  */
-export const GetBarList = (page = 1, keyword, city, lat = 0, lng = 0, recommend = 0, label, district, circle, per_page) =>
+export const GetBarList = (page = 1, keyword, city, lat = 0, lng = 0, recommend = 0, label, district, circle, per_page,order) =>
   axios(
     "/api/index/getBarList", {
       page,
@@ -27,7 +27,8 @@ export const GetBarList = (page = 1, keyword, city, lat = 0, lng = 0, recommend 
       label,
       district,
       circle,
-      per_page
+      per_page,
+      order
     },
     "POST",
     true

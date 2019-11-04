@@ -2,9 +2,9 @@ const School = [
   {
     path: '/school',
     meta: {
-      cur: 3,
+      cur: 2,
       title: "电竞学院",
-      building:true,
+      building:false,
     },
 
     component: () => import('../../pages/school/school'),

@@ -2,9 +2,9 @@ const Club = [
   {
     path: '/club',
     meta: {
-      cur: 4,
+      cur: 3,
       title: "电竞俱乐部",
-      building:true,
+      building:false,
     },
     component: () => import('../../pages/club/club'),
   }

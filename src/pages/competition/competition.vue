@@ -1,9 +1,12 @@
 <template>
   <div class="cbox">
-    <city-select @removeall="removeAll"></city-select>
+    <city-select @removeall="removeAll" @labeled="labeledfn" @cityarea="cityareafn"></city-select>
     <div class="listbox">
-      <div class="listtab"><span>智能排序</span><span>评分最高</span></div>
-      <div class="list">
+      <div class="listtab">
+        <span :class="{'ativetab':tab==index}" @click="orderby(index,item.order)"
+              v-for="(item,index) in tabs" :key="item.order">{{item.name}}</span>
+      </div>
+      <div class="list" v-if="netlist.length">
         <div class="recmmentitem" v-for="(item ,index) in netlist" :key="item.id">
           <div class="rec_img"><img :src="item.image" alt=""></div>
           <div class="rec_right">
@@ -21,8 +24,11 @@
           </div>
         </div>
       </div>
+      <div v-else>
+        暂无数据
+      </div>
       <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
-                :scrollTo="200"></pcpaging>
+                :scrollTo="200" v-if="netlist.length"></pcpaging>
     </div>
   </div>
 </template>
@@ -38,13 +44,29 @@
         netlist: [],
         totalPages: 0,
         per_page: 10,
-        city:localStorage.city||'天津市',
-        lat:0,
-        lng:0,
-        recommend:0,
-        circle:'',
-        keyword:'',
-        district:''
+        city: localStorage.city || '天津市',
+        lat: 0,
+        lng: 0,
+        recommend: 0,
+        circle: '',
+        keyword: '',
+        district: '',
+        tabs: [
+          {
+            name: '默认排序',
+            order: '1'
+          },
+          {
+            name: '智能排序',
+            order: '2'
+          },
+          {
+            name: '评分最高',
+            order: '3'
+          },
+        ],
+        tab: '',
+        order: 1
       }
     },
     components: {
@@ -68,7 +90,8 @@
           this.label,
           this.district,
           this.circle,
-          this.per_page
+          this.per_page,
+          this.order
         ).then(res => {
           if (res.code == 1) {//请求成功
             this.netlist = res.data.data
@@ -82,9 +105,32 @@
         this.page = val;
         this._GetBarList();
       },
+      // 选中服务标签
+      labeledfn(val) {
+        console.log(val)
+        this.page = 1;
+        this.label = val;
+        this._GetBarList();
+
+      },
+      // 选中地区
+      cityareafn(val) {
+        this.page = 1;
+        this.district = val;
+        this._GetBarList();
+      },
       // 清除所有条件
       removeAll(val) {
-        console.log(val)
+        this.label = '';
+        this.district = '';
+        this.page=1;
+        this._GetBarList();
+      },
+      // 排序
+      orderby(index, order) {
+        this.tab = index;
+        this.order = order;
+        this._GetBarList();
       }
     }
   }
@@ -108,6 +154,11 @@
           cursor: pointer;
 
           &:hover {
+            color: $baseBlue;
+            font-weight: bold;
+          }
+
+          &.ativetab {
             color: $baseBlue;
             font-weight: bold;
           }
