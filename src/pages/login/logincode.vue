@@ -52,13 +52,13 @@
             // 获取验证码
             _SmsSend() {
                 if (this.mobile == '') {
-                    this.$com.showtoast('请输入手机号')
+                    this.$com.showToast('请输入手机号')
                 } else {
                     this.$api.SmsSend(this.mobile, 'login').then((res) => {
                         this.showbtn = false;
                         console.log(res)
                         if (res.code == 1) {
-                            this.$com.showtoast(res.msg)
+                            this.$com.showToast(res.msg)
                             this.captcha = res.data
                         }
                     })
@@ -69,16 +69,16 @@
             },
             gonext() {
                 if (this.mobile == '') {
-                    this.$com.showtoast('请输入手机号')
+                    this.$com.showToast('请输入手机号')
                 } else if (this.captcha == '') {
-                    this.$com.showtoast('请输入验证码')
+                    this.$com.showToast('请输入验证码')
 
                 } else {
                     this.$api.MobileLogin(this.mobile, this.captcha).then((res) => {
                         // console.log(res)
                         if (res.code == 1) {
                             localStorage.user_twap = res.data.userinfo.token
-                            this.$com.showtoast('登录成功');
+                            this.$com.showToast('登录成功');
                             let redirect = decodeURIComponent(this.$route.query.redirect || "/");
                             if (this.redirect) {
                                 this.$router.push(redirect);
@@ -86,7 +86,7 @@
                                 this.$router.replace('/');
                             }
                         } else {
-                            this.$com.showtoast(res.msg || '稍后再试')
+                            this.$com.showToast(res.msg || '稍后再试')
                         }
                     })
                 }
