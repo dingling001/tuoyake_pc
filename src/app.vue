@@ -84,7 +84,7 @@
 
   .contains {
     min-height: 66.4vh;
-    width: 1200px;
+    min-width: 1200px;
     margin: 0 auto;
   }
 
