@@ -5,6 +5,9 @@ export default [
       cur: 5,
       title: "关于我们",
       building: true,
+      showH: true,
+      showF: true,
+      needLogin: false
     },
     component: () => import('../../pages/my/about'),
   },
@@ -14,8 +17,9 @@ export default [
     component: resolve => require(["../../pages/my/my"], resolve),
     meta: {
       title: "我的",
+      showH: true,
       showF: true,
-      showH: false
+      needLogin: true
     },
   },
   {
@@ -24,8 +28,8 @@ export default [
     component: resolve => require(["../../pages/my/myset"], resolve),
     meta: {
       title: "个人设置",
-      showF: false,
       showH: true,
+      showF: true,
       needLogin: true
     },
   },
@@ -35,8 +39,8 @@ export default [
     component: resolve => require(["../../pages/my/myCoupon"], resolve),
     meta: {
       title: "我的优惠券",
-      showF: false,
       showH: true,
+      showF: true,
       needLogin: true
     },
   },

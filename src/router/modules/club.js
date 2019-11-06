@@ -5,6 +5,9 @@ const Club = [
       cur: 3,
       title: "电竞俱乐部",
       building:false,
+      showF: true,
+      showH: true,
+      needLogin: false
     },
     component: () => import('../../pages/club/club'),
   }

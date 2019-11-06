@@ -13,7 +13,7 @@
         <!--      -->
         <!--        </div>-->
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item,index) in swiperlist" :key="index"><img :src="item.image" alt=""></div>
+          <div class="swiper-slide" v-for="(item,index) in swiperlist" :key="index"><img :src="item.image" alt="">{{item.image}}</div>
         </div>
         <!-- 如果需要分页器 -->
         <div class="swiper-pagination"></div>
@@ -164,7 +164,7 @@
             this.netlist = res.data.data;
             this.totalPages = res.data.total / this.per_page;
           }
-          console.log(this.netlist)
+          // console.log(this.netlist)
         })
       },
       // 分页

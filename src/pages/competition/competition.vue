@@ -123,7 +123,7 @@
       removeAll(val) {
         this.label = '';
         this.district = '';
-        this.page=1;
+        this.page = 1;
         this._GetBarList();
       },
       // 排序

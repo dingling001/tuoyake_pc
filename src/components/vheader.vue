@@ -7,7 +7,7 @@
         <span class="change" @click="changCity">[切换城市]</span>
         <span class="login">
           <span class="loginbox" v-if="!tyktoken">
-            <span class="reg">立即登录</span>
+            <span class="reg" @click="login_fn">立即登录</span>
             <span>注册</span>
           </span>
             <span class="loginbox" v-else>
@@ -23,7 +23,7 @@
         <div class="tlogo">
           <img src="../img/index/index_logo.png" alt="">
         </div>
-        <div class="tinput" >
+        <div class="tinput">
           <el-input
             placeholder="搜索网吧或相关赛事"
             v-model="tkeyword">
@@ -48,7 +48,7 @@
         cur: 0,
         city: '天津市',
         top: 0,
-        tyktoken: null,
+        tyktoken: localStorage.user_tpc || null,
         tkeyword: '',
         navs: [
           {
@@ -84,7 +84,10 @@
     },
     computed: {},
     methods: {
-
+      // 去登录
+      login_fn() {
+        this.$router.push({path: '/login'})
+      },
       // 切换城市
       changCity() {
         console.log('切换城市')
@@ -101,7 +104,7 @@
           document.body.scrollTop;
       },
       // 搜索
-      gosearch(){
+      gosearch() {
       }
     },
     beforeRouteEnter(to, form, next) {

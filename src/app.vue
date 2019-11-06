@@ -1,11 +1,11 @@
 <template>
   <div v-cloak class="app">
     <div id="map"></div>
-    <vHeader ref="nav" v-if="nav"></vHeader>
+    <vHeader ref="nav" v-if="showH"></vHeader>
     <div class="contains">
       <router-view></router-view>
     </div>
-    <vFooter v-if="footer"></vFooter>
+    <vFooter v-if="showF"></vFooter>
     <el-tooltip placement="top" content="返回顶部">
       <!-- 组件使用 -->
       <BackToTop
@@ -27,8 +27,8 @@
     name: "App",
     data() {
       return {
-        nav: true,
-        footer: true,
+        showH: true,
+        showF: true,
         myBackToTopStyle: {
           'right': '100px',
           'bottom': '150px',
@@ -50,8 +50,22 @@
       vFooter,
       BackToTop
     },
+    watch: {
+      '$route': {
+        handler(val) {
+          // console.log(val)
+          // this.showH = val.meta.showH;
+          // this.showF = val.meta.showF;
+        },
+        immediate: true
+      }
+    },
     created() {
       var _ = this;
+      _.$router.afterEach((to, from) => {
+        _.showH = to.meta.showH;
+        _.showF = to.meta.showF;
+      });
     },
 
     methods: {
@@ -69,7 +83,7 @@
   }
 
   .contains {
-    min-height: 63.5vh;
+    min-height: 66.4vh;
     width: 1200px;
     margin: 0 auto;
   }

@@ -7,7 +7,10 @@ export default [
     component: resolve => require(["../pages/home"], resolve),
     meta: {
       title: "首页",
-      cur: 0
+      cur: 0,
+      showF: true,
+      showH: true,
+      needLogin: false
     }
   },
   // 404
@@ -17,7 +20,6 @@ export default [
     component: resolve => require(["../components/404"], resolve),
     meta: {
       title: "404",
-      menus: false
     }
   },
 ];

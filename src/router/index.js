@@ -27,6 +27,35 @@ router.beforeEach((to, from, next) => {
     next('/wen');
     return false;
   }
+  if (to.meta.needLogin) {
+    // 哪些需要验证
+    if (!localStorage.getItem("user_tpc")) {
+      // token存在条件
+      next({
+        path: "/login", // 验证失败要跳转的页面
+        query: {
+          redirect: to.fullPath // 要传的参数(当前页面地址)
+        }
+      });
+
+    } else {
+      // console.log(global.location.pathname)
+      // if (to.path !== global.location.pathname) {
+      //     location.assign(to.fullPath)
+      //     this.$router.push(to.fullPath)
+      // }
+      next();
+    }
+  } else {
+    // if (u.indexOf("like mac os x") < 0 || u.match(/MicroMessenger/i) != 'micromessenger' || u.match(/WebP/i) == "webp") {
+    //     next();
+    //     return;
+    // }
+    // if (to.path !== global.location.pathname) {
+    //   location.assign(to.fullPath)
+    // }
+    next();
+  }
   cancelLastReq(next);
 });
 
