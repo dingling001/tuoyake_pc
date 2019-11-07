@@ -1,6 +1,6 @@
 <template>
     <div class="mbox">
-        <div class="mhead" v-if="user_twap">
+        <div class="mhead" v-if="user_tpc">
             <div class="mimg" @click="goset"><van-image  :src="user_info.avatar" alt="" v-if="user_info.avatar" /></div>
             <div class="namebox">
                 <van-sticky>
@@ -90,14 +90,14 @@
         data() {
             return {
                 adinfo: {},
-                user_twap: '',
+                user_tpc: '',
                 user_info:{},
             }
         },
         created() {
             this._GetAdv();
-            if (localStorage.user_twap) {
-                this.user_twap=localStorage.user_twap;
+            if (localStorage.user_tpc) {
+                this.user_tpc=localStorage.user_tpc;
                 this._GetUserInfo()
             }
         },

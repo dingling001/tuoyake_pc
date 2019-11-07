@@ -1,130 +1,240 @@
 <template>
-    <div class="login_box">
-        <div class="login_head" @click="$router.go(-1)">
-            <div class="iconfont iconfanhui"></div>
-        </div>
-        <div class="login_title">验证手机</div>
-        <form class="loginform">
-            <van-field v-model="account" placeholder="手机号" type="number" clearable/>
-            <van-field v-model="password" placeholder="短信验证码" type="text" center clearable>
-                <van-button slot="button" type="default" class="code" size="small">获取验证码</van-button>
-            </van-field>
-            <div class="login_btn" @click="gonext">继续</div>
-        </form>
+  <div class="login_box">
+    <div class="login_head" @click="$router.go(-1)">
+      <img src="../../img/index/index_logo.png" alt="">
     </div>
+    <el-form class="loginform" ref="form" :model="ruleForm">
+      <div class="logintitle">
+        <div class="account">忘记密码</div>
+        <!--<div class="phone_box" @click="gocode"><span class="iconfont iconyouxiang"></span><span>密码登录</span></div>-->
+      </div>
+      <el-form-item prop="mobile">
+        <el-input v-model="ruleForm.mobile" placeholder="手机号" type="number" clearable></el-input>
+      </el-form-item>
+      <el-form-item prop="captcha">
+        <el-input v-model="ruleForm.captcha" placeholder="请输入验证码" style="width: 70%" type="number"></el-input>
+        <el-button icon="el-icon-mobile-phone" @click="_SmsSend" style="width: 28%" type="success"
+                   :disabled="disabled=!show">
+          <span v-show="show">获取验证码</span>
+          <span v-show="!show" class="count">{{count}} s</span>
+        </el-button>
+      </el-form-item>
+      <el-form-item prop="newpassword">
+        <el-input v-model="ruleForm.newpassword" placeholder="新密码" type="password" clearable></el-input>
+      </el-form-item>
+      <el-form-item prop="repassword">
+        <el-input v-model="ruleForm.repassword" placeholder="重复新密码" type="password" clearable></el-input>
+      </el-form-item>
+      <!--<van-field v-model="mobile" placeholder="手机号" type="number" clearable/>-->
+      <!--<van-field v-model="captcha" placeholder="短信验证码" type="text" center clearable>-->
+      <!--<van-button slot="button" type="default" class="code" size="small" @click="_SmsSend" v-if="showbtn">-->
+      <!--获取验证码-->
+      <!--</van-button>-->
+      <!--&lt;!&ndash;                <van-count-down :time="time" v-else />&ndash;&gt;-->
+      <!--<span class="" slot="button" v-else>-->
+      <!--<span>重新获取</span>-->
+      <!--<van-count-down :time="time" format="ss" ref="countDown" :auto-start="atuostart"-->
+      <!--@finish="endtime"/>-->
+      <!--<span>S</span>-->
+      <!--</span>-->
+      <!--</van-field>-->
+      <div class="login_btn" @click="gonext">重置密码</div>
+      <div @click="backlogin" class="login_pass">密码登录</div>
+    </el-form>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "reg",
-        data() {
-            return {
-                account: '',
-                password: '',
-            }
+  const TIME_COUNT = 60; //更改倒计时时间
+  export default {
+    name: "reg",
+    data() {
+      return {
+        ruleForm: {
+          mobile: '',
+          newpassword: '',
+          repassword: '',
+          captcha: ''
         },
-        created() {
-        },
-        methods: {
-            // 下一步
-            gonext() {
-                this.$router.push({path: '/resetpass', query: {}})
+        show: true,
+        count: '',
+        timer: null,
+      }
+    },
+    created() {
+    },
+    methods: {
+      // 获取验证码
+      _SmsSend() {
+        if (!this.$com.checkPhone(this.ruleForm.mobile)) {
+          this.$com.showToast('请输入正确的手机号')
+        } else {
+          this.$api.SmsSend(this.ruleForm.mobile, 'resetpwd').then((res) => {
+            this.showbtn = false;
+            console.log(res)
+            if (res.code == 1) {
+              this.send();
+              this.$com.showToast(res.msg, 'success');
+              this.ruleForm.captcha = res.data
             }
+          })
         }
+      },
+      // 倒计时
+      send() {
+        if (!this.timer) {
+          this.count = TIME_COUNT;
+          this.show = false;
+          this.timer = setInterval(() => {
+            if (this.count > 0 && this.count <= TIME_COUNT) {
+              this.count--;
+            } else {
+              this.show = true;
+              clearInterval(this.timer);  // 清除定时器
+              this.timer = null;
+            }
+          }, 1000)
+        }
+      },
+      // 下一步
+      gonext() {
+        if (!this.$com.checkPhone(this.ruleForm.mobile)) {
+          this.$com.showToast('请输入正确的手机号')
+        } else if (this.ruleForm.captcha == '') {
+          this.$com.showToast('请输入验证码')
+        } else if (this.ruleForm.newpassword == '') {
+          this.$com.showToast('密码不能为空')
+        } else if (this.ruleForm.repassword == '') {
+          this.$com.showToast('重复密码不能为空')
+        } else if (this.ruleForm.newpassword !== this.ruleForm.repassword) {
+          this.$com.showToast('两次密码不一致')
+        } else {
+          this.$api.ResetPwd(this.ruleForm.mobile, this.ruleForm.captcha, this.ruleForm.newpassword, this.ruleForm.newpassword).then(res => {
+            if (res.code == 1) {
+              this.$com.showToast(res.msg, 'success');
+              this.backlogin()
+            } else {
+              this.$com.showToast(res.msg)
+
+            }
+          })
+        }
+
+        // this.$router.push({path: '/resetpass', query: {}})
+      },
+      // 密码登录
+      backlogin() {
+        this.$router.go(-1)
+      },
     }
+  }
 </script>
 
 <style scoped lang="scss">
-    @import "../../style/reset";
+  @import "../../style/reset";
 
-    .login_box {
-        .login_head {
-            height: 56px;
-            line-height: 56px;
-            padding: 0 20px;
+  .login_box {
+    height: 100vh;
+    background: url("../../img/index/login_bg.jpg") no-repeat 100% 100%;
 
-            .iconfont {
-                font-size: 18px;
-                /*px*/
-                color: #333333;
-                font-weight: bold;
-            }
-        }
+    .login_head {
+      width: 88px;
+      height: 83px;
+      margin: 0 auto;
+      padding: 130px 0 49px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
 
-        .login_title {
-            font-size: 24px;
-            /*px*/
-            color: #333;
-            padding: 0 40px;
-            font-weight: bold;
-            margin: 100px 0 65px 0;
-        }
-
-        .loginform {
-            width: 300px;
-            margin: 0 auto;
-
-            /deep/ .van-cell {
-                padding: .266667rem 0;
-
-                &:after {
-                    left: 0;
-                    border-color: #E4E4E4;
-                }
-
-                input {
-                    font-size: 16px;
-                    /*px*/
-                    &::placeholder {
-                        color: #AAAAAA;
-                        font-size: 16px;
-                        /*px*/
-                    }
-                }
-
-                .code {
-                    color: #778399;
-                    font-size: 14px;
-                    /*px*/
-                    border: none;
-                    background: none;
-
-                    &:active {
-                        opacity: 1;
-                        background: none;
-                    }
-
-                    &:before {
-                        background: none;
-                    }
-                }
-            }
-
-            .login_btn {
-                width: 300px;
-                margin: 51px auto 0 auto;
-                text-align: center;
-                background-color: $baseBlue;
-                color: #fff;
-                font-size: 17px;
-                /*px*/
-                font-weight: bold;
-                border-radius: 5px;
-                padding: 14px 0;
-
-                &:active {
-                    opacity: .9;
-                }
-            }
-
-            .login_pass {
-                text-align: center;
-                font-size: 15px;
-                /*px*/
-                color: #666666;
-                padding: 29px 0;
-            }
-        }
-
+      img {
+        width: 100%;
+      }
     }
+
+    /deep/ .loginform {
+      margin: 0 auto;
+      width: 474px;
+      /*height: 408px;*/
+      background: #fff;
+      box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.15);
+      padding: 40px;
+
+      .logintitle {
+        overflow: hidden;
+        padding-bottom: 16px;
+        line-height: 20px;
+
+        .account {
+          font-size: 20px;
+          float: left;
+          color: #333333;
+        }
+
+        .phone_box {
+          float: right;
+          color: #666666;
+          font-size: 14px;
+          line-height: 18px;
+          cursor: pointer;
+
+          &:hover {
+            color: $baseRed;
+          }
+
+          .iconfont {
+            margin-right: 6px;
+            color: #AAAAAA;
+            font-size: 13px;
+          }
+        }
+      }
+
+      .el-form-item {
+        background-color: #F7F7F7;
+
+        .el-input {
+          input {
+            line-height: 54px;
+            height: 54px;
+            background-color: #F7F7F7;
+
+          }
+        }
+
+        .el-button {
+          height: 54px;
+          padding: 0;
+        }
+      }
+
+      .login_btn {
+        margin: 51px auto 0 auto;
+        text-align: center;
+        background-color: $baseBlue;
+        color: #fff;
+        font-size: 17px;
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 14px 0;
+        cursor: pointer;
+        &:active {
+          opacity: .9;
+        }
+      }
+
+      .login_pass {
+        text-align: center;
+        font-size: 15px;
+        color: #666666;
+        padding: 20px 0 0 0;
+        cursor: pointer;
+
+        &:hover {
+          color: $baseRed;
+        }
+      }
+    }
+
+  }
 </style>

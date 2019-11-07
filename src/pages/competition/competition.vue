@@ -140,6 +140,8 @@
   @import "../../style/reset";
 
   .cbox {
+    width: 1200px ;
+    margin: 0 auto;
     .listbox {
       background-color: #fff;
       margin: 20px 0;

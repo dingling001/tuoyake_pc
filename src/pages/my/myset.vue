@@ -26,7 +26,7 @@
         >
             <input type="text" v-model="user_info.nickname">
         </van-dialog>
-        <div class="mbnt" v-if="user_twap" @click="loginout">退出登录</div>
+        <div class="mbnt" v-if="user_tpc" @click="loginout">退出登录</div>
 
     </van-cell-group>
     <!--</div>-->
@@ -41,11 +41,11 @@
                 user_info: {},
                 showname: false,
                 avatar: '',
-                user_twap: ''
+                user_tpc: ''
             }
         },
         mounted() {
-            this.user_twap = localStorage.user_twap;
+            this.user_tpc = localStorage.user_tpc;
             this._GetUserInfo();
         },
         methods: {
@@ -79,7 +79,7 @@
             },
             // 退出登录
             loginout() {
-                localStorage.removeItem('user_twap')
+                localStorage.removeItem('user_tpc')
                 this.$router.replace('/')
             }
         }

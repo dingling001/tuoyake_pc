@@ -39,3 +39,19 @@ export const Login = (account, password) =>
         "POST",
         true
     );
+
+/**
+ * 忘记密码 /api/common/mobilelogin
+ */
+export const ResetPwd = (mobile, captcha,newpassword,repassword) =>
+  axios(
+    "/api/user/resetpwd", {
+      mobile,
+      captcha,
+      newpassword,
+      repassword
+    },
+    "POST",
+    true
+  );
+

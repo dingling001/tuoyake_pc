@@ -2,6 +2,7 @@ import axios from 'axios'; // 注意先安装哦
 import qs from 'qs'; // 序列化请求数据，视服务端的要求
 import config from './config.js'; // 导入入默认配置
 import store from '.././store.js';
+
 let cancel,
   promiseArr = {};
 const CancelToken = axios.CancelToken;
@@ -11,7 +12,7 @@ window.__axiosPromiseArr = [];
 const instance = axios.create(config);
 
 instance.interceptors.request.use(
-  function(config) {
+  function (config) {
     if (promiseArr[config.url]) {
       promiseArr[config.url]('操作取消');
       promiseArr[config.url] = cancel;
@@ -21,26 +22,29 @@ instance.interceptors.request.use(
 
     return config;
   },
-  function(error) {
+  function (error) {
     return Promise.resolve(error);
   }
 );
 instance.interceptors.response.use(
-  function(response) {
-    //console.log(response);
+  function (response) {
+    // console.log(response);
     // 判断是不是登录失效，是的话则触发登录窗口
-    if (response.data.status == 405) {
-      localStorage.removeItem('api_token');
-      store.commit('setLoginState');
+    if (response.data.code == 401) {
+      localStorage.removeItem('user_tpc');
+      localStorage.url = window.location.href;
+      window.location.href = window.location.origin + "/login";
     }
     return response.data;
   },
-  function(error) {
+  function (error) {
+    console.log(error)
+    console.log(error.response.status)
     switch (error.response.status) {
       case 400:
         console.log('请求错误');
         break;
-      case 403:
+      case 401:
         console.log('未授权，请登录');
         break;
       case 408:
@@ -61,6 +65,7 @@ instance.interceptors.response.use(
         break;
       default:
     }
+    error.status = error.response.status;
     return Promise.reject(error);
   }
 );
@@ -71,7 +76,7 @@ export default (url = '', data = {}, type = 'GET', isRepeat = false) => {
     cancelToken: new CancelToken((c) => {
       if (!isRepeat) {
         cancel = c;
-        window.__axiosPromiseArr.push({ cancel }); //放入一个全局数组，以便之后在router中统一取消
+        window.__axiosPromiseArr.push({cancel}); //放入一个全局数组，以便之后在router中统一取消
       }
     }),
   };
@@ -101,7 +106,7 @@ export default (url = '', data = {}, type = 'GET', isRepeat = false) => {
       options = Object.assign(options, {
         method: 'post',
         data: formData,
-        headers: { 'Content-Type': 'multipart/form-data', Accept: 'application/json' },
+        headers: {'Content-Type': 'multipart/form-data', Accept: 'application/json'},
       });
     }
     instance(options)
@@ -109,8 +114,13 @@ export default (url = '', data = {}, type = 'GET', isRepeat = false) => {
         resolve(res);
       })
       .catch((error) => {
-        store.commit('reFresh');
-        console.log('网络异常');
+        console.log(error)
+        if (error.status === 401) {
+          localStorage.removeItem("user_tpc");
+          // 暂时缓存地址，授权成功后回跳这个地址
+          localStorage.url = window.location.href;
+          window.location.href = window.location.origin + "/login";
+        }
       });
   });
 };

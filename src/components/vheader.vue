@@ -8,11 +8,11 @@
         <span class="login">
           <span class="loginbox" v-if="!tyktoken">
             <span class="reg" @click="login_fn">立即登录</span>
-            <span>注册</span>
+            <router-link to="/reg" tag="span">注册</router-link>
           </span>
             <span class="loginbox" v-else>
-            <span class="reg">Viki</span>
-            <span>退出</span>
+            <span class="reg" title="个人中心">{{getTimeState}}，{{user_info.nickname}}</span>
+            <span @click="loginout">退出</span>
           </span>
         </span>
         <span class="business">商家中心</span>
@@ -71,7 +71,8 @@
             name: '关于我们',
             path: '/about'
           },
-        ]
+        ],
+        user_info: {}
       };
     },
     watch: {
@@ -82,8 +83,52 @@
         }
       }
     },
-    computed: {},
+    computed: {
+      getTimeState() {
+        // 获取当前时间
+        let timeNow = new Date();
+        let hours;
+        // 获取当前小时
+        hours = timeNow.getHours();
+        setInterval(() => {
+          hours = timeNow.getHours();
+        }, 1000);
+        // 设置默认文字
+        let text = ``;
+        // 判断当前时间段
+        if (hours >= 0 && hours <= 10) {
+          text = `早上好`;
+        } else if (hours > 10 && hours <= 14) {
+          text = `中午好`;
+        } else if (hours > 14 && hours <= 18) {
+          text = `下午好`;
+        } else if (hours > 18 && hours <= 24) {
+          text = `晚上好`;
+        }
+        // 返回当前时间段对应的状态
+        return text;
+      }
+    },
+    created() {
+      if (this.tyktoken) {
+        this._GetUserInfo()
+      }
+    },
     methods: {
+      // 获取个人信息
+      _GetUserInfo() {
+        this.$api.GetUserInfo().then(res => {
+          // console.log(res)
+          if (res.code == 1) {
+            this.user_info = res.data;
+          } else {
+            this.$com.showToast(res.msg || '登录已失效');
+            localStorage.removeItem('user_tpc')
+            this.tyktoken = '';
+            this.$router.push('/login')
+          }
+        })
+      },
       // 去登录
       login_fn() {
         this.$router.push({path: '/login'})
@@ -103,8 +148,16 @@
           document.documentElement.scrollTop ||
           document.body.scrollTop;
       },
+
       // 搜索
       gosearch() {
+      },
+      // 退出登录
+      loginout() {
+        localStorage.removeItem('user_tpc');
+        this.tyktoken = '';
+        this.$com.showToast('退出登录', 'warning')
+        this.$router.replace('/')
       }
     },
     beforeRouteEnter(to, form, next) {
@@ -117,7 +170,8 @@
     mounted() {
       window.addEventListener("scroll", this.handleScroll);
       document.title = '托亚克 | ' + this.city;
-    }
+    },
+
   };
 </script>
 

@@ -3,7 +3,7 @@
     <div class="login_head" @click="$router.go(-1)">
       <img src="../../img/index/index_logo.png" alt="">
     </div>
-    <el-form class="loginform" :model="ruleForm" :rules="rules" ref="ruleForm">
+    <el-form class="loginform" :model="ruleForm" ref="ruleForm">
       <div class="logintitle">
         <div class="account">账号登录</div>
         <div class="phone_box" @click="gocode"><span class="iconfont iconyouxiang"></span><span>手机验证码登录</span></div>
@@ -35,7 +35,6 @@
           account: '',
           password: '',
         },
-        rules: {}
       }
     },
     created() {
@@ -46,25 +45,23 @@
     methods: {
       // 登录
       loginpass() {
-        console.log(this.$com.checkPhone(this.account))
-        if (!this.$com.checkPhone(this.account)) {
+        if (!this.$com.checkPhone(this.ruleForm.account)) {
           this.$com.showToast('请输入正确的手机号')
-        } else if (this.password == '') {
+        } else if (this.ruleForm.password == '') {
           this.$com.showToast('请输入密码')
         } else {
-          this.$api.Login(this.account, this.password).then((res) => {
-            console.log(res)
+          this.$api.Login(this.ruleForm.account, this.ruleForm.password).then((res) => {
+            // console.log(res)
             if (res.code == 1) {
-              this.$com.showToast('登录成功');
-              localStorage.setItem('user_tpc', res.data.token);
+              this.$com.showToast('登录成功', 'success');
+              localStorage.setItem('user_tpc', res.data.userinfo.token);
               setTimeout(() => {
                 // this.$router.go(-1)
-                let redirect = decodeURIComponent(this.$route.query.redirect);
+                let redirect = decodeURIComponent(this.$route.query.redirect || "/");
                 this.$router.push(redirect);
               }, 2000)
             } else {
               this.$com.showToast(res.msg)
-
             }
           })
         }
