@@ -6,27 +6,36 @@
     <el-form class="loginform" ref="form" :model="ruleForm">
       <div class="logintitle">
         <div class="account">注册</div>
-        <!--<div class="phone_box" @click="gocode"><span class="iconfont iconyouxiang"></span><span>密码登录</span></div>-->
+        <div class="phone_box" @click="backlogin">已有账号？<span class="login">登录<span
+          class="iconfont iconxiangyou1"></span></span></div>
       </div>
       <el-form-item prop="mobile">
         <el-input v-model="ruleForm.mobile" placeholder="手机号" clearable></el-input>
       </el-form-item>
       <el-form-item prop="captcha">
         <el-input v-model="ruleForm.captcha" placeholder="请输入验证码" style="width: 70%"></el-input>
-        <el-button icon="el-icon-mobile-phone" @click="_SmsSend" style="width: 28%" type="success"
+        <el-button icon="el-icon-mobile-phone" @click="_SmsSend" style="width: 28%" type="text"
                    :disabled="disabled=!show">
           <span v-show="show">获取验证码</span>
           <span v-show="!show" class="count">{{count}} s</span>
         </el-button>
       </el-form-item>
-      <div class="login_btn" @click="gonext">下一步</div>
-      <div @click="backlogin" class="login_pass">密码登录</div>
+      <el-form-item prop="newpassword">
+        <el-input v-model="ruleForm.password" placeholder="新密码" type="password" clearable></el-input>
+      </el-form-item>
+      <el-form-item prop="repassword">
+        <el-input v-model="ruleForm.repassword" placeholder="重复新密码" type="password" clearable></el-input>
+      </el-form-item>
+      <div class="login_btn" @click="gonext">同意以下协议并注册</div>
+      <div class="login_pass" @click="goAgree">用户协议</div>
     </el-form>
   </div>
 </template>
 
 <script>
   const TIME_COUNT = 60; //更改倒计时时间
+  import {hideLoading, showLoading} from '../../components/loading';
+
   export default {
     name: "reg",
     data() {
@@ -34,6 +43,8 @@
         ruleForm: {
           mobile: '',
           captcha: '',
+          password: '',
+          repassword: '',
         },
         show: true,
         count: '',
@@ -55,7 +66,7 @@
               this.send();
               this.$com.showToast(res.msg, 'success');
               this.ruleForm.captcha = res.data
-            }else{
+            } else {
               this.$com.showToast(res.msg);
             }
           })
@@ -79,11 +90,44 @@
       },
       // 下一步
       gonext() {
-        this.$router.push({path: '/regnext', query: {}})
+        // this.$router.push({path: '/regnext', query: {}})
+        if (this.ruleForm.mobile == '') {
+          this.$com.showToast('请输入手机号')
+        } else if (this.captcha == '') {
+          this.$com.showToast('请输入验证码')
+        } else if (this.ruleForm.password == '') {
+          this.$com.showToast('请输入密码')
+
+        } else if (this.ruleForm.repassword == '') {
+          this.$com.showToast('请输入重复码')
+        } else if (this.ruleForm.password != this.ruleForm.repassword) {
+          this.$com.showToast('两次密码不一致')
+        } else {
+          this.$api.Register(this.ruleForm.mobile, this.ruleForm.captcha, this.ruleForm.password, this.ruleForm.repassword).then((res) => {
+            // console.log(res)
+            if (res.code == 1) {
+              this.$com.showToast('注册成功,正在为您自动登录', 'success');
+              localStorage.user_tpc = res.data.userinfo.token;
+              // showLoading('正在为您自动登录');
+              setTimeout(() => {
+                this.$router.push('/home')
+              }, 2000)
+              // localStorage.user_tpc = res.data.userinfo.token;
+              // this.$com.showToast('登录成功', 'success');
+              // let redirect = decodeURIComponent(this.$route.query.redirect || "/");
+              // this.$router.push(redirect);
+            } else {
+              this.$com.showToast(res.msg || '稍后再试')
+            }
+          })
+        }
       },
       backlogin() {
-        this.$router.go(-1)
+        this.$router.push('/login')
       },
+      goAgree() {
+
+      }
     }
   }
 </script>
@@ -113,10 +157,10 @@
     /deep/ .loginform {
       margin: 0 auto;
       width: 474px;
-      height: 408px;
+      /*height: 408px;*/
       background: #fff;
       box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.15);
-      padding: 40px;
+      padding: 40px 40px 0 40px;
 
       .logintitle {
         overflow: hidden;
@@ -131,19 +175,23 @@
 
         .phone_box {
           float: right;
-          color: #666666;
+          /*color: #666666;*/
           font-size: 14px;
           line-height: 18px;
           cursor: pointer;
+          color: #AAAAAA;
 
-          &:hover {
-            color: $baseRed;
-          }
-
+          /*   &:hover {
+               color: $baseRed;
+             }
+   */
           .iconfont {
             margin-right: 6px;
-            color: #AAAAAA;
             font-size: 13px;
+          }
+
+          .login {
+            color: $baseBlue;
           }
         }
       }
@@ -186,8 +234,13 @@
         text-align: center;
         font-size: 15px;
         /*px*/
-        color: #666666;
+        color: $baseBlue;
         padding: 29px 0;
+        cursor: pointer;
+
+        &:hover {
+          /*color: $baseRed;*/
+        }
       }
     }
 

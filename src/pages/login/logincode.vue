@@ -95,7 +95,6 @@
           this.$com.showToast('请输入手机号')
         } else if (this.captcha == '') {
           this.$com.showToast('请输入验证码')
-
         } else {
           this.$api.MobileLogin(this.ruleForm.mobile, this.ruleForm.captcha).then((res) => {
             // console.log(res)

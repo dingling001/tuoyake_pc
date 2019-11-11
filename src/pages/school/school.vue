@@ -94,6 +94,8 @@
 
 <style scoped lang="scss">
   .sbox {
+    width: 1200px;
+    margin: 0 auto;
     .listbox {
       background-color: #fff;
       padding-bottom: 40px;

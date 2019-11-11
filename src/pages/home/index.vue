@@ -1,23 +1,36 @@
 <template>
   <div class="index">
     <div class="bannerbox" v-if="swiperlist.length">
-      <div class="swiper-container banner">
-        <!--        <div class="swiper-wrapper">-->
-        <!--          &lt;!&ndash;          <div&ndash;&gt;-->
-        <!--          &lt;!&ndash;            class="slide"&ndash;&gt;-->
-        <!--          &lt;!&ndash;            v-for="(item,index) in swiperlist"&ndash;&gt;-->
-        <!--          &lt;!&ndash;            :key="index"&ndash;&gt;-->
-        <!--          &lt;!&ndash;            :class="{'active':ind==index}"&ndash;&gt;-->
-        <!--          &lt;!&ndash;            :style="{'background':'url('+item.image+')no-repeat','background-size':'cover','background-position':'center center'}"&ndash;&gt;-->
-        <!--          &lt;!&ndash;          ></div>&ndash;&gt;-->
-        <!--      -->
-        <!--        </div>-->
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item,index) in swiperlist" :key="index"><img :src="item.image" alt="">{{item.image}}</div>
-        </div>
-        <!-- 如果需要分页器 -->
-        <div class="swiper-pagination"></div>
+      <!--<div class="swiper-container banner" ref="mySwiper">-->
+      <!--&lt;!&ndash;        <div class="swiper-wrapper">&ndash;&gt;-->
+      <!--&lt;!&ndash;          &lt;!&ndash;          <div&ndash;&gt;&ndash;&gt;-->
+      <!--&lt;!&ndash;          &lt;!&ndash;            class="slide"&ndash;&gt;&ndash;&gt;-->
+      <!--&lt;!&ndash;          &lt;!&ndash;            v-for="(item,index) in swiperlist"&ndash;&gt;&ndash;&gt;-->
+      <!--&lt;!&ndash;          &lt;!&ndash;            :key="index"&ndash;&gt;&ndash;&gt;-->
+      <!--&lt;!&ndash;          &lt;!&ndash;            :class="{'active':ind==index}"&ndash;&gt;&ndash;&gt;-->
+      <!--&lt;!&ndash;          &lt;!&ndash;            :style="{'background':'url('+item.image+')no-repeat','background-size':'cover','background-position':'center center'}"&ndash;&gt;&ndash;&gt;-->
+      <!--&lt;!&ndash;          &lt;!&ndash;          ></div>&ndash;&gt;&ndash;&gt;-->
+      <!--&lt;!&ndash;      &ndash;&gt;-->
+      <!--&lt;!&ndash;        </div>&ndash;&gt;-->
+      <!--<div class="swiper-wrapper">-->
+      <!--<div class="swiper-slide" v-for="(item,index) in swiperlist" :key="item.imgae">-->
+      <!--<img :src="item.image" alt="">-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--&lt;!&ndash; 如果需要分页器 &ndash;&gt;-->
+      <!--<div class="swiper-pagination"></div>-->
+      <!--</div>-->
+      <div class="banner">
+        <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
+          <!-- slides -->
+          <swiper-slide v-for="(item,index) in swiperlist" :key="item.imgae">
+            <img :src="item.image" alt="">
+          </swiper-slide>
+          <!-- Optional controls -->
+          <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
       </div>
+
     </div>
     <div class="recommendbox">
       <div class="recommendtitle">
@@ -46,8 +59,9 @@
   </div>
 </template>
 <script>
-  import Swiper from 'swiper'
   import pcpaging from '../../components/pcpaging'
+  import 'swiper/dist/css/swiper.css'
+  import {swiper, swiperSlide} from 'vue-awesome-swiper'
 
   export default {
     name: "home",
@@ -85,8 +99,18 @@
         totop: false,
         showoverlay: false,
         ind: 0,
-        mySwiper: null,
-        totalPages: 0
+        mySwiper: {},
+        totalPages: 0,
+        swiperOption: {
+          pagination: '.swiper-pagination',
+          //循环
+          loop: true,
+          //每张播放时长3秒，自动播放
+          autoplay: 2000,
+          //滑动速度
+          speed: 1000,
+          // delay:1000
+        }
       };
     },
 
@@ -97,18 +121,20 @@
       this._GetSlideList();
       this._GetLabelList();
       this._GetBarList();
-      var timer = setInterval(() => {
-        if (this.ind <= this.swiperlist.length - 2) {
-          this.ind = this.ind + 1;
-        } else {
-          this.ind = 0;
-        }
-      }, 5000);
+      // var timer = setInterval(() => {
+      //   if (this.ind <= this.swiperlist.length - 2) {
+      //     this.ind = this.ind + 1;
+      //   } else {
+      //     this.ind = 0;
+      //   }
+      // }, 5000);
 
     },
     inject: ["app"],
     components: {
-      pcpaging
+      pcpaging,
+      swiper,
+      swiperSlide
     },
     methods: {
       // 获取轮播图
@@ -117,7 +143,7 @@
           if (res.code == 1) {
             this.swiperlist = res.data;
             setTimeout(() => {
-              this.mySwiper = new Swiper('.swiper-container', {
+              this.mySwiper = new Swiper('.banner', {
                 pagination: '.swiper-pagination',
                 observer: true,
                 observeParents: true,
@@ -172,17 +198,19 @@
         this.page = val;
         this._GetBarList();
       },
+      callback() {
+
+      }
     },
     computed: {
       swiper() {
         return this.$refs.mySwiper.swiper
-      },
+      }
     },
   };
 </script>
-<style lang="scss" scoped>
+<style scoped lang="scss">
   @import "../../style/reset";
-
   .index {
     .bannerbox {
       background-image: url("../../img/index/index_bg.jpg");
@@ -194,10 +222,10 @@
       .banner {
         width: 1200px;
         margin: 40px auto 18px auto;
-        height: 420px;
 
         /deep/ .swiper-wrapper {
           overflow: hidden;
+          height: 420px;
 
           .slide {
             position: absolute;
@@ -214,13 +242,13 @@
               animation: scale 5000ms linear;
             }
           }
-        }
 
-        .swiper-slide {
+          .swiper-slide {
+            cursor: pointer;
 
-          img {
-            width: 100%;
-
+            img {
+              width: 100%;
+            }
           }
         }
       }
@@ -336,7 +364,7 @@
 
             .starbox {
               float: left;
-              width: 96px;
+              width: 60px;
               margin-right: 28px;
 
               .iconfont {
@@ -356,12 +384,13 @@
               span {
                 background-color: #FEEAEB;
                 color: #E03A43;
-                padding: 1px 0;
-                width: 56px;
+                padding: 2px 5px;
+                /*width: 56px;*/
                 text-align: center;
                 border-radius: 10px;
                 display: inline-block;
                 font-size: 13px;
+                margin-right: 5px;
               }
             }
 

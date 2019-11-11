@@ -9,8 +9,7 @@ import "element-ui/lib/theme-chalk/index.css";
 import "video.js/dist/video-js.css";
 import "vue-video-player/src/custom-theme.css";
 import api from "./http";
-import store from "./store";
-import 'swiper/dist/css/swiper.min.css'
+// import 'swiper/dist/css/swiper.min.css'
 import VueQrcode from "@xkeshi/vue-qrcode";
 import '@/style/animate.css';
 import Common from "./bin/common";
@@ -23,7 +22,6 @@ Vue.use(Element);
 new Vue({
   el: "#app",
   router,
-  store,
   components: {
     App
   }

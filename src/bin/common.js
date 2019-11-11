@@ -1,4 +1,4 @@
-import {Message} from 'element-ui'
+import {Loading, Message} from 'element-ui'
 // 验证手机号
 const checkPhone = phone => {
   return /^1\d{10}$/gi.test(phone);
@@ -164,13 +164,25 @@ const delCookie = function (name) {
       : STATIC_WEB_URL.substr(13, STATIC_WEB_URL.length);
   document.cookie = "" + name + "=" + escape("") + ";domain=" + domain;
 };
-const showToast = function (message, type,duration) {
+const showToast = function (message, type, duration) {
   Message({
     showClose: true,
     message,
     type: type || 'error',
-    duration:duration|| 1500
+    duration: duration || 1500
   })
+};
+const showLoading = function (message, duration, callback) {
+  const loading = Loading({
+    lock: true,
+    text: message,
+    spinner: 'el-icon-loading',
+    background: 'rgba(0, 0, 0, 0.1)'
+  });
+  setTimeout(() => {
+    loading.close();
+    callback()
+  }, duration || 2000);
 };
 export default {
   checkPhone,
@@ -179,5 +191,6 @@ export default {
   delCookie,
   analyzeIDCard,
   getCookie,
-  showToast
+  showToast,
+  showLoading
 };
