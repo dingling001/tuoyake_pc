@@ -1,66 +1,63 @@
 <template>
   <div class="colbox">
     <el-tabs v-model="active" @tab-click="changetype">
-      <el-tab-pane label="网吧" name="first">
-        <div v-if="list.length" class="clist">
-          <div class="citem" v-for="(item,index) in list" :key="index" @click="godetail(item.id)">
-            <div class="cimg">
-              <img :src="item.image" alt="">
-            </div>
-            <div class="cright">
-              <div class="cname">
-                <div class="namebox">
-                  <div class="name single-line-text">{{item.name}}</div>
-                  <div class="startbox">
-                    <span class="iconfont iconstar-fill" v-for="s in parseInt(item.star)"></span>
-                  </div>
-                </div>
-                <span class="juli">{{item.distance}}</span>
+      <el-tab-pane label="网吧" name="1">
+        <div class="recommentlist" v-if="list.length&&active==1">
+          <div class="recmmentitem" v-for="(item ,index) in list" :key="item.id">
+            <div class="rec_img"><img :src="item.image" alt=""></div>
+            <div class="rec_name">{{item.name}}</div>
+            <div class="rec_type">
+              <div class="starbox">
+                <span class="iconfont iconstar-fill iconactive" v-for="i in parseInt(item.star)"></span>
               </div>
-              <div class="ctype"><span v-for="l in item.label_ids">{{l}}</span></div>
-              <div class="caddress">
-                <span class="iconfont icondingweiweizhi"></span>
-                <span class="single-line-text">{{item.address}}</span>
+              <div class="typebox">
+                <span v-for="c in item.label_ids">{{c}}</span>
               </div>
             </div>
+            <div class="rec_address single-line-text">{{item.address}}</div>
           </div>
         </div>
+        <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
+                  :scrollTo="680" v-if="totalPages>per_page"></pcpaging>
       </el-tab-pane>
-      <el-tab-pane label="赛事" name="second">
-        <div v-if="list.length&&active==1" class="comlist">
+      <el-tab-pane label="赛事" name="2">
+        <div v-if="list.length" class="comlist">
           <div class="jitem " v-for="(item,index) in list" :key="item.id"
                @click="gossdetail(item.id)">
             <div class="jimg">
               <img :src="item.image" alt="">
               <!--<video :src="item.file" preload="auto" controls></video>-->
-              <span>12:30</span>
+              <!--<span>12:30</span>-->
             </div>
             <div class="jright">
               <div class="jname van-ellipsis">{{item.name}}</div>
               <!--<div class="jinfo"><span class="name">{{item.contact}}</span><span class="tel">{{item.contact_number}}</span>-->
               <!--</div>-->
-              <div class="jaddress van-ellipsis"><span class="iconfont icontime-circle"></span>
-                {{item.create_time}}
-              </div>
+              <div class="jaddress van-ellipsis"><span>赛事时间：</span>{{item.start_time}} <b>~</b> {{item.end_time}}</div>
               <div class="synopsis van-ellipsis">{{item.synopsis}}</div>
+              <el-button type="primary" size="small">立即报名</el-button>
             </div>
           </div>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="视频" name="third">
-        <div v-if="list.length&&active==2" class="vlist">
+      <el-tab-pane label="视频" name="3">
+        <div v-if="list.length" class="vlist">
           <div class="videoitem" v-for="(item,index) in list" :key="item.id"
                @click="govdetail(item.id)">
             <div class="vimg">
               <img :src="item.poster" alt="">
+              <span class="view_num"><span class="iconfont iconbofang1"></span>{{s_to_hs(item.duration)}}</span>
             </div>
-            <div class="vname van-ellipsis">{{item.name}}</div>
-            <div class="vtime"><span class="iconfont icontime-circle"></span><span>{{item.create_time}}</span></div>
+            <div class="vright">
+              <div class="vname van-ellipsis">{{item.name}}</div>
+              <div class="vtime"><span class="iconfont icontime-circle"></span><span>{{item.create_time}}</span></div>
+              <div class="vsynopsis">{{item.synopsis}}</div>
+            </div>
           </div>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="套餐" name="fourth">
-        <div v-if="list.length&&active==3" class="comlist">
+      <el-tab-pane label="套餐" name="4">
+        <div v-if="list.length" class="comlist">
           <div class="jitem van-row--flex" v-for="(item,index) in list" :key="item.id"
                @click="gotaocandetail(item.id)">
             <div class="jimg"><img :src="item.image" alt=""></div>
@@ -70,8 +67,8 @@
               <!--</div>-->
               <div class="jaddress van-ellipsis">{{item.content}}</div>
               <div class="price">￥{{item.price}}</div>
+              <div class="jbtn">立即抢购</div>
             </div>
-            <div class="jbtn">抢购</div>
           </div>
         </div>
       </el-tab-pane>
@@ -80,31 +77,22 @@
 </template>
 
 <script>
+  import pcpaging from '../../components/pcpaging'
+
   export default {
     name: "myCollect",
     data() {
       return {
-        offset: 0,
         type: 1,
-        active: 'first',
+        active: '1',
         list: [],
-        isDownLoading: false,
-        isUpLoading: false,
-        finished: false,
         page: 0,
-        isDownLoading1: false,
-        isUpLoading1: false,
-        finished1: false,
-        page1: 0,
-        isDownLoading2: false,
-        isUpLoading2: false,
-        finished2: false,
-        page2: 0,
-        isDownLoading3: false,
-        isUpLoading3: false,
-        finished3: false,
-        page3: 0,
+        per_page: 12,
+        totalPages: 0,
       }
+    },
+    components: {
+      pcpaging,
     },
     created() {
       this._CollectionIndex();
@@ -117,66 +105,34 @@
           this.page,
           this.lat,
           this.lng,
+          this.per_page
         ).then(res => {
           if (res.code == 1) {//请求成功
-            this.list = res.data.data
+            console.log(res)
+            this.list = res.data.data;
+            this.totalPages = res.data.total;
           }
           // console.log(this.list)
         })
       },
-      // 下拉刷新
-      onRefresh() {
-        setTimeout(() => {
-          console.log(this.type)
-          this.$com.showtoast('刷新成功');
-          this.isDownLoading = false;
-          this.page = 0;
-          this._CollectionIndex();
-        }, 500);
-      },
-      // 上拉加载
-      onLoad() {
-        this.page++;
-        this.isUpLoading = true;
+      // 分页
+      getPresentPage(val) {
+        this.page = val;
         this._CollectionIndex();
       },
-      // 下拉刷新
-      onRefresh1() {
-        setTimeout(() => {
-          this.$com.showtoast('刷新成功');
-          this.isDownLoading3 = false;
-          this.page1 = 0;
-          this._CollectionIndex();
-        }, 500);
-      },
-      // 上拉加载
-      onLoad1() {
-        this.page1++;
-        this.isUpLoading1 = true;
+      getPresentPage1(val) {
+        this.page1 = val;
+
         this._CollectionIndex();
       },
-      // 下拉刷新
-      onRefresh3() {
-        setTimeout(() => {
-          this.$com.showtoast('刷新成功');
-          this.isDownLoading3 = false;
-          this.page3 = 0;
-          this._CollectionIndex();
-        }, 500);
-      },
-      // 上拉加载
-      onLoad3() {
-        this.page3++;
-        this.isUpLoading3 = true;
+      getPresentPage2(val) {
+        this.page2 = val;
         this._CollectionIndex();
       },
       // 改变类型
-      changetype() {
+      changetype(val, event) {
         this.page = 0;
-        this.page1 = 0;
-        this.page2 = 0;
-        this.page3 = 0;
-        this.type = this.active + 1;
+        this.type = parseInt(val.index) + 1;
         this.list = [];
         this._CollectionIndex()
       },
@@ -196,6 +152,22 @@
       gotaocandetail(id) {
         this.$router.push({path: '/taocan', query: {goods_id: id, cid: this.id}})
       },
+      s_to_hs(s) {
+        //计算分钟
+        //算法：将秒数除以60，然后下舍入，既得到分钟数
+        var h;
+        h = Math.floor(s / 60);
+        //计算秒
+        //算法：取得秒%60的余数，既得到秒数
+        s = s % 60;
+        //将变量转换为字符串
+        h += '';
+        s += '';
+        //如果只有一位数，前面增加一个0
+        h = (h.length == 1) ? '0' + h : h;
+        s = (s.length == 1) ? '0' + s : s;
+        return h + ':' + s;
+      }
     }
   }
 </script>
@@ -204,117 +176,122 @@
   @import "../../style/reset";
 
   .colbox {
-    /deep/ .el-tab-panes {
-      .van-pull-refresh {
-        min-height: 100vh;
+    /deep/ .el-tabs {
+      .el-tabs__header {
+        .el-tabs__nav-wrap {
+          .el-tabs__item {
+            /*width: 90px;*/
+            padding: 0 32px;
+            color: #666666;
+            font-size: 16px;
+            height: 60px;
+            line-height: 60px;
+
+            &.is-active {
+              color: #333;
+              font-weight: bold;
+            }
+
+          }
+
+          &:after {
+            height: 1px;
+            background-color: #EEEEEE;
+          }
+        }
+
       }
     }
 
-    .clist {
-      padding: 23px 0;
+    .pcpaging {
+      width: 100%;
+    }
 
-      .citem {
-        display: flex;
-        justify-content: space-between;
-        padding: 0 15px;
-        margin: 0 0 30px 0;
+    .recommentlist {
+      overflow: hidden;
+      padding: 40px 48px 0 48px;
 
-        .cimg {
-          flex-shrink: 0;
-          width: 90px;
-          height: 90px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-right: 20px;
-          background-color: #f2f2f2;
+      .recmmentitem {
+        float: left;
+        width: 240px;
+        margin-bottom: 50px;
+        margin-right: 48px;
+        /*padding: 0 48px 50px 0;*/
+        cursor: pointer;
+
+        &:nth-child(3n) {
+          margin-right: 0;
+        }
+
+        &:hover .rec_name {
+          color: $baseBlue;
+          font-weight: bold;
+        }
+
+        &:hover {
+          /*background-color: #F8F8F8;*/
+        }
+
+        .rec_img {
+          width: 240px;
+          height: 240px;
+          border-radius: 5px;
+          overflow: hidden;
 
           img {
             width: 100%;
           }
         }
 
-        .cright {
-          flex: 1;
-          height: 90px;
-          display: flex;
-          flex-direction: column;
+        .rec_name {
+          padding: 18px 0;
+          font-size: 16px;
+          color: #333333;
+        }
 
-          .cname {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .rec_type {
+          overflow: hidden;
 
-            .namebox {
-              display: flex;
-              align-items: center;
+          .starbox {
+            float: left;
+            width: 60px;
+            margin-right: 28px;
 
-              .name {
-                color: #333333;
-                font-weight: bold;
-                font-size: 14px;
-                /*px*/
-                max-width: 120px;
-              }
+            .iconfont {
+              color: #c3c3c3;
+              margin-left: -2px;
+              /*margin-right: 5px;*/
+            }
 
-              .startbox {
-                display: flex;
-                align-items: center;
-                margin: 0 5px;
-
-                .iconfont {
-                  color: $baseRed;
-                  font-size: 14px;
-                  /*px*/
-                }
-              }
+            .iconactive {
+              color: $baseRed;
             }
           }
 
-          .ctype {
-            display: flex;
-            align-items: center;
-            margin: 15px 0;
-            flex-wrap: wrap;
-            max-width: 240px;
+          .typebox {
+            float: left;
 
             span {
-              padding: 3px 5px;
-              /*background-color: ;*/
-              background: rgba(242, 49, 59, .1);
-              color: $baseRed;
-              border-radius: 8px;
+              background-color: #FEEAEB;
+              color: #E03A43;
+              padding: 2px 5px;
+              /*width: 56px;*/
+              text-align: center;
+              border-radius: 10px;
+              display: inline-block;
+              font-size: 13px;
               margin-right: 5px;
             }
           }
 
-          .caddress {
-            display: flex;
-            align-items: center;
-            color: #666666;
-            font-size: 12px;
-            /*px*/
-            padding: 0 0 15px 0;
-            border-bottom: 1px solid #E4E4E4;
-            /*no*/
-            .iconfont {
-              color: #999999;
-              font-size: 10px;
-              /*px*/
-              margin-right: 5px;
-            }
-
-            .single-line-text {
-              max-width: 220px;
-            }
-          }
         }
 
-        &:last-child {
-          margin: 0;
+        .rec_address {
+          color: #999999;
+          font-size: 12px;
+          padding-top: 18px;
         }
       }
-
     }
 
     .comlist {
@@ -368,10 +345,12 @@
         border-bottom: 1px solid #eee;
         /*no*/
         position: relative;
+        overflow: hidden;
+        cursor: pointer;
 
         .jimg {
-          width: 62px;
-          height: 62px;
+          width: 240px;
+          height: 135px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -381,6 +360,7 @@
           flex-shrink: 0;
           overflow: hidden;
           position: relative;
+          float: left;
 
           img {
             height: 100%;
@@ -403,38 +383,37 @@
 
         .jright {
           flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
+          /*display: flex;*/
+          /*flex-direction: column;*/
+          /*justify-content: space-between;*/
+          position: relative;
+          float: left;
+          height: 135px;
+
+          &:hover .jname {
+            font-weight: bold;
+            color: $baseBlue;
+          }
 
           .jname {
-            font-size: 14px;
+            font-size: 18px;
             /* px */
             font-weight: bold;
-            max-width: 200px;
+            color: #333;
+            padding-bottom: 20px;
           }
 
           .jinfo {
-            font-size: 12px;
+            font-size: 14px;
             /*px*/
             color: #666666;
-
-            .name {
-              margin-right: 10px;
-            }
           }
 
           .jaddress {
             color: #666666;
             font-size: 12px;
             /*px*/
-            max-width: 192px;
-
-            .icontime-circle {
-              font-size: 12px;
-              /*px*/
-              color: #666666;
-            }
+            padding-bottom: 10px;
           }
 
           .price {
@@ -445,81 +424,123 @@
           }
 
           .synopsis {
-            max-width: 200px;
+            max-width: 622px;
+
             font-size: 12px;
             /*px*/
             color: #666666;
           }
+
+          /deep/ .el-button {
+            width: 100px;
+            background-color: $baseBlue;
+            margin-top: 20px;
+          }
+
+          .jbtn {
+            width: 100px;
+            background: linear-gradient(0deg, rgba(255, 135, 126, 1), rgba(242, 49, 59, 1));
+            border-radius: 5px;
+            position: absolute;
+            left: 16px;
+            bottom: 0;
+            line-height: 32px;
+            text-align: center;
+            color: #F8F8F8;
+            font-size: 13px;
+            /*px*/
+            &.s_jbtn {
+              background: $baseBlue;
+            }
+          }
+
         }
 
-        .jbtn {
-          width: 50px;
-          background: linear-gradient(0deg, rgba(255, 135, 126, 1), rgba(242, 49, 59, 1));
-          border-radius: 16px;
-          position: absolute;
-          right: 16px;
-          bottom: 36px;
-          line-height: 32px;
-          text-align: center;
-          color: #F8F8F8;
-          font-size: 13px;
-          /*px*/
-          &.s_jbtn {
-            background: $baseBlue;
-          }
-        }
       }
     }
 
     .vlist {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
+      /*display: flex;*/
+      /*align-items: center;*/
+      /*justify-content: space-between;*/
+      /*flex-wrap: wrap;*/
       padding: 10px 17px;
 
       .videoitem {
-        width: 162px;
+        /*width: 162px;*/
         margin-bottom: 22px;
-
-        &:nth-child(2n-1) {
-          margin-right: 10px;
-        }
+        overflow: hidden;
+        cursor: pointer;
 
         .vimg {
-          width: 100%;
-          height: 91px;
+          width: 240px;
+          height: 135px;
           display: flex;
           align-content: center;
           justify-content: center;
           overflow: hidden;
           background-color: #000;
+          float: left;
+          margin-right: 17px;
+          position: relative;
+
+          .view_num {
+            position: absolute;
+            right: 0;
+            bottom: 10px;
+            background-color: rgba(0, 0, 0, 1);
+            color: #fff;
+            font-size: 12px;
+            border-radius: 10px;
+            padding: 5px 20px;
+
+            .iconbofang1 {
+              margin-right: 5px;
+              font-size: 12px;
+
+            }
+          }
 
           img {
             width: 100%;
           }
         }
 
-        .vname {
-          font-size: 13px;
-          /*px*/
-          color: #333;
-          padding: 17px 0;
+        .vright {
+          float: left;
 
-        }
+          &:hover .vname {
+            color: $baseBlue;
+          }
 
-        .vtime {
-          font-size: 10px;
-          /*px*/
-          color: #666666;
+          .vname {
+            font-size: 16px;
+            /*px*/
+            color: #333;
+            padding: 17px 0;
+            font-weight: bold;
+          }
 
-          .iconfont {
-            color: #AAAAAA;
+          .vtime {
             font-size: 14px;
             /*px*/
-            margin-right: 5px;
+            color: #666666;
+            padding-bottom: 20px;
+
+            .iconfont {
+              color: #AAAAAA;
+              font-size: 14px;
+              /*px*/
+              margin-right: 5px;
+            }
+          }
+
+          .vsynopsis {
+            font-size: 14px;
+
           }
         }
+
       }
     }
   }

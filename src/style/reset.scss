@@ -3,6 +3,7 @@
 [v-cloak] {
   display: none;
 }
+
 //$baseRed='#F2313B'
 $baseRed: #F2313B;
 $baseBlue: #2C6BEA;
@@ -359,7 +360,8 @@ input[type="number"] {
 
   li {
     float: left;
-    &.liactve{
+
+    &.liactve {
       color: $baseBlue;
       font-weight: bold;
 
@@ -371,8 +373,14 @@ input[type="number"] {
     background-color: #fff;
     font-weight: bold;
   }
-  .popper__arrow{
-    display: none!important;
+
+  .popper__arrow {
+    display: none !important;
   }
 }
 
+.van-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis
+}

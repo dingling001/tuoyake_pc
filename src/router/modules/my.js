@@ -12,18 +12,11 @@ export default [
     component: () => import('../../pages/my/about'),
   },
   {
-    redirect:'/my/myCollect',
+    redirect: '/my/myCollect',
     path: '/my',
     name: 'my',
     component: resolve => require(["../../pages/my/my"], resolve),
-    meta: {
-      title: "我的",
-      showH: true,
-      showF: true,
-      shownav:false,
-      needLogin: true
-    },
-    children:[
+    children: [
       {
         path: '/my/myCollect',
         name: 'myCollect',
@@ -32,8 +25,95 @@ export default [
           title: "我的收藏",
           showF: false,
           showH: true,
+          shownav: false,
           needLogin: true,
-          keepAlive: true
+          keepAlive: true,
+          cur: 0
+        },
+      },
+      {
+        path: '/my/myOrder',
+        name: 'myOrder',
+        component: resolve => require(["../../pages/my/myOrder"], resolve),
+        meta: {
+          title: "我的订单",
+          showF: false,
+          showH: true,
+          shownav: false,
+          needLogin: true,
+          keepAlive: true,
+          cur: 1
+        },
+      },
+      {
+        path: '/my/myApplication',
+        name: 'myApplication',
+        component: resolve => require(["../../pages/my/myApplication"], resolve),
+        meta: {
+          title: "我的报名",
+          showF: false,
+          showH: true,
+          shownav: false,
+          needLogin: true,
+          keepAlive: true,
+          cur: 2
+        },
+      },
+      {
+        path: '/my/myPoints',
+        name: 'myPoints',
+        component: resolve => require(["../../pages/my/myPoints"], resolve),
+        meta: {
+          title: "我的积分",
+          showF: false,
+          showH: true,
+          shownav: false,
+          needLogin: true,
+          keepAlive: true,
+          cur: 3
+        },
+      },
+
+      {
+        path: '/my/myCoupon',
+        name: 'myCoupon',
+        component: resolve => require(["../../pages/my/myCoupon"], resolve),
+        meta: {
+          title: "我的优惠券",
+          showF: false,
+          showH: true,
+          shownav: false,
+          needLogin: true,
+          keepAlive: true,
+          cur: 4
+        },
+      },
+      {
+        path: '/myCoupondetail',
+        name: 'myCoupondetail',
+        component: resolve => require(["../../pages/my/myCoupondetail"], resolve),
+        meta: {
+          title: "优惠券详情",
+          showF: false,
+          showH: true,
+          shownav: false,
+          needLogin: true,
+          keepAlive: true,
+          cur: 4
+        },
+      },
+      {
+        path: '/my/myFeedback',
+        name: 'myFeedback',
+        component: resolve => require(["../../pages/my/myFeedback"], resolve),
+        meta: {
+          title: "意见反馈",
+          showF: false,
+          showH: true,
+          shownav: false,
+          needLogin: true,
+          keepAlive: true,
+          cur: 5
         },
       },
     ]
@@ -49,39 +129,8 @@ export default [
       needLogin: true
     },
   },
-  {
-    path: '/myCoupon',
-    name: 'myCoupon',
-    component: resolve => require(["../../pages/my/myCoupon"], resolve),
-    meta: {
-      title: "我的优惠券",
-      showH: true,
-      showF: true,
-      needLogin: true
-    },
-  },
-  {
-    path: '/myCoupondetail',
-    name: 'myCoupondetail',
-    component: resolve => require(["../../pages/my/myCoupondetail"], resolve),
-    meta: {
-      title: "优惠券详情",
-      showF: false,
-      showH: true,
-      needLogin: true
-    },
-  },
-  {
-    path: '/myApplication',
-    name: 'myApplication',
-    component: resolve => require(["../../pages/my/myApplication"], resolve),
-    meta: {
-      title: "我的报名",
-      showF: false,
-      showH: false,
-      needLogin: true
-    },
-  },
+
+
   {
     path: '/mySocial',
     name: 'mySocial',
@@ -93,39 +142,8 @@ export default [
       needLogin: true
     },
   },
-  {
-    path: '/myOrder',
-    name: 'myOrder',
-    component: resolve => require(["../../pages/my/myOrder"], resolve),
-    meta: {
-      title: "我的订单",
-      showF: false,
-      showH: true,
-      needLogin: true
-    },
-  },
-  {
-    path: '/myPoints',
-    name: 'myPoints',
-    component: resolve => require(["../../pages/my/myPoints"], resolve),
-    meta: {
-      title: "我的积分",
-      showF: false,
-      showH: false,
-      needLogin: true
-    },
-  },
-  {
-    path: '/myFeedback',
-    name: 'myFeedback',
-    component: resolve => require(["../../pages/my/myFeedback"], resolve),
-    meta: {
-      title: "意见反馈",
-      showF: false,
-      showH: true,
-      needLogin: true
-    },
-  },
+
+
   {
     path: '/myVersion',
     name: 'myVersion',

@@ -1,13 +1,13 @@
 <template>
     <div class="score_box">
         <div class="score_top">
-            <van-sticky :offset-top="0">
+            <div :offset-top="0">
                 <div class="iconbox">
                     <div class="iconfont iconfanhui" @click="backmy"></div>
                     <div class="name">我的报名</div>
                     <div @click="gomychieve">获奖成就 <span class="iconfont iconcaret-right"></span></div>
                 </div>
-            </van-sticky>
+            </div>
             <div class="score_item">
                 <div class="item">
                     <div class="scroe">{{total}}</div>
@@ -21,13 +21,13 @@
 
         </div>
         <div class="mlink">
-            <van-tabs type="card" color="#2C6BEA" title-active-color="#fff" title-inactive-color="#6285CC" sticky
+            <el-tabs type="card" color="#2C6BEA" title-active-color="#fff" title-inactive-color="#6285CC" sticky
                       :offset-top="44" v-model="nav_active" @click="changgeNav">
-                <van-tab title="正在进行"></van-tab>
-                <van-tab title="获奖赛事"></van-tab>
-                <van-tab title="已结束"></van-tab>
-                <van-pull-refresh v-model="isDownLoading" @refresh="onRefresh" v-if="singList.length">
-                    <van-list
+                <el-tab-pane label="正在进行"></el-tab-pane>
+                <el-tab-pane label="获奖赛事"></el-tab-pane>
+                <el-tab-pane label="已结束"></el-tab-pane>
+                <div v-model="isDownLoading" @refresh="onRefresh" v-if="singList.length">
+                    <div
                             v-model="isUpLoading" :finished="finished" @load="onLoad" class="comlist" :offset="offset"
                             finished-text="到底了">
                         <div class="jitem van-row--flex" v-for="(item,index) in singList" :key="item.id"
@@ -45,10 +45,10 @@
                                 <div class="synopsis van-ellipsis">{{item.remark}}</div>
                             </div>
                         </div>
-                    </van-list>
-                </van-pull-refresh>
+                    </div>
+                </div>
                 <div class="nodata">暂无数据</div>
-            </van-tabs>
+            </el-tabs>
         </div>
     </div>
 </template>
@@ -100,7 +100,6 @@
             // 下拉刷新
             onRefresh() {
                 setTimeout(() => {
-                    this.$com.showtoast('刷新成功');
                     this.isDownLoading = false;
                     this.page = 0;
                     this._GetSignList();
@@ -114,7 +113,6 @@
             },
             // 获取报名列表
             _GetSignList() {
-                this.$com.showtoast('加载中…', '', '', 1000, '', false, true)
                 let pageNumber = this.page + 1;
                 this.$api.GetSignList(pageNumber, this.status).then(res => {
                     if (res.code == 1) {//请求成功
@@ -230,10 +228,10 @@
             overflow: hidden;
             background-color: #fff;
 
-            /deep/ .van-tabs {
+            /deep/ .el-tab-panes {
                 margin: 30px 0;
 
-                .van-tabs__nav {
+                .el-tab-panes__nav {
                     border-radius: 5px;
                 }
             }

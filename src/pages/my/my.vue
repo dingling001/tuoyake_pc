@@ -10,12 +10,24 @@
         <div class="my_score">当前积分 : <span>{{user_info.score}}</span></div>
       </div>
       <div class="my_nav">
-        <div class="nav_item"><span class="iconfont iconheart-fill"></span> 我的收藏</div>
-        <div class="nav_item"><span class="iconfont iconicon"></span> 我的订单</div>
-        <div class="nav_item"><span class="iconfont icontianxie"></span> 我的报名</div>
-        <div class="nav_item"><span class="iconfont iconjifen"></span> 我的积分</div>
-        <div class="nav_item"><span class="iconfont iconyouhuiquan"></span> 我的优惠券</div>
-        <div class="nav_item"><span class="iconfont iconfeedback-center"></span> 意见反馈</div>
+        <div :class="['nav_item', cur==0?'active_item':'']" @click="gonav('myCollect',0)"><span
+          class="iconfont iconheart-fill"></span> 我的收藏
+        </div>
+        <div :class="['nav_item', cur==1?'active_item':'']" @click="gonav('myOrder',1)"><span
+          class="iconfont iconicon"></span> 我的订单
+        </div>
+        <div :class="['nav_item', cur==2?'active_item':'']" @click="gonav('myApplication',2)"><span
+          class="iconfont icontianxie"></span> 我的报名
+        </div>
+        <div :class="['nav_item', cur==3?'active_item':'']" @click="gonav('myPoints',3)"><span
+          class="iconfont iconjifen"></span> 我的积分
+        </div>
+        <div :class="['nav_item', cur==4?'active_item':'']" @click="gonav('myCoupon',4)"><span
+          class="iconfont iconyouhuiquan"></span> 我的优惠券
+        </div>
+        <div :class="['nav_item', cur==5?'active_item':'']" @click="gonav('myFeedback',5)"><span
+          class="iconfont iconfeedback-center"></span> 意见反馈
+        </div>
       </div>
     </div>
     <div class="my_right">
@@ -32,7 +44,24 @@
         adinfo: {},
         user_tpc: '',
         user_info: {},
+        cur: 0
       }
+    },
+    watch: {
+      $route: {
+        handler(val) {
+          console.log(val)
+          this.cur = val.meta.cur;
+        },
+        immediate: true
+      }
+    },
+    beforeRouteEnter(to, form, next) {
+      console.log(to)
+      if (to.meta.cur) {
+        next.cur = to.cur;
+      }
+      next()
     },
     created() {
       this._GetAdv();
@@ -43,8 +72,9 @@
     },
     methods: {
       // 去设置页面
-      goset() {
-        this.$router.push({path: '/myset'})
+      gonav(path, index) {
+        this.cur = index;
+        this.$router.push({path: `/my/${path}`})
       },
       // 获取个人信息
       _GetUserInfo() {
@@ -140,7 +170,8 @@
 
           &.active_item {
             color: #000;
-            .iconfont{
+
+            .iconfont {
               background-image: -webkit-linear-gradient(136deg, $baseBlue, $baseRed);
             }
           }
@@ -148,7 +179,8 @@
           &:hover {
             color: #000;
           }
-          &:hover .iconfont{
+
+          &:hover .iconfont {
             background-image: -webkit-linear-gradient(136deg, $baseBlue, $baseRed);
           }
         }
