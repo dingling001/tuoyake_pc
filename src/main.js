@@ -18,7 +18,6 @@ Vue.prototype.$com = Common;
 Vue.component(VueQrcode.name, VueQrcode);
 Vue.use(api);
 Vue.use(Element);
-
 new Vue({
   el: "#app",
   router,

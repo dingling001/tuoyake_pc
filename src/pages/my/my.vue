@@ -2,12 +2,25 @@
   <div class="mbox">
     <div class="my_left">
       <div class="my_head">
-        <div class="my_img"><img src="" alt=""></div>
-        <div class="my_nickname"></div>
-        <div class="my_score"></div>
+        <div class="my_img">
+          <el-avatar shape="circle" :size="80" fit="contain" :key="user_info.avatar"
+                     :src="user_info.avatar"></el-avatar>
+        </div>
+        <div class="my_nickname">{{user_info.nickname}}</div>
+        <div class="my_score">当前积分 : <span>{{user_info.score}}</span></div>
+      </div>
+      <div class="my_nav">
+        <div class="nav_item"><span class="iconfont iconheart-fill"></span> 我的收藏</div>
+        <div class="nav_item"><span class="iconfont iconicon"></span> 我的订单</div>
+        <div class="nav_item"><span class="iconfont icontianxie"></span> 我的报名</div>
+        <div class="nav_item"><span class="iconfont iconjifen"></span> 我的积分</div>
+        <div class="nav_item"><span class="iconfont iconyouhuiquan"></span> 我的优惠券</div>
+        <div class="nav_item"><span class="iconfont iconfeedback-center"></span> 意见反馈</div>
       </div>
     </div>
-    <div class="my_right"></div>
+    <div class="my_right">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -62,23 +75,91 @@
   @import "../../style/reset";
 
   .mbox {
+    width: 1200px;
+    margin: 20px auto;
+    overflow: hidden;
+
     .my_left {
       float: left;
       width: 228px;
 
       .my_head {
         height: 230px;
+        background-color: #fff;
+        overflow: hidden;
+        text-align: center;
+        margin-bottom: 16px;
 
         .my_img {
           width: 80px;
           height: 80px;
-          img{
+          margin: 20px auto;
+
+          img {
             width: 100%;
           }
         }
 
+        .my_nickname {
+          color: #333;
+          font-size: 18px;
+          padding: 23px 0 15px;
+        }
+
+        .my_score {
+          color: #999999;
+          font-size: 14px;
+
+          span {
+            color: $baseRed;
+          }
+        }
+      }
+
+      .my_nav {
+        width: 228px;
+        min-height: 458px;
+        background-color: #fff;
+
+        .nav_item {
+          color: #666666;
+          font-size: 16px;
+          padding: 0 0 0 52px;
+          line-height: 65px;
+          cursor: pointer;
+
+          .iconfont {
+            width: 16px;
+            font-size: 20px;
+            color: #BBBCCB;
+            background-image: -webkit-linear-gradient(right, #BBBCCB, #EAEAEA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-right: 13px;
+          }
+
+          &.active_item {
+            color: #000;
+            .iconfont{
+              background-image: -webkit-linear-gradient(136deg, $baseBlue, $baseRed);
+            }
+          }
+
+          &:hover {
+            color: #000;
+          }
+          &:hover .iconfont{
+            background-image: -webkit-linear-gradient(136deg, $baseBlue, $baseRed);
+          }
+        }
       }
     }
-  }
 
+    .my_right {
+      float: right;
+      width: 956px;
+      background-color: #fff;
+      min-height: 713px;
+    }
+  }
 </style>

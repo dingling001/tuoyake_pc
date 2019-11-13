@@ -12,6 +12,7 @@ export default [
     component: () => import('../../pages/my/about'),
   },
   {
+    redirect:'/my/myCollect',
     path: '/my',
     name: 'my',
     component: resolve => require(["../../pages/my/my"], resolve),
@@ -22,6 +23,20 @@ export default [
       shownav:false,
       needLogin: true
     },
+    children:[
+      {
+        path: '/my/myCollect',
+        name: 'myCollect',
+        component: resolve => require(["../../pages/my/myCollect"], resolve),
+        meta: {
+          title: "我的收藏",
+          showF: false,
+          showH: true,
+          needLogin: true,
+          keepAlive: true
+        },
+      },
+    ]
   },
   {
     path: '/myset',
@@ -76,18 +91,6 @@ export default [
       showF: false,
       showH: true,
       needLogin: true
-    },
-  },
-  {
-    path: '/myCollect',
-    name: 'myCollect',
-    component: resolve => require(["../../pages/my/myCollect"], resolve),
-    meta: {
-      title: "我的收藏",
-      showF: false,
-      showH: true,
-      needLogin: true,
-      keepAlive: true
     },
   },
   {
