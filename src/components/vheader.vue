@@ -11,7 +11,7 @@
             <router-link to="/reg" tag="span">注册</router-link>
           </span>
             <span class="loginbox" v-else>
-            <span class="reg" title="个人中心">{{getTimeState}}，{{user_info.nickname}}</span>
+            <span class="reg" title="个人中心" @click="gomy">{{getTimeState}}，{{user_info.nickname}}</span>
             <span @click="loginout">退出</span>
           </span>
         </span>
@@ -20,20 +20,21 @@
     </div>
     <div class="tnav">
       <div class="tnavtop">
-        <div class="tlogo">
+        <div class="tlogo" @click="$router.push('/')">
           <img src="../img/index/index_logo.png" alt="">
         </div>
         <div class="tinput">
           <el-input
             placeholder="搜索网吧或相关赛事"
-            v-model="tkeyword">
+            v-model="tkeyword"
+          >
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
           </el-input>
           <el-button type="primary" @click="gosearch">搜索</el-button>
         </div>
         <el-button type="danger"><i class="iconfont iconshouji"></i> 下载APP</el-button>
       </div>
-      <div class="tnavbottom">
+      <div class="tnavbottom" v-if="shownav">
         <div :class="cur==index?'tnavitem tnavitemactive':'tnavitem'" :key="index"
              v-for="(item,index) in navs" @click="gonav(index,item.path)">{{item.name}}
         </div>
@@ -74,6 +75,12 @@
         ],
         user_info: {}
       };
+    },
+    props: {
+      shownav: {
+        type: Boolean,
+        default: true
+      }
     },
     watch: {
       $route: {
@@ -151,6 +158,9 @@
 
       // 搜索
       gosearch() {
+        if (this.tkeyword) {
+          this.$router.push({path: `/search/${this.tkeyword}`})
+        }
       },
       // 退出登录
       loginout() {
@@ -158,6 +168,10 @@
         this.tyktoken = '';
         this.$com.showToast('退出登录', 'warning')
         this.$router.replace('/')
+      },
+      // 个人中心
+      gomy() {
+        this.$router.push({path: '/my'})
       }
     },
     beforeRouteEnter(to, form, next) {
@@ -259,6 +273,7 @@
         /*border-right: 1px solid #eee;*/
         margin-right: 37px;
         float: left;
+        cursor: pointer;
 
         img {
           width: 100%;

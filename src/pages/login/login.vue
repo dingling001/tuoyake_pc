@@ -1,6 +1,6 @@
 <template>
   <div class="login_box">
-    <div class="login_head" @click="$router.go(-1)">
+     <div class="login_head" @click="$router.push('/')">
       <img src="../../img/index/index_logo.png" alt="">
     </div>
     <el-form class="loginform" :model="ruleForm" ref="ruleForm">

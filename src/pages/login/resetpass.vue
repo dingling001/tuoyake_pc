@@ -1,6 +1,6 @@
 <template>
     <div class="login_box">
-        <div class="login_head" @click="$router.go(-1)">
+         <div class="login_head" @click="$router.push('/')">
             <div class="iconfont iconfanhui"></div>
         </div>
         <div class="login_title">重置密码</div>

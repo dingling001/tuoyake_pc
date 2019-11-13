@@ -19,6 +19,7 @@ export default [
       title: "我的",
       showH: true,
       showF: true,
+      shownav:false,
       needLogin: true
     },
   },

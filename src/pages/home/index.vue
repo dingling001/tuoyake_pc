@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <div class="bannerbox" v-if="swiperlist.length">
+    <div class="bannerbox">
       <!--<div class="swiper-container banner" ref="mySwiper">-->
       <!--&lt;!&ndash;        <div class="swiper-wrapper">&ndash;&gt;-->
       <!--&lt;!&ndash;          &lt;!&ndash;          <div&ndash;&gt;&ndash;&gt;-->
@@ -20,18 +20,17 @@
       <!--&lt;!&ndash; 如果需要分页器 &ndash;&gt;-->
       <!--<div class="swiper-pagination"></div>-->
       <!--</div>-->
-      <div class="banner">
-        <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
-          <!-- slides -->
-          <swiper-slide v-for="(item,index) in swiperlist" :key="item.imgae">
-            <img :src="item.image" alt="">
-          </swiper-slide>
-          <!-- Optional controls -->
-          <div class="swiper-pagination" slot="pagination"></div>
-        </swiper>
-      </div>
+      <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
+        <!-- slides -->
+        <swiper-slide v-for="(item,index) in swiperlist" :key="item.imgae">
+          <img :src="item.image" alt="">
+        </swiper-slide>
+        <!-- Optional controls -->
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper>
 
     </div>
+
     <div class="recommendbox">
       <div class="recommendtitle">
         <div class="recommentleft"><span class="iconfont icontuijian"></span><span>推荐网吧</span></div>
@@ -106,9 +105,11 @@
           //循环
           loop: true,
           //每张播放时长3秒，自动播放
-          autoplay: 2000,
+          autoplay: 20000,
           //滑动速度
           speed: 1000,
+          observeParents: true,
+          observers: true
           // delay:1000
         }
       };
@@ -142,16 +143,16 @@
         this.$api.GetSlideList(this.city).then((res) => {
           if (res.code == 1) {
             this.swiperlist = res.data;
-            setTimeout(() => {
-              this.mySwiper = new Swiper('.banner', {
-                pagination: '.swiper-pagination',
-                observer: true,
-                observeParents: true,
-                paginationClickable: true,
-                // 如果需要分页器
-//pagination : '#swiper-pagination1',
-              })
-            }, 500)
+//             setTimeout(() => {
+//               this.mySwiper = new Swiper('.banner', {
+//                 pagination: '.swiper-pagination',
+//                 observer: true,
+//                 observeParents: true,
+//                 paginationClickable: true,
+//                 // 如果需要分页器
+// //pagination : '#swiper-pagination1',
+//               })
+//             }, 500)
           } else {
             this.$common.showToast(res.msg)
           }
@@ -211,6 +212,7 @@
 </script>
 <style scoped lang="scss">
   @import "../../style/reset";
+
   .index {
     .bannerbox {
       background-image: url("../../img/index/index_bg.jpg");
@@ -219,40 +221,52 @@
       background-repeat: no-repeat;
       overflow: hidden;
 
-      .banner {
+      /*.b {*/
+      /*width: 1200px;*/
+
+      /*}*/
+      /deep/ .swiper-container {
+        /*overflow: hidden;*/
         width: 1200px;
         margin: 40px auto 18px auto;
+        height: 420px;
+        /**/
+        /* .slide {
+           position: absolute;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           transform: scale(1, 1);
+           opacity: 0;
+           z-index: -1;
+           transition: transform 5000ms linear 0s;
+           /**/
+        /*&.active {*/
+        /*animation: scale 5000ms linear;*/
+        /*}*/
+        /*}*/
 
-        /deep/ .swiper-wrapper {
-          overflow: hidden;
-          height: 420px;
-
-          .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .swiper-slide {
+          cursor: pointer;
+          /**/
+          img {
             width: 100%;
-            height: 100%;
-            transform: scale(1, 1);
-            opacity: 0;
-            z-index: -1;
-            transition: transform 5000ms linear 0s;
-
-            &.active {
-              animation: scale 5000ms linear;
-            }
           }
+        }
 
-          .swiper-slide {
-            cursor: pointer;
+        .swiper-pagination-bullet {
+          transition: ease-in-out .2s;
+        }
 
-            img {
-              width: 100%;
-            }
-          }
+        .swiper-pagination-bullet-active {
+          width: 25px;
+          height: 6px;
+          border-radius: 2px;
         }
       }
     }
+
 
     .recommendbox {
       width: 1200px;

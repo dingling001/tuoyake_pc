@@ -10,4 +10,16 @@ export default [
     },
     component: resolve => require(["../../components/wen"], resolve)
   },
+  {
+    path: "/search/:tkeyword",
+    name: "search",
+    meta: {
+      cur:0,
+      showH: true,
+      showF: true,
+      shownav:false,
+      needLogin: false
+    },
+    component: resolve => require(["../../pages/home/search.vue"], resolve)
+  },
 ];

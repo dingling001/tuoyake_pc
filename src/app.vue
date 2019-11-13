@@ -1,7 +1,7 @@
 <template>
   <div v-cloak class="app">
     <div id="map"></div>
-    <vHeader ref="nav" v-if="showH"></vHeader>
+    <vHeader ref="nav" v-if="showH" :shownav="shownav"></vHeader>
     <div class="contains">
       <router-view></router-view>
     </div>
@@ -29,6 +29,7 @@
       return {
         showH: true,
         showF: true,
+        shownav:true,
         myBackToTopStyle: {
           'right': '100px',
           'bottom': '150px',
@@ -58,6 +59,14 @@
           // this.showF = val.meta.showF;
         },
         immediate: true
+      },
+      'shownav':{
+        handler(val) {
+          // this.showH = val.meta.showH;
+          // this.showF = val.meta.showF;
+          this.shownav = val;
+        },
+        immediate: true
       }
     },
     created() {
@@ -65,6 +74,7 @@
       _.$router.afterEach((to, from) => {
         _.showH = to.meta.showH;
         _.showF = to.meta.showF;
+        _.shownav = to.meta.shownav;
       });
     },
 

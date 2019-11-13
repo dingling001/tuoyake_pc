@@ -1,6 +1,6 @@
 <template>
   <div class="login_box">
-    <div class="login_head" @click="$router.go(-1)">
+    <div class="login_head" @click="$router.push('/')">
       <img src="../../img/index/index_logo.png" alt="">
     </div>
     <el-form class="loginform" ref="form" :model="ruleForm">
@@ -213,8 +213,9 @@
         text-align: center;
         font-size: 15px;
         /*px*/
-        color: #666666;
         padding: 29px 0;
+        cursor: pointer;
+        color: $baseBlue;
       }
     }
 

@@ -165,7 +165,7 @@
       .labeled {
         position: relative;
         padding: 0 4px 0 5px;
-        border: 1px solid $baseBlue;
+        border: 1px solid $baseRed;
         border-radius: 10px;
         font-size: 12px;
         margin: 0 10px;
@@ -173,7 +173,7 @@
 
         &:after {
           font-size: 18px;
-          color: $baseBlue;
+          color: $baseRed;
           margin-left: 2px;
           content: "\00d7";
           vertical-align: -1.4px;
@@ -217,13 +217,13 @@
         &.activetag {
           color: #fff;
           font-weight: bold;
-          background-color: $baseBlue;
+          background-color: $baseRed;
         }
 
         &:hover {
           color: #fff;
           font-weight: bold;
-          background-color: $baseBlue;
+          background-color: $baseRed;
         }
       }
     }
@@ -242,7 +242,7 @@
         cursor: pointer;
 
         &:hover {
-          color: $baseBlue;
+          color: $baseRed;
           font-weight: bold;
         }
 
@@ -254,7 +254,7 @@
           &.activetag {
             color: #fff;
             font-weight: bold;
-            background-color: $baseBlue;
+            background-color: $baseRed;
             padding: 0 10px;
 
           }
@@ -264,7 +264,7 @@
           padding: 0 5px;
 
           &.cityactive {
-            background-color: $baseBlue;
+            background-color: $baseRed;
             border-radius: 20px;
             color: #fff;
           }
