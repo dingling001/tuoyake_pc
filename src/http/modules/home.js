@@ -137,6 +137,7 @@ export const GetBarInfo = (id) =>
   axios(
     "/api/index/getBarInfo", {
       id,
+      token: localStorage.user_tpc,
     },
     "POST",
     true

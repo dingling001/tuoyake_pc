@@ -58,13 +58,14 @@ export default [
     component: resolve => require(["../../pages/home/schooldetail"], resolve)
   },
   {
-    path: '/taocan',
+    path: '/taocan/:goods_id/:cid',
     name: 'taocan',
     meta: {
       title: "套餐详情",
-      index: 1,
-      showF: false,
-      showH: false
+      showH: true,
+      showF: true,
+      shownav:false,
+      needLogin: false
     },
     component: resolve => require(["../../pages/home/taocan"], resolve)
   },

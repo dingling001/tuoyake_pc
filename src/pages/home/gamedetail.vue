@@ -84,7 +84,7 @@
                     if (res.code == 1) {
                         this.matchinfo = res.data;
                     } else {
-                        this.$com.showtoast(res.msg)
+                        this.$com.showToast(res.msg)
                         setTimeout(() => {
                             this.$router.go(-1)
                         }, 1000)
@@ -96,10 +96,10 @@
                 this.$api.SetCollection(3, this.match_id).then(res => {
                     if (res.code == 1) {
                         if (res.data.is_collection == 1) {
-                            this.$com.showtoast('收藏成功')
+                            this.$com.showToast('收藏成功')
                             this.matchinfo.is_collection = 1;
                         } else {
-                            this.$com.showtoast('取消收藏')
+                            this.$com.showToast('取消收藏')
                             this.matchinfo.is_collection = 0;
                         }
                     }

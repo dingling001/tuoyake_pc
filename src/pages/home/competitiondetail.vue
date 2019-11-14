@@ -8,11 +8,13 @@
           <div class="iconfont iconstar-fill" v-if="Number(comdata.info.star)<5"
                v-for="item in 5-Number(comdata.info.star)"></div>
         </div>
-        <div class="adressitem">
-          地址： <span class="address">{{comdata.info.address}}</span>
-        </div>
+        <div class="adressitem">地址： <span class="address">{{comdata.info.address}}</span></div>
         <div class="phonecall">电话：{{comdata.info.contact_number}}</div>
         <div class="tiemon">营业时间： 周一至周日 全天</div>
+        <div class="iconbox" @click="clllection">
+          <div :class="['iconfont iconheart-fill', comdata.info.is_collection==0? '':'iconactive']"></div>
+          <div>{{comdata.info.is_collection==0?'收藏':'已收藏'}}</div>
+        </div>
       </div>
       <div class="swiperbox">
         <div class="swiper1">
@@ -41,8 +43,26 @@
             <div class="jname van-ellipsis">{{item.name}}</div>
             <!--<div class="jinfo"><span class="name">{{item.contact}}</span><span class="tel">{{item.contact_number}}</span>-->
             <!--</div>-->
-<!--            <div class="jaddress van-ellipsis">{{item.content}}</div>-->
+            <!--            <div class="jaddress van-ellipsis">{{item.content}}</div>-->
             <div class="price">￥{{item.price}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="comlist" v-if="comdata.match.length">
+      <div class="taocan">
+        <div class="spanbox">赛事列表</div>
+      </div>
+      <div class="slist">
+        <div class="sitem " v-for="(item,index) in comdata.match" :key="item.id"
+             @click="gossdetail(item.id)">
+          <div class="simg"><img :src="item.image" alt=""></div>
+          <div class="sright">
+            <div class="sname van-ellipsis">{{item.league_name}}</div>
+            <!--<div class="jinfo"><span class="name">{{item.contact}}</span><span class="tel">{{item.contact_number}}</span>-->
+            <!--</div>-->
+            <div class="stime ">赛事时间：{{item.start_time}} ~ {{item.end_time}}</div>
+            <div class="sbtn">立即报名</div>
           </div>
         </div>
       </div>
@@ -132,7 +152,7 @@
           direction: 'vertical',
           observers: true,
           observeParents: true,
-          loop: true,
+          // loop: true,
           slidesPerView: 1
         },
         swiperOption1: {
@@ -140,11 +160,13 @@
           direction: 'vertical',
           observers: true,
           observeParents: true,
-          loop: true,
-          slidesPerView: 3
+          // spaceBetween: 7,
+          // loop: true,
+          slidesPerView: 4
         },
         show: false,
         index: 0,
+        collectiontext: '收藏'
       }
     },
     components: {
@@ -170,7 +192,7 @@
       },
       // 去套餐详情
       gotaocandetail(id) {
-        this.$router.push({path: '/taocan', query: {goods_id: id, cid: this.id}})
+        this.$router.push({path:  `/taocan/${id}/${this.id}`})
       },
       gossdetail(id) {
         this.$router.push({path: '/gamedetail', query: {match_id: id, cid: this.id}})
@@ -192,10 +214,10 @@
         this.$api.SetCollection(1, this.comdata.info.id).then(res => {
           if (res.code == 1) {
             if (res.data.is_collection == 1) {
-              this.$com.showtoast('收藏成功')
+              this.$com.showToast('收藏成功', 'success');
               this.comdata.info.is_collection = 1;
             } else {
-              this.$com.showtoast('取消收藏')
+              this.$com.showToast('取消收藏');
               this.comdata.info.is_collection = 0;
             }
           }
@@ -213,15 +235,37 @@
   .combox {
     width: 1200px;
     margin: 20px auto;
-    background-color: #fff;
 
     .barinfo {
       overflow: hidden;
+      background-color: #fff;
 
       .leftinfo {
         float: left;
         width: 858px;
         padding: 24px 0 54px 33px;
+        position: relative;
+
+        .iconbox {
+          position: absolute;
+          right: 0;
+          top: 50px;
+          color: #666666;
+          font-size: 12px;
+          width: 100px;
+          text-align: center;
+
+          .iconfont {
+            font-size: 25px;
+            margin-bottom: 9px;
+            color: #EEEEEE;
+
+            &.iconactive {
+              color: $baseRed;
+            }
+          }
+
+        }
 
         .comnanme {
           font-size: 24px;
@@ -270,18 +314,18 @@
 
         .swiper1 {
           width: 256px;
-          height: 238px;
+          height: 256px;
           float: left;
 
           .swiper-container {
-            height: 238px;
+            height: 256px;
 
             .swiper-slide {
               background-color: #f5f5f5;
               color: #fff;
-              border-radius: 10px;
+              /*border-radius: 10px;*/
               overflow: hidden;
-              height: 238px;
+              height: 256px;
 
               img {
                 width: 100%;
@@ -301,11 +345,17 @@
             .swiper-slide {
               background-color: #f5f5f5;
               color: #fff;
-              border-radius: 10px;
+              /*border-radius: 10px;*/
               overflow: hidden;
+              height: 59px !important;
+              margin-bottom: 7px;
+
+              &:nth-child(4n) {
+                margin: 0;
+              }
 
               img {
-                width: 100%;
+                height: 100%;
               }
             }
           }
@@ -334,6 +384,11 @@
           padding: 30px 0 0 30px;
           overflow: hidden;
           margin: 0 0 40px 0;
+          cursor: pointer;
+
+          &:hover .jright .jname {
+            color: $baseBlue;
+          }
 
           .jimg {
             width: 100px;
@@ -364,7 +419,7 @@
               font-size: 16px;
               font-weight: bold;
               color: #333333;
-              padding: 20px 0 28px ;
+              padding: 20px 0 28px;
             }
 
             .jinfo {
@@ -419,6 +474,56 @@
             /*px*/
             &.s_jbtn {
               background: $baseBlue;
+            }
+          }
+        }
+      }
+
+      .slist {
+        padding: 30px 30px 0 30px;
+        overflow: hidden;
+
+        .sitem {
+          float: left;
+          width: 240px;
+          margin: 0 30px 35px 0;
+          cursor: pointer;
+
+          &:hover .sright .sname {
+            color: $baseBlue;
+          }
+
+          .simg {
+            width: 240px;
+            height: 135px;
+            overflow: hidden;
+            margin-bottom: 20px;
+
+            img {
+              width: 100%;
+            }
+          }
+
+          .sright {
+            .sname {
+              font-size: 16px;
+              color: #333333;
+            }
+
+            .stime {
+              font-size: 12px;
+              color: #666;
+              padding: 13px 0 18px 0;
+            }
+
+            .sbtn {
+              width: 100px;
+              height: 30px;
+              line-height: 30px;
+              text-align: center;
+              background-color: $baseBlue;
+              color: #fff;
+              font-size: 14px;
             }
           }
         }

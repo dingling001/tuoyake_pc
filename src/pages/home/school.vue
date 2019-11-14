@@ -90,7 +90,7 @@
             // 获取学院列表
             _CollegeIndex() {
                 let pageNumber = this.page + 1;
-                this.$com.showtoast('加载中…', '', '', 1000, '', false, true)
+                this.$com.showToast('加载中…', '', '', 1000, '', false, true)
                 this.$api.CollegeIndex(
                     pageNumber,
                     this.category_id,
@@ -128,7 +128,7 @@
             // 下拉刷新
             onRefresh() {
                 setTimeout(() => {
-                    this.$com.showtoast('刷新成功');
+                    this.$com.showToast('刷新成功');
                     this.isDownLoading = false;
                     this.page = 0;
                     this._CollegeIndex();
