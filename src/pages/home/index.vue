@@ -38,7 +38,7 @@
           class="iconfont iconjiantou"></span></span></div>
       </div>
       <div class="recommentlist">
-        <div class="recmmentitem" v-for="(item ,index) in netlist" :key="item.id">
+        <div class="recmmentitem" v-for="(item ,index) in netlist" :key="item.id" @click="go_detail(item.id)">
           <div class="rec_img"><img :src="item.image" alt=""></div>
           <div class="rec_name">{{item.name}}</div>
           <div class="rec_type">
@@ -158,6 +158,7 @@
           }
         })
       },
+      // 获取服务
       _GetLabelList() {
         this.$api.GetLabelList().then(res => {
           if (res.code == 1) {
@@ -201,6 +202,9 @@
       },
       callback() {
 
+      },
+      go_detail(id) {
+        this.$router.push({path: '/competitiondetail/' + id})
       }
     },
     computed: {

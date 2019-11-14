@@ -22,4 +22,83 @@ export default [
     },
     component: resolve => require(["../../pages/home/search.vue"], resolve)
   },
+  {
+    path: '/competitiondetail/:id',
+    name: 'competitiondetail',
+    meta: {
+      title: "电竞馆详情",
+      index: 1,
+      showH: true,
+      showF: true,
+      shownav:false,
+      needLogin: false
+    },
+    component: resolve => require(["../../pages/home/competitiondetail"], resolve)
+  },
+  {
+    path: '/clubdetail',
+    name: 'clubdetail',
+    meta: {
+      title: "俱乐部详情",
+      index: 1,
+      showF: false,
+      showH: false
+    },
+    component: resolve => require(["../../pages/home/clubdetail"], resolve)
+  },
+  {
+    path: '/schooldetail',
+    name: 'schooldetail',
+    meta: {
+      title: "学院详情",
+      index: 1,
+      showF: false,
+      showH: false
+    },
+    component: resolve => require(["../../pages/home/schooldetail"], resolve)
+  },
+  {
+    path: '/taocan',
+    name: 'taocan',
+    meta: {
+      title: "套餐详情",
+      index: 1,
+      showF: false,
+      showH: false
+    },
+    component: resolve => require(["../../pages/home/taocan"], resolve)
+  },
+  {
+    path: '/gamedetail',
+    name: 'gamedetail',
+    meta: {
+      title: "赛事详情",
+      index: 1,
+      showF: false,
+      showH: false
+    },
+    component: resolve => require(["../../pages/home/gamedetail"], resolve)
+  },
+  {
+    path: '/videolist',
+    name: 'videolist',
+    meta: {
+      title: "全部视频",
+      index: 1,
+      showF: false,
+      showH: true
+    },
+    component: resolve => require(["../../pages/home/videolist"], resolve)
+  },
+  {
+    path: '/videodetail',
+    name: 'videodetail',
+    meta: {
+      title: "视频详情",
+      index: 1,
+      showF: false,
+      showH: false
+    },
+    component: resolve => require(["../../pages/home/videodetail"], resolve)
+  },
 ];
