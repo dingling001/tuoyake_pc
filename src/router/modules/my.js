@@ -2,9 +2,9 @@ export default [
   {
     path: '/about',
     meta: {
-      cur: 5,
+      cur: 4,
       title: "关于我们",
-      building: true,
+      building: false,
       showH: true,
       showF: true,
       needLogin: false
