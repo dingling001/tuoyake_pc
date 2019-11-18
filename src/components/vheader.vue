@@ -32,7 +32,7 @@
           </el-input>
           <el-button type="primary" @click="gosearch">搜索</el-button>
         </div>
-        <el-button type="danger"><i class="iconfont iconshouji"></i> 下载APP</el-button>
+        <el-button type="danger" @click="godownload"><i class="iconfont iconshouji"></i> 下载APP</el-button>
       </div>
       <div class="tnavbottom" v-if="shownav">
         <div :class="cur==index?'tnavitem tnavitemactive':'tnavitem'" :key="index"
@@ -172,6 +172,10 @@
       // 个人中心
       gomy() {
         this.$router.push({path: '/my'})
+      },
+      // 下载
+      godownload(){
+        this.$router.push({path: '/download'})
       }
     },
     beforeRouteEnter(to, form, next) {

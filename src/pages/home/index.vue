@@ -37,7 +37,7 @@
         <div class="recommentright"><span>查看更多</span><span class="iconbox"><span
           class="iconfont iconjiantou"></span></span></div>
       </div>
-      <div class="recommentlist">
+      <div class="recommentlist" v-if="netlist.length">
         <div class="recmmentitem" v-for="(item ,index) in netlist" :key="item.id" @click="go_detail(item.id)">
           <div class="rec_img"><img :src="item.image" alt=""></div>
           <div class="rec_name">{{item.name}}</div>
@@ -53,7 +53,7 @@
         </div>
       </div>
       <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
-                :scrollTo="680"></pcpaging>
+                :scrollTo="680" v-if="total>per_page"></pcpaging>
     </div>
   </div>
 </template>
@@ -100,6 +100,7 @@
         ind: 0,
         mySwiper: {},
         totalPages: 0,
+        total:0,
         swiperOption: {
           pagination: '.swiper-pagination',
           //循环
@@ -191,6 +192,7 @@
           if (res.code == 1) {//请求成功
             this.netlist = res.data.data;
             this.totalPages = res.data.total / this.per_page;
+            this.total=res.data.total;
           }
           // console.log(this.netlist)
         })

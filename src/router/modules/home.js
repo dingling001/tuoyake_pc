@@ -74,11 +74,24 @@ export default [
     name: 'gamedetail',
     meta: {
       title: "赛事详情",
-      index: 1,
-      showF: false,
-      showH: false
+      showH: true,
+      showF: true,
+      shownav:false,
+      needLogin: false
     },
     component: resolve => require(["../../pages/home/gamedetail"], resolve)
+  },
+  {
+    path: '/apoint/:match_id',
+    name: 'apoint',
+    meta: {
+      title: "赛事报名",
+      showH: true,
+      showF: true,
+      shownav:false,
+      needLogin: false
+    },
+    component: resolve => require(["../../pages/home/apoint"], resolve)
   },
   {
     path: '/videolist',

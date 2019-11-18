@@ -486,9 +486,9 @@
 
           .view_num {
             position: absolute;
-            right: 0;
+            right: 10px;
             bottom: 10px;
-            background-color: rgba(0, 0, 0, 1);
+            background-color: rgba(0, 0, 0, .6);
             color: #fff;
             font-size: 12px;
             border-radius: 10px;

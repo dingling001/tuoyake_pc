@@ -10,7 +10,7 @@
         </div>
         <div class="adressitem">地址： <span class="address">{{comdata.info.address}}</span></div>
         <div class="phonecall">电话：{{comdata.info.contact_number}}</div>
-        <div class="tiemon">营业时间： 周一至周日 全天</div>
+        <div class="timeon"><span v-for="item in comdata.info.label_ids">{{item}}</span></div>
         <div class="iconbox" @click="clllection">
           <div :class="['iconfont iconheart-fill', comdata.info.is_collection==0? '':'iconactive']"></div>
           <div>{{comdata.info.is_collection==0?'收藏':'已收藏'}}</div>
@@ -301,6 +301,19 @@
           display: block;
           padding-bottom: 20px;
         }
+        .timeon{
+          span {
+            background-color: #FEEAEB;
+            color: #E03A43;
+            padding: 2px 5px;
+            /*width: 56px;*/
+            text-align: center;
+            border-radius: 10px;
+            display: inline-block;
+            font-size: 13px;
+            margin-right: 5px;
+          }
+        }
 
       }
 
@@ -452,12 +465,6 @@
               /*px*/
             }
 
-            .synopsis {
-              max-width: 200px;
-              font-size: 12px;
-              /*px*/
-              color: #666666;
-            }
           }
 
           .jbtn {

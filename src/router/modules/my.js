@@ -172,10 +172,11 @@ export default [
     component: resolve => require(["../../components/download"], resolve),
     meta: {
       title: "APP下载",
-      showF: false,
+      index: 1,
       showH: true,
-      needLogin: false,
-      iconfont: 'iconguanbi-copy'
+      showF: true,
+      shownav:false,
+      needLogin: false
     },
   },
   {
