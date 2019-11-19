@@ -1,27 +1,33 @@
 <template>
   <div class="score_box">
-    <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
-      <el-form-item label="名称">
+    <div class="name">{{matchinfo.name}}</div>
+    <div class="date">{{matchinfo.start_time}} - {{matchinfo.end_time}}</div>
+    <el-form label-width="100px" :model="formLabelAlign">
+      <el-form-item label="报名人姓名">
         <el-input v-model="formLabelAlign.name"></el-input>
       </el-form-item>
-      <el-form-item label="活动区域">
+      <el-form-item label="手机号">
         <el-input v-model="formLabelAlign.region"></el-input>
       </el-form-item>
-      <el-form-item label="活动形式">
+      <el-form-item label="战队名称">
         <el-input v-model="formLabelAlign.type"></el-input>
       </el-form-item>
-      <el-form-item label="活动形式">
+      <el-form-item label="邮箱">
+        <el-input v-model="formLabelAlign.type"></el-input>
+      </el-form-item>
+      <el-form-item label="备注信息">
         <el-input
           type="textarea"
           show-word-limit
           maxlength="150"
-          :autosize="{ minRows: 2, maxRows: 4}"
-          placeholder="请输入内容"
+          :autosize="{ minRows: 4, maxRows: 6}"
+          placeholder="备注信息"
+          resize="none"
           v-model="formLabelAlign.textarea">
         </el-input>
       </el-form-item>
-      <el-form-item >
-        <el-button type="primary" >提交</el-button>
+      <el-form-item>
+        <el-button type="primary">提交</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -75,12 +81,27 @@
     margin: 20px auto;
     background-color: #fff;
 
+    .name {
+      text-align: center;
+      color: #333333;
+      font-size: 24px;
+      font-weight: bold;
+      padding: 50px 0 20px;
+    }
+
+    .date {
+      text-align: center;
+      color: #666666;
+      font-size: 14px;
+    }
+
     /deep/ .el-form {
       width: 800px;
       margin: 0 auto;
-      padding: 60px 0 ;
-      .el-form-item{
-        .el-button{
+      padding: 60px 0;
+
+      .el-form-item {
+        .el-button {
           width: 300px;
           margin: 0 auto;
           display: block;

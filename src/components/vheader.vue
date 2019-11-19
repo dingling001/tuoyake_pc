@@ -175,7 +175,7 @@
       },
       // 下载
       godownload(){
-        this.$router.push({path: '/download'})
+        // this.$router.push({path: '/download'})
       }
     },
     beforeRouteEnter(to, form, next) {

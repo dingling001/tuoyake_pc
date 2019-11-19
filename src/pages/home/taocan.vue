@@ -118,7 +118,7 @@
         }
       },
       goapp() {
-        this.$router.push('/download')
+        // this.$router.push('/download')
       }
     }
   }

@@ -126,7 +126,7 @@
       },
       // 下载app
       goapp() {
-        this.$router.push({path: '/apoint/' + this.math_id})
+        this.$router.push({path: '/apoint/' + this.match_id})
       },
       /**
        * 将秒转换为 分:秒
