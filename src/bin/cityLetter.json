@@ -1,0 +1,2129 @@
+[
+  {
+    "letter": "A",
+    "childArr": [
+      {
+        "linkageid": 340000,
+        "letter": "A",
+        "name": "安徽",
+        "childArr": [
+          {
+            "linkageid": 340100,
+            "letter": "H",
+            "name": "合肥市"
+          },
+          {
+            "linkageid": 340400,
+            "letter": "H",
+            "name": "淮南市"
+          },
+          {
+            "linkageid": 340500,
+            "letter": "M",
+            "name": "马鞍山市"
+          },
+          {
+            "linkageid": 340200,
+            "letter": "W",
+            "name": "芜湖市"
+          },
+          {
+            "linkageid": 340300,
+            "letter": "B",
+            "name": "蚌埠市"
+          },
+          {
+            "linkageid": 340600,
+            "letter": "H",
+            "name": "淮北市"
+          },
+          {
+            "linkageid": 340700,
+            "letter": "T",
+            "name": "铜陵市"
+          },
+          {
+            "linkageid": 340800,
+            "letter": "A",
+            "name": "安庆市"
+          },
+          {
+            "linkageid": 341000,
+            "letter": "H",
+            "name": "黄山市"
+          },
+          {
+            "linkageid": 341100,
+            "letter": "C",
+            "name": "滁州市"
+          },
+          {
+            "linkageid": 341200,
+            "letter": "F",
+            "name": "阜阳市"
+          },
+          {
+            "linkageid": 341300,
+            "letter": "S",
+            "name": "宿州市"
+          },
+          {
+            "linkageid": 341500,
+            "letter": "L",
+            "name": "六安市"
+          },
+          {
+            "linkageid": 341600,
+            "letter": "Z",
+            "name": "亳州市"
+          },
+          {
+            "linkageid": 341700,
+            "letter": "C",
+            "name": "池州市"
+          },
+          {
+            "linkageid": 341800,
+            "letter": "X",
+            "name": "宣城市"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "letter": "B",
+    "childArr": [
+      {
+        "linkageid": 110000,
+        "letter": "B",
+        "name": "北京",
+        "childArr": [
+          {
+            "linkageid": 110100,
+            "letter": "B",
+            "name": "北京市"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "letter": "C",
+    "childArr": [
+      {
+        "linkageid": 500000,
+        "letter": "C",
+        "name": "重庆",
+        "childArr": [
+          {
+            "linkageid": 500100,
+            "letter": "C",
+            "name": "重庆市"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "letter": "F",
+    "childArr": [
+      {
+        "linkageid": 350000,
+        "letter": "F",
+        "name": "福建",
+        "childArr": [
+          {
+            "linkageid": 350100,
+            "letter": "F",
+            "name": "福州市"
+          },
+          {
+            "linkageid": 350300,
+            "letter": "P",
+            "name": "莆田市"
+          },
+          {
+            "linkageid": 350200,
+            "letter": "X",
+            "name": "厦门市"
+          },
+          {
+            "linkageid": 350400,
+            "letter": "S",
+            "name": "三明市"
+          },
+          {
+            "linkageid": 350600,
+            "letter": "Z",
+            "name": "漳州市"
+          },
+          {
+            "linkageid": 350500,
+            "letter": "Q",
+            "name": "泉州市"
+          },
+          {
+            "linkageid": 350700,
+            "letter": "N",
+            "name": "南平市"
+          },
+          {
+            "linkageid": 350800,
+            "letter": "L",
+            "name": "龙岩市"
+          },
+          {
+            "linkageid": 350900,
+            "letter": "N",
+            "name": "宁德市"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "letter": "G",
+    "childArr": [
+      {
+        "linkageid": 440000,
+        "letter": "G",
+        "name": "广东",
+        "childArr": [
+          {
+            "linkageid": 440100,
+            "letter": "G",
+            "name": "广州市"
+          },
+          {
+            "linkageid": 440200,
+            "letter": "S",
+            "name": "韶关市"
+          },
+          {
+            "linkageid": 440300,
+            "letter": "S",
+            "name": "深圳市"
+          },
+          {
+            "linkageid": 440600,
+            "letter": "F",
+            "name": "佛山市"
+          },
+          {
+            "linkageid": 440400,
+            "letter": "Z",
+            "name": "珠海市"
+          },
+          {
+            "linkageid": 440500,
+            "letter": "S",
+            "name": "汕头市"
+          },
+          {
+            "linkageid": 440700,
+            "letter": "J",
+            "name": "江门市"
+          },
+          {
+            "linkageid": 440800,
+            "letter": "Z",
+            "name": "湛江市"
+          },
+          {
+            "linkageid": 440900,
+            "letter": "M",
+            "name": "茂名市"
+          },
+          {
+            "linkageid": 441200,
+            "letter": "Z",
+            "name": "肇庆市"
+          },
+          {
+            "linkageid": 441300,
+            "letter": "H",
+            "name": "惠州市"
+          },
+          {
+            "linkageid": 441400,
+            "letter": "M",
+            "name": "梅州市"
+          },
+          {
+            "linkageid": 441500,
+            "letter": "S",
+            "name": "汕尾市"
+          },
+          {
+            "linkageid": 441600,
+            "letter": "H",
+            "name": "河源市"
+          },
+          {
+            "linkageid": 441700,
+            "letter": "Y",
+            "name": "阳江市"
+          },
+          {
+            "linkageid": 441800,
+            "letter": "Q",
+            "name": "清远市"
+          },
+          {
+            "linkageid": 441900,
+            "letter": "D",
+            "name": "东莞市"
+          },
+          {
+            "linkageid": 442000,
+            "letter": "Z",
+            "name": "中山市"
+          },
+          {
+            "linkageid": 445100,
+            "letter": "C",
+            "name": "潮州市"
+          },
+          {
+            "linkageid": 445200,
+            "letter": "J",
+            "name": "揭阳市"
+          },
+          {
+            "linkageid": 445300,
+            "letter": "Y",
+            "name": "云浮市"
+          }
+        ]
+      },
+      {
+        "linkageid": 450000,
+        "letter": "G",
+        "name": "广西",
+        "childArr": [
+          {
+            "linkageid": 450100,
+            "letter": "N",
+            "name": "南宁市"
+          },
+          {
+            "linkageid": 450400,
+            "letter": "W",
+            "name": "梧州市"
+          },
+          {
+            "linkageid": 450200,
+            "letter": "L",
+            "name": "柳州市"
+          },
+          {
+            "linkageid": 450500,
+            "letter": "B",
+            "name": "北海市"
+          },
+          {
+            "linkageid": 450300,
+            "letter": "G",
+            "name": "桂林市"
+          },
+          {
+            "linkageid": 450600,
+            "letter": "F",
+            "name": "防城港市"
+          },
+          {
+            "linkageid": 450700,
+            "letter": "Q",
+            "name": "钦州市"
+          },
+          {
+            "linkageid": 450800,
+            "letter": "G",
+            "name": "贵港市"
+          },
+          {
+            "linkageid": 450900,
+            "letter": "Y",
+            "name": "玉林市"
+          },
+          {
+            "linkageid": 451000,
+            "letter": "B",
+            "name": "百色市"
+          },
+          {
+            "linkageid": 451100,
+            "letter": "H",
+            "name": "贺州市"
+          },
+          {
+            "linkageid": 451200,
+            "letter": "H",
+            "name": "河池市"
+          },
+          {
+            "linkageid": 451300,
+            "letter": "L",
+            "name": "来宾市"
+          },
+          {
+            "linkageid": 451400,
+            "letter": "C",
+            "name": "崇左市"
+          }
+        ]
+      },
+      {
+        "linkageid": 620000,
+        "letter": "G",
+        "name": "甘肃",
+        "childArr": [
+          {
+            "linkageid": 620200,
+            "letter": "J",
+            "name": "嘉峪关市"
+          },
+          {
+            "linkageid": 620100,
+            "letter": "L",
+            "name": "兰州市"
+          },
+          {
+            "linkageid": 620300,
+            "letter": "J",
+            "name": "金昌市"
+          },
+          {
+            "linkageid": 620400,
+            "letter": "B",
+            "name": "白银市"
+          },
+          {
+            "linkageid": 620500,
+            "letter": "T",
+            "name": "天水市"
+          },
+          {
+            "linkageid": 620600,
+            "letter": "W",
+            "name": "武威市"
+          },
+          {
+            "linkageid": 620700,
+            "letter": "Z",
+            "name": "张掖市"
+          },
+          {
+            "linkageid": 620800,
+            "letter": "P",
+            "name": "平凉市"
+          },
+          {
+            "linkageid": 620900,
+            "letter": "J",
+            "name": "酒泉市"
+          },
+          {
+            "linkageid": 621000,
+            "letter": "Q",
+            "name": "庆阳市"
+          },
+          {
+            "linkageid": 621100,
+            "letter": "D",
+            "name": "定西市"
+          },
+          {
+            "linkageid": 621200,
+            "letter": "L",
+            "name": "陇南市"
+          },
+          {
+            "linkageid": 622900,
+            "letter": "L",
+            "name": "临夏回族自治州"
+          },
+          {
+            "linkageid": 623000,
+            "letter": "G",
+            "name": "甘南藏族自治州"
+          }
+        ]
+      },
+      {
+        "linkageid": 520000,
+        "letter": "G",
+        "name": "贵州",
+        "childArr": [
+          {
+            "linkageid": 520100,
+            "letter": "G",
+            "name": "贵阳市"
+          },
+          {
+            "linkageid": 520300,
+            "letter": "Z",
+            "name": "遵义市"
+          },
+          {
+            "linkageid": 520200,
+            "letter": "L",
+            "name": "六盘水市"
+          },
+          {
+            "linkageid": 520400,
+            "letter": "A",
+            "name": "安顺市"
+          },
+          {
+            "linkageid": 520600,
+            "letter": "T",
+            "name": "铜仁市"
+          },
+          {
+            "linkageid": 520500,
+            "letter": "B",
+            "name": "毕节市"
+          },
+          {
+            "linkageid": 522300,
+            "letter": "Q",
+            "name": "黔西南布依族苗族自治州"
+          },
+          {
+            "linkageid": 522600,
+            "letter": "Q",
+            "name": "黔东南苗族侗族自治州"
+          },
+          {
+            "linkageid": 522700,
+            "letter": "Q",
+            "name": "黔南布依族苗族自治州"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "letter": "H",
+    "childArr": [
+      {
+        "linkageid": 130000,
+        "letter": "H",
+        "name": "河北",
+        "childArr": [
+          {
+            "linkageid": 130100,
+            "letter": "S",
+            "name": "石家庄市"
+          },
+          {
+            "linkageid": 130300,
+            "letter": "Q",
+            "name": "秦皇岛市"
+          },
+          {
+            "linkageid": 130400,
+            "letter": "H",
+            "name": "邯郸市"
+          },
+          {
+            "linkageid": 130200,
+            "letter": "T",
+            "name": "唐山市"
+          },
+          {
+            "linkageid": 130500,
+            "letter": "X",
+            "name": "邢台市"
+          },
+          {
+            "linkageid": 130600,
+            "letter": "B",
+            "name": "保定市"
+          },
+          {
+            "linkageid": 130700,
+            "letter": "Z",
+            "name": "张家口市"
+          },
+          {
+            "linkageid": 130800,
+            "letter": "C",
+            "name": "承德市"
+          },
+          {
+            "linkageid": 130900,
+            "letter": "C",
+            "name": "沧州市"
+          },
+          {
+            "linkageid": 131000,
+            "letter": "L",
+            "name": "廊坊市"
+          },
+          {
+            "linkageid": 131100,
+            "letter": "H",
+            "name": "衡水市"
+          }
+        ]
+      },
+      {
+        "linkageid": 410000,
+        "letter": "H",
+        "name": "河南",
+        "childArr": [
+          {
+            "linkageid": 410100,
+            "letter": "Z",
+            "name": "郑州市"
+          },
+          {
+            "linkageid": 410200,
+            "letter": "K",
+            "name": "开封市"
+          },
+          {
+            "linkageid": 410300,
+            "letter": "L",
+            "name": "洛阳市"
+          },
+          {
+            "linkageid": 410600,
+            "letter": "H",
+            "name": "鹤壁市"
+          },
+          {
+            "linkageid": 410400,
+            "letter": "P",
+            "name": "平顶山市"
+          },
+          {
+            "linkageid": 410500,
+            "letter": "A",
+            "name": "安阳市"
+          },
+          {
+            "linkageid": 410700,
+            "letter": "X",
+            "name": "新乡市"
+          },
+          {
+            "linkageid": 410800,
+            "letter": "J",
+            "name": "焦作市"
+          },
+          {
+            "linkageid": 410900,
+            "letter": "Z",
+            "name": "濮阳市"
+          },
+          {
+            "linkageid": 411000,
+            "letter": "X",
+            "name": "许昌市"
+          },
+          {
+            "linkageid": 411100,
+            "letter": "Z",
+            "name": "漯河市"
+          },
+          {
+            "linkageid": 411200,
+            "letter": "S",
+            "name": "三门峡市"
+          },
+          {
+            "linkageid": 411300,
+            "letter": "N",
+            "name": "南阳市"
+          },
+          {
+            "linkageid": 411400,
+            "letter": "S",
+            "name": "商丘市"
+          },
+          {
+            "linkageid": 411500,
+            "letter": "X",
+            "name": "信阳市"
+          },
+          {
+            "linkageid": 411600,
+            "letter": "Z",
+            "name": "周口市"
+          },
+          {
+            "linkageid": 411700,
+            "letter": "Z",
+            "name": "驻马店市"
+          },
+          {
+            "linkageid": 419001,
+            "letter": "J",
+            "name": "济源市"
+          }
+        ]
+      },
+      {
+        "linkageid": 460000,
+        "letter": "H",
+        "name": "海南",
+        "childArr": [
+          {
+            "linkageid": 460100,
+            "letter": "H",
+            "name": "海口市"
+          },
+          {
+            "linkageid": 460400,
+            "letter": "Z",
+            "name": "儋州市"
+          },
+          {
+            "linkageid": 469001,
+            "letter": "W",
+            "name": "五指山市"
+          },
+          {
+            "linkageid": 469002,
+            "letter": "Q",
+            "name": "琼海市"
+          },
+          {
+            "linkageid": 460200,
+            "letter": "S",
+            "name": "三亚市"
+          },
+          {
+            "linkageid": 460300,
+            "letter": "S",
+            "name": "三沙市"
+          },
+          {
+            "linkageid": 469005,
+            "letter": "W",
+            "name": "文昌市"
+          },
+          {
+            "linkageid": 469006,
+            "letter": "W",
+            "name": "万宁市"
+          },
+          {
+            "linkageid": 469007,
+            "letter": "D",
+            "name": "东方市"
+          },
+          {
+            "linkageid": 469021,
+            "letter": "D",
+            "name": "定安县"
+          },
+          {
+            "linkageid": 469022,
+            "letter": "T",
+            "name": "屯昌县"
+          },
+          {
+            "linkageid": 469023,
+            "letter": "C",
+            "name": "澄迈县"
+          },
+          {
+            "linkageid": 469024,
+            "letter": "L",
+            "name": "临高县"
+          },
+          {
+            "linkageid": 469025,
+            "letter": "B",
+            "name": "白沙黎族自治县"
+          },
+          {
+            "linkageid": 469026,
+            "letter": "C",
+            "name": "昌江黎族自治县"
+          },
+          {
+            "linkageid": 469027,
+            "letter": "L",
+            "name": "乐东黎族自治县"
+          },
+          {
+            "linkageid": 469028,
+            "letter": "L",
+            "name": "陵水黎族自治县"
+          },
+          {
+            "linkageid": 469029,
+            "letter": "B",
+            "name": "保亭黎族苗族自治县"
+          },
+          {
+            "linkageid": 469030,
+            "letter": "Q",
+            "name": "琼中黎族苗族自治县"
+          }
+        ]
+      },
+      {
+        "linkageid": 420000,
+        "letter": "H",
+        "name": "湖北",
+        "childArr": [
+          {
+            "linkageid": 420100,
+            "letter": "W",
+            "name": "武汉市"
+          },
+          {
+            "linkageid": 420200,
+            "letter": "H",
+            "name": "黄石市"
+          },
+          {
+            "linkageid": 420300,
+            "letter": "S",
+            "name": "十堰市"
+          },
+          {
+            "linkageid": 420500,
+            "letter": "Y",
+            "name": "宜昌市"
+          },
+          {
+            "linkageid": 420700,
+            "letter": "E",
+            "name": "鄂州市"
+          },
+          {
+            "linkageid": 420600,
+            "letter": "X",
+            "name": "襄阳市"
+          },
+          {
+            "linkageid": 420800,
+            "letter": "J",
+            "name": "荆门市"
+          },
+          {
+            "linkageid": 420900,
+            "letter": "X",
+            "name": "孝感市"
+          },
+          {
+            "linkageid": 421000,
+            "letter": "J",
+            "name": "荆州市"
+          },
+          {
+            "linkageid": 421100,
+            "letter": "H",
+            "name": "黄冈市"
+          },
+          {
+            "linkageid": 421200,
+            "letter": "X",
+            "name": "咸宁市"
+          },
+          {
+            "linkageid": 421300,
+            "letter": "S",
+            "name": "随州市"
+          },
+          {
+            "linkageid": 422800,
+            "letter": "E",
+            "name": "恩施土家族苗族自治州"
+          },
+          {
+            "linkageid": 429004,
+            "letter": "X",
+            "name": "仙桃市"
+          },
+          {
+            "linkageid": 429005,
+            "letter": "Q",
+            "name": "潜江市"
+          },
+          {
+            "linkageid": 429006,
+            "letter": "T",
+            "name": "天门市"
+          },
+          {
+            "linkageid": 429021,
+            "letter": "S",
+            "name": "神农架林区"
+          }
+        ]
+      },
+      {
+        "linkageid": 430000,
+        "letter": "H",
+        "name": "湖南",
+        "childArr": [
+          {
+            "linkageid": 430300,
+            "letter": "X",
+            "name": "湘潭市"
+          },
+          {
+            "linkageid": 430100,
+            "letter": "C",
+            "name": "长沙市"
+          },
+          {
+            "linkageid": 430400,
+            "letter": "H",
+            "name": "衡阳市"
+          },
+          {
+            "linkageid": 430500,
+            "letter": "S",
+            "name": "邵阳市"
+          },
+          {
+            "linkageid": 430600,
+            "letter": "Y",
+            "name": "岳阳市"
+          },
+          {
+            "linkageid": 430200,
+            "letter": "Z",
+            "name": "株洲市"
+          },
+          {
+            "linkageid": 430700,
+            "letter": "C",
+            "name": "常德市"
+          },
+          {
+            "linkageid": 430800,
+            "letter": "Z",
+            "name": "张家界市"
+          },
+          {
+            "linkageid": 430900,
+            "letter": "Y",
+            "name": "益阳市"
+          },
+          {
+            "linkageid": 431000,
+            "letter": "C",
+            "name": "郴州市"
+          },
+          {
+            "linkageid": 431100,
+            "letter": "Y",
+            "name": "永州市"
+          },
+          {
+            "linkageid": 431200,
+            "letter": "H",
+            "name": "怀化市"
+          },
+          {
+            "linkageid": 431300,
+            "letter": "L",
+            "name": "娄底市"
+          },
+          {
+            "linkageid": 433100,
+            "letter": "X",
+            "name": "湘西土家族苗族自治州"
+          }
+        ]
+      },
+      {
+        "linkageid": 230000,
+        "letter": "H",
+        "name": "黑龙江",
+        "childArr": [
+          {
+            "linkageid": 230100,
+            "letter": "H",
+            "name": "哈尔滨市"
+          },
+          {
+            "linkageid": 230200,
+            "letter": "Q",
+            "name": "齐齐哈尔市"
+          },
+          {
+            "linkageid": 230500,
+            "letter": "S",
+            "name": "双鸭山市"
+          },
+          {
+            "linkageid": 230600,
+            "letter": "D",
+            "name": "大庆市"
+          },
+          {
+            "linkageid": 230400,
+            "letter": "H",
+            "name": "鹤岗市"
+          },
+          {
+            "linkageid": 230300,
+            "letter": "J",
+            "name": "鸡西市"
+          },
+          {
+            "linkageid": 230700,
+            "letter": "Y",
+            "name": "伊春市"
+          },
+          {
+            "linkageid": 230800,
+            "letter": "J",
+            "name": "佳木斯市"
+          },
+          {
+            "linkageid": 230900,
+            "letter": "Q",
+            "name": "七台河市"
+          },
+          {
+            "linkageid": 231000,
+            "letter": "M",
+            "name": "牡丹江市"
+          },
+          {
+            "linkageid": 231100,
+            "letter": "H",
+            "name": "黑河市"
+          },
+          {
+            "linkageid": 231200,
+            "letter": "S",
+            "name": "绥化市"
+          },
+          {
+            "linkageid": 232700,
+            "letter": "D",
+            "name": "大兴安岭地区"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "letter": "J",
+    "childArr": [
+      {
+        "linkageid": 220000,
+        "letter": "J",
+        "name": "吉林",
+        "childArr": [
+          {
+            "linkageid": 220100,
+            "letter": "C",
+            "name": "长春市"
+          },
+          {
+            "linkageid": 220200,
+            "letter": "J",
+            "name": "吉林市"
+          },
+          {
+            "linkageid": 220300,
+            "letter": "S",
+            "name": "四平市"
+          },
+          {
+            "linkageid": 220400,
+            "letter": "L",
+            "name": "辽源市"
+          },
+          {
+            "linkageid": 220500,
+            "letter": "T",
+            "name": "通化市"
+          },
+          {
+            "linkageid": 220600,
+            "letter": "B",
+            "name": "白山市"
+          },
+          {
+            "linkageid": 220700,
+            "letter": "S",
+            "name": "松原市"
+          },
+          {
+            "linkageid": 220800,
+            "letter": "B",
+            "name": "白城市"
+          },
+          {
+            "linkageid": 222400,
+            "letter": "Y",
+            "name": "延边朝鲜族自治州"
+          }
+        ]
+      },
+      {
+        "linkageid": 320000,
+        "letter": "J",
+        "name": "江苏",
+        "childArr": [
+          {
+            "linkageid": 320200,
+            "letter": "W",
+            "name": "无锡市"
+          },
+          {
+            "linkageid": 320100,
+            "letter": "N",
+            "name": "南京市"
+          },
+          {
+            "linkageid": 320300,
+            "letter": "X",
+            "name": "徐州市"
+          },
+          {
+            "linkageid": 320400,
+            "letter": "C",
+            "name": "常州市"
+          },
+          {
+            "linkageid": 320600,
+            "letter": "N",
+            "name": "南通市"
+          },
+          {
+            "linkageid": 320500,
+            "letter": "S",
+            "name": "苏州市"
+          },
+          {
+            "linkageid": 320700,
+            "letter": "L",
+            "name": "连云港市"
+          },
+          {
+            "linkageid": 320800,
+            "letter": "H",
+            "name": "淮安市"
+          },
+          {
+            "linkageid": 320900,
+            "letter": "Y",
+            "name": "盐城市"
+          },
+          {
+            "linkageid": 321000,
+            "letter": "Y",
+            "name": "扬州市"
+          },
+          {
+            "linkageid": 321100,
+            "letter": "Z",
+            "name": "镇江市"
+          },
+          {
+            "linkageid": 321200,
+            "letter": "T",
+            "name": "泰州市"
+          },
+          {
+            "linkageid": 321300,
+            "letter": "S",
+            "name": "宿迁市"
+          }
+        ]
+      },
+      {
+        "linkageid": 360000,
+        "letter": "J",
+        "name": "江西",
+        "childArr": [
+          {
+            "linkageid": 360100,
+            "letter": "N",
+            "name": "南昌市"
+          },
+          {
+            "linkageid": 360200,
+            "letter": "J",
+            "name": "景德镇市"
+          },
+          {
+            "linkageid": 360600,
+            "letter": "Y",
+            "name": "鹰潭市"
+          },
+          {
+            "linkageid": 360300,
+            "letter": "P",
+            "name": "萍乡市"
+          },
+          {
+            "linkageid": 360400,
+            "letter": "J",
+            "name": "九江市"
+          },
+          {
+            "linkageid": 360500,
+            "letter": "X",
+            "name": "新余市"
+          },
+          {
+            "linkageid": 360700,
+            "letter": "G",
+            "name": "赣州市"
+          },
+          {
+            "linkageid": 360800,
+            "letter": "J",
+            "name": "吉安市"
+          },
+          {
+            "linkageid": 360900,
+            "letter": "Y",
+            "name": "宜春市"
+          },
+          {
+            "linkageid": 361000,
+            "letter": "F",
+            "name": "抚州市"
+          },
+          {
+            "linkageid": 361100,
+            "letter": "S",
+            "name": "上饶市"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "letter": "L",
+    "childArr": [
+      {
+        "linkageid": 210000,
+        "letter": "L",
+        "name": "辽宁",
+        "childArr": [
+          {
+            "linkageid": 210100,
+            "letter": "S",
+            "name": "沈阳市"
+          },
+          {
+            "linkageid": 210200,
+            "letter": "D",
+            "name": "大连市"
+          },
+          {
+            "linkageid": 210300,
+            "letter": "A",
+            "name": "鞍山市"
+          },
+          {
+            "linkageid": 210500,
+            "letter": "B",
+            "name": "本溪市"
+          },
+          {
+            "linkageid": 210600,
+            "letter": "D",
+            "name": "丹东市"
+          },
+          {
+            "linkageid": 210400,
+            "letter": "F",
+            "name": "抚顺市"
+          },
+          {
+            "linkageid": 210700,
+            "letter": "J",
+            "name": "锦州市"
+          },
+          {
+            "linkageid": 210800,
+            "letter": "Y",
+            "name": "营口市"
+          },
+          {
+            "linkageid": 210900,
+            "letter": "F",
+            "name": "阜新市"
+          },
+          {
+            "linkageid": 211000,
+            "letter": "L",
+            "name": "辽阳市"
+          },
+          {
+            "linkageid": 211100,
+            "letter": "P",
+            "name": "盘锦市"
+          },
+          {
+            "linkageid": 211200,
+            "letter": "T",
+            "name": "铁岭市"
+          },
+          {
+            "linkageid": 211300,
+            "letter": "C",
+            "name": "朝阳市"
+          },
+          {
+            "linkageid": 211400,
+            "letter": "H",
+            "name": "葫芦岛市"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "letter": "N",
+    "childArr": [
+      {
+        "linkageid": 150000,
+        "letter": "N",
+        "name": "内蒙古",
+        "childArr": [
+          {
+            "linkageid": 150100,
+            "letter": "H",
+            "name": "呼和浩特市"
+          },
+          {
+            "linkageid": 150200,
+            "letter": "B",
+            "name": "包头市"
+          },
+          {
+            "linkageid": 150300,
+            "letter": "W",
+            "name": "乌海市"
+          },
+          {
+            "linkageid": 150400,
+            "letter": "C",
+            "name": "赤峰市"
+          },
+          {
+            "linkageid": 150500,
+            "letter": "T",
+            "name": "通辽市"
+          },
+          {
+            "linkageid": 150600,
+            "letter": "E",
+            "name": "鄂尔多斯市"
+          },
+          {
+            "linkageid": 150700,
+            "letter": "H",
+            "name": "呼伦贝尔市"
+          },
+          {
+            "linkageid": 150800,
+            "letter": "B",
+            "name": "巴彦淖尔市"
+          },
+          {
+            "linkageid": 150900,
+            "letter": "W",
+            "name": "乌兰察布市"
+          },
+          {
+            "linkageid": 152200,
+            "letter": "X",
+            "name": "兴安盟"
+          },
+          {
+            "linkageid": 152500,
+            "letter": "X",
+            "name": "锡林郭勒盟"
+          },
+          {
+            "linkageid": 152900,
+            "letter": "A",
+            "name": "阿拉善盟"
+          }
+        ]
+      },
+      {
+        "linkageid": 640000,
+        "letter": "N",
+        "name": "宁夏",
+        "childArr": [
+          {
+            "linkageid": 640100,
+            "letter": "Y",
+            "name": "银川市"
+          },
+          {
+            "linkageid": 640400,
+            "letter": "G",
+            "name": "固原市"
+          },
+          {
+            "linkageid": 640500,
+            "letter": "Z",
+            "name": "中卫市"
+          },
+          {
+            "linkageid": 640300,
+            "letter": "W",
+            "name": "吴忠市"
+          },
+          {
+            "linkageid": 640200,
+            "letter": "S",
+            "name": "石嘴山市"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "letter": "Q",
+    "childArr": [
+      {
+        "linkageid": 630000,
+        "letter": "Q",
+        "name": "青海",
+        "childArr": [
+          {
+            "linkageid": 630100,
+            "letter": "X",
+            "name": "西宁市"
+          },
+          {
+            "linkageid": 630200,
+            "letter": "H",
+            "name": "海东市"
+          },
+          {
+            "linkageid": 632200,
+            "letter": "H",
+            "name": "海北藏族自治州"
+          },
+          {
+            "linkageid": 632300,
+            "letter": "H",
+            "name": "黄南藏族自治州"
+          },
+          {
+            "linkageid": 632500,
+            "letter": "H",
+            "name": "海南藏族自治州"
+          },
+          {
+            "linkageid": 632600,
+            "letter": "G",
+            "name": "果洛藏族自治州"
+          },
+          {
+            "linkageid": 632700,
+            "letter": "Y",
+            "name": "玉树藏族自治州"
+          },
+          {
+            "linkageid": 632800,
+            "letter": "H",
+            "name": "海西蒙古族藏族自治州"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "letter": "S",
+    "childArr": [
+      {
+        "linkageid": 310000,
+        "letter": "S",
+        "name": "上海",
+        "childArr": [
+          {
+            "linkageid": 310100,
+            "letter": "S",
+            "name": "上海市"
+          }
+        ]
+      },
+      {
+        "linkageid": 510000,
+        "letter": "S",
+        "name": "四川",
+        "childArr": [
+          {
+            "linkageid": 510400,
+            "letter": "P",
+            "name": "攀枝花市"
+          },
+          {
+            "linkageid": 510500,
+            "letter": "Z",
+            "name": "泸州市"
+          },
+          {
+            "linkageid": 510300,
+            "letter": "Z",
+            "name": "自贡市"
+          },
+          {
+            "linkageid": 510100,
+            "letter": "C",
+            "name": "成都市"
+          },
+          {
+            "linkageid": 510700,
+            "letter": "M",
+            "name": "绵阳市"
+          },
+          {
+            "linkageid": 510600,
+            "letter": "D",
+            "name": "德阳市"
+          },
+          {
+            "linkageid": 510800,
+            "letter": "G",
+            "name": "广元市"
+          },
+          {
+            "linkageid": 510900,
+            "letter": "S",
+            "name": "遂宁市"
+          },
+          {
+            "linkageid": 511000,
+            "letter": "N",
+            "name": "内江市"
+          },
+          {
+            "linkageid": 511100,
+            "letter": "L",
+            "name": "乐山市"
+          },
+          {
+            "linkageid": 511300,
+            "letter": "N",
+            "name": "南充市"
+          },
+          {
+            "linkageid": 511400,
+            "letter": "M",
+            "name": "眉山市"
+          },
+          {
+            "linkageid": 511500,
+            "letter": "Y",
+            "name": "宜宾市"
+          },
+          {
+            "linkageid": 511600,
+            "letter": "G",
+            "name": "广安市"
+          },
+          {
+            "linkageid": 511700,
+            "letter": "D",
+            "name": "达州市"
+          },
+          {
+            "linkageid": 511800,
+            "letter": "Y",
+            "name": "雅安市"
+          },
+          {
+            "linkageid": 511900,
+            "letter": "B",
+            "name": "巴中市"
+          },
+          {
+            "linkageid": 512000,
+            "letter": "Z",
+            "name": "资阳市"
+          },
+          {
+            "linkageid": 513200,
+            "letter": "A",
+            "name": "阿坝藏族羌族自治州"
+          },
+          {
+            "linkageid": 513300,
+            "letter": "G",
+            "name": "甘孜藏族自治州"
+          },
+          {
+            "linkageid": 513400,
+            "letter": "L",
+            "name": "凉山彝族自治州"
+          }
+        ]
+      },
+      {
+        "linkageid": 370000,
+        "letter": "S",
+        "name": "山东",
+        "childArr": [
+          {
+            "linkageid": 370100,
+            "letter": "J",
+            "name": "济南市"
+          },
+          {
+            "linkageid": 370200,
+            "letter": "Q",
+            "name": "青岛市"
+          },
+          {
+            "linkageid": 370300,
+            "letter": "Z",
+            "name": "淄博市"
+          },
+          {
+            "linkageid": 370500,
+            "letter": "D",
+            "name": "东营市"
+          },
+          {
+            "linkageid": 370600,
+            "letter": "Y",
+            "name": "烟台市"
+          },
+          {
+            "linkageid": 370400,
+            "letter": "Z",
+            "name": "枣庄市"
+          },
+          {
+            "linkageid": 370700,
+            "letter": "W",
+            "name": "潍坊市"
+          },
+          {
+            "linkageid": 370800,
+            "letter": "J",
+            "name": "济宁市"
+          },
+          {
+            "linkageid": 370900,
+            "letter": "T",
+            "name": "泰安市"
+          },
+          {
+            "linkageid": 371000,
+            "letter": "W",
+            "name": "威海市"
+          },
+          {
+            "linkageid": 371100,
+            "letter": "R",
+            "name": "日照市"
+          },
+          {
+            "linkageid": 371200,
+            "letter": "L",
+            "name": "莱芜市"
+          },
+          {
+            "linkageid": 371300,
+            "letter": "L",
+            "name": "临沂市"
+          },
+          {
+            "linkageid": 371400,
+            "letter": "D",
+            "name": "德州市"
+          },
+          {
+            "linkageid": 371500,
+            "letter": "L",
+            "name": "聊城市"
+          },
+          {
+            "linkageid": 371600,
+            "letter": "B",
+            "name": "滨州市"
+          },
+          {
+            "linkageid": 371700,
+            "letter": "H",
+            "name": "菏泽市"
+          }
+        ]
+      },
+      {
+        "linkageid": 140000,
+        "letter": "S",
+        "name": "山西",
+        "childArr": [
+          {
+            "linkageid": 140100,
+            "letter": "T",
+            "name": "太原市"
+          },
+          {
+            "linkageid": 140200,
+            "letter": "D",
+            "name": "大同市"
+          },
+          {
+            "linkageid": 140300,
+            "letter": "Y",
+            "name": "阳泉市"
+          },
+          {
+            "linkageid": 140400,
+            "letter": "C",
+            "name": "长治市"
+          },
+          {
+            "linkageid": 140600,
+            "letter": "S",
+            "name": "朔州市"
+          },
+          {
+            "linkageid": 140500,
+            "letter": "J",
+            "name": "晋城市"
+          },
+          {
+            "linkageid": 140700,
+            "letter": "J",
+            "name": "晋中市"
+          },
+          {
+            "linkageid": 140800,
+            "letter": "Y",
+            "name": "运城市"
+          },
+          {
+            "linkageid": 140900,
+            "letter": "X",
+            "name": "忻州市"
+          },
+          {
+            "linkageid": 141000,
+            "letter": "L",
+            "name": "临汾市"
+          },
+          {
+            "linkageid": 141100,
+            "letter": "L",
+            "name": "吕梁市"
+          }
+        ]
+      },
+      {
+        "linkageid": 610000,
+        "letter": "S",
+        "name": "陕西",
+        "childArr": [
+          {
+            "linkageid": 610100,
+            "letter": "X",
+            "name": "西安市"
+          },
+          {
+            "linkageid": 610300,
+            "letter": "B",
+            "name": "宝鸡市"
+          },
+          {
+            "linkageid": 610500,
+            "letter": "W",
+            "name": "渭南市"
+          },
+          {
+            "linkageid": 610200,
+            "letter": "T",
+            "name": "铜川市"
+          },
+          {
+            "linkageid": 610600,
+            "letter": "Y",
+            "name": "延安市"
+          },
+          {
+            "linkageid": 610400,
+            "letter": "X",
+            "name": "咸阳市"
+          },
+          {
+            "linkageid": 610700,
+            "letter": "H",
+            "name": "汉中市"
+          },
+          {
+            "linkageid": 610800,
+            "letter": "Y",
+            "name": "榆林市"
+          },
+          {
+            "linkageid": 610900,
+            "letter": "A",
+            "name": "安康市"
+          },
+          {
+            "linkageid": 611000,
+            "letter": "S",
+            "name": "商洛市"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "letter": "T",
+    "childArr": [
+      {
+        "linkageid": 120000,
+        "letter": "T",
+        "name": "天津",
+        "childArr": [
+          {
+            "linkageid": 120100,
+            "letter": "T",
+            "name": "天津市"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "letter": "X",
+    "childArr": [
+      {
+        "linkageid": 650000,
+        "letter": "X",
+        "name": "新疆",
+        "childArr": [
+          {
+            "linkageid": 650200,
+            "letter": "K",
+            "name": "克拉玛依市"
+          },
+          {
+            "linkageid": 650100,
+            "letter": "W",
+            "name": "乌鲁木齐市"
+          },
+          {
+            "linkageid": 652200,
+            "letter": "H",
+            "name": "哈密市"
+          },
+          {
+            "linkageid": 650400,
+            "letter": "T",
+            "name": "吐鲁番市"
+          },
+          {
+            "linkageid": 652300,
+            "letter": "C",
+            "name": "昌吉回族自治州"
+          },
+          {
+            "linkageid": 652700,
+            "letter": "B",
+            "name": "博尔塔拉蒙古自治州"
+          },
+          {
+            "linkageid": 652800,
+            "letter": "B",
+            "name": "巴音郭楞蒙古自治州"
+          },
+          {
+            "linkageid": 652900,
+            "letter": "A",
+            "name": "阿克苏地区"
+          },
+          {
+            "linkageid": 653000,
+            "letter": "K",
+            "name": "克孜勒苏柯尔克孜自治州"
+          },
+          {
+            "linkageid": 653100,
+            "letter": "K",
+            "name": "喀什地区"
+          },
+          {
+            "linkageid": 653200,
+            "letter": "H",
+            "name": "和田地区"
+          },
+          {
+            "linkageid": 654000,
+            "letter": "Y",
+            "name": "伊犁哈萨克自治州"
+          },
+          {
+            "linkageid": 654200,
+            "letter": "T",
+            "name": "塔城地区"
+          },
+          {
+            "linkageid": 654300,
+            "letter": "A",
+            "name": "阿勒泰地区"
+          },
+          {
+            "linkageid": 659001,
+            "letter": "S",
+            "name": "石河子市"
+          },
+          {
+            "linkageid": 659002,
+            "letter": "A",
+            "name": "阿拉尔市"
+          },
+          {
+            "linkageid": 659003,
+            "letter": "T",
+            "name": "图木舒克市"
+          },
+          {
+            "linkageid": 659004,
+            "letter": "W",
+            "name": "五家渠市"
+          },
+          {
+            "linkageid": 659005,
+            "letter": "B",
+            "name": "北屯市"
+          },
+          {
+            "linkageid": 659006,
+            "letter": "T",
+            "name": "铁门关市"
+          },
+          {
+            "linkageid": 659007,
+            "letter": "S",
+            "name": "双河市"
+          },
+          {
+            "linkageid": 659008,
+            "letter": "K",
+            "name": "可克达拉市"
+          },
+          {
+            "linkageid": 659009,
+            "letter": "K",
+            "name": "昆玉市"
+          }
+        ]
+      },
+      {
+        "linkageid": 540000,
+        "letter": "X",
+        "name": "西藏",
+        "childArr": [
+          {
+            "linkageid": 540100,
+            "letter": "L",
+            "name": "拉萨市"
+          },
+          {
+            "linkageid": 540200,
+            "letter": "R",
+            "name": "日喀则市"
+          },
+          {
+            "linkageid": 540300,
+            "letter": "C",
+            "name": "昌都市"
+          },
+          {
+            "linkageid": 542200,
+            "letter": "S",
+            "name": "山南市"
+          },
+          {
+            "linkageid": 542400,
+            "letter": "N",
+            "name": "那曲地区"
+          },
+          {
+            "linkageid": 542500,
+            "letter": "A",
+            "name": "阿里地区"
+          },
+          {
+            "linkageid": 540400,
+            "letter": "L",
+            "name": "林芝市"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "letter": "Y",
+    "childArr": [
+      {
+        "linkageid": 530000,
+        "letter": "Y",
+        "name": "云南",
+        "childArr": [
+          {
+            "linkageid": 530400,
+            "letter": "Y",
+            "name": "玉溪市"
+          },
+          {
+            "linkageid": 530100,
+            "letter": "K",
+            "name": "昆明市"
+          },
+          {
+            "linkageid": 530300,
+            "letter": "Q",
+            "name": "曲靖市"
+          },
+          {
+            "linkageid": 530500,
+            "letter": "B",
+            "name": "保山市"
+          },
+          {
+            "linkageid": 530600,
+            "letter": "Z",
+            "name": "昭通市"
+          },
+          {
+            "linkageid": 530700,
+            "letter": "L",
+            "name": "丽江市"
+          },
+          {
+            "linkageid": 530800,
+            "letter": "P",
+            "name": "普洱市"
+          },
+          {
+            "linkageid": 530900,
+            "letter": "L",
+            "name": "临沧市"
+          },
+          {
+            "linkageid": 532300,
+            "letter": "C",
+            "name": "楚雄彝族自治州"
+          },
+          {
+            "linkageid": 532500,
+            "letter": "H",
+            "name": "红河哈尼族彝族自治州"
+          },
+          {
+            "linkageid": 532600,
+            "letter": "W",
+            "name": "文山壮族苗族自治州"
+          },
+          {
+            "linkageid": 532800,
+            "letter": "X",
+            "name": "西双版纳傣族自治州"
+          },
+          {
+            "linkageid": 532900,
+            "letter": "D",
+            "name": "大理白族自治州"
+          },
+          {
+            "linkageid": 533100,
+            "letter": "D",
+            "name": "德宏傣族景颇族自治州"
+          },
+          {
+            "linkageid": 533300,
+            "letter": "N",
+            "name": "怒江傈僳族自治州"
+          },
+          {
+            "linkageid": 533400,
+            "letter": "D",
+            "name": "迪庆藏族自治州"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "letter": "Z",
+    "childArr": [
+      {
+        "linkageid": 330000,
+        "letter": "Z",
+        "name": "浙江",
+        "childArr": [
+          {
+            "linkageid": 330200,
+            "letter": "N",
+            "name": "宁波市"
+          },
+          {
+            "linkageid": 330100,
+            "letter": "H",
+            "name": "杭州市"
+          },
+          {
+            "linkageid": 330300,
+            "letter": "W",
+            "name": "温州市"
+          },
+          {
+            "linkageid": 330400,
+            "letter": "J",
+            "name": "嘉兴市"
+          },
+          {
+            "linkageid": 330500,
+            "letter": "H",
+            "name": "湖州市"
+          },
+          {
+            "linkageid": 330600,
+            "letter": "S",
+            "name": "绍兴市"
+          },
+          {
+            "linkageid": 330700,
+            "letter": "J",
+            "name": "金华市"
+          },
+          {
+            "linkageid": 330800,
+            "letter": "Z",
+            "name": "衢州市"
+          },
+          {
+            "linkageid": 330900,
+            "letter": "Z",
+            "name": "舟山市"
+          },
+          {
+            "linkageid": 331000,
+            "letter": "T",
+            "name": "台州市"
+          },
+          {
+            "linkageid": 331100,
+            "letter": "L",
+            "name": "丽水市"
+          }
+        ]
+      }
+    ]
+  }
+]

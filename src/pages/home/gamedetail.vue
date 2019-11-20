@@ -35,10 +35,11 @@
     <div class="comlist" v-if="matchinfo.video.length">
       <div class="taocan">
         <div class="spanbox">赛事视频</div>
+        <span class="all_video" @click="allvideo">全部视频 <span class="iconfont iconjiantou"></span> </span>
       </div>
       <div class="slist">
         <div class="sitem " v-for="(item,index) in matchinfo.video" :key="item.id"
-             @click="gossdetail(item.id)">
+             @click="govdetail(item.id)">
           <div class="simg"><img :src="item.poster" alt="">
             <span class="view_num"><span class="iconfont iconbofang1"></span>{{s_to_hs(item.duration)}}</span>
           </div>
@@ -305,10 +306,24 @@
 
       .taocan {
         padding: 20px 30px;
-        font-weight: bold;
-        font-size: 18px;
-        color: #333;
         border-bottom: 1px solid #eee;
+        overflow: hidden;
+        .spanbox{
+          float: left;
+          font-weight: bold;
+          font-size: 18px;
+          color: #333;
+        }
+        .all_video{
+          float: right;
+          font-size: 14px;
+          color: #666;
+          cursor: pointer;
+          &:hover{
+            color: $baseRed;
+            font-weight: bold;
+          }
+        }
       }
 
       .jlist {

@@ -3,7 +3,7 @@ export default [
     path: "/wen",
     name: "wen",
     meta: {
-      cur:6,
+      cur: 6,
       showH: true,
       showF: false,
       needLogin: false
@@ -14,10 +14,10 @@ export default [
     path: "/search/:tkeyword",
     name: "search",
     meta: {
-      cur:0,
+      cur: 0,
       showH: true,
       showF: true,
-      shownav:false,
+      shownav: false,
       needLogin: false
     },
     component: resolve => require(["../../pages/home/search.vue"], resolve)
@@ -30,7 +30,7 @@ export default [
       index: 1,
       showH: true,
       showF: true,
-      shownav:false,
+      shownav: false,
       needLogin: false
     },
     component: resolve => require(["../../pages/home/competitiondetail"], resolve)
@@ -64,7 +64,7 @@ export default [
       title: "套餐详情",
       showH: true,
       showF: true,
-      shownav:false,
+      shownav: false,
       needLogin: false
     },
     component: resolve => require(["../../pages/home/taocan"], resolve)
@@ -76,7 +76,7 @@ export default [
       title: "赛事详情",
       showH: true,
       showF: true,
-      shownav:false,
+      shownav: false,
       needLogin: false
     },
     component: resolve => require(["../../pages/home/gamedetail"], resolve)
@@ -88,7 +88,7 @@ export default [
       title: "赛事报名",
       showH: true,
       showF: true,
-      shownav:false,
+      shownav: false,
       needLogin: false
     },
     component: resolve => require(["../../pages/home/apoint"], resolve)
@@ -99,8 +99,9 @@ export default [
     meta: {
       title: "全部视频",
       index: 1,
-      showF: false,
-      showH: true
+      showF: true,
+      showH: true,
+      shownav:false
     },
     component: resolve => require(["../../pages/home/videolist"], resolve)
   },
@@ -110,9 +111,22 @@ export default [
     meta: {
       title: "视频详情",
       index: 1,
-      showF: false,
-      showH: false
+      showF: true,
+      showH: true,
+      shownav:false
     },
     component: resolve => require(["../../pages/home/videodetail"], resolve)
+  },
+  {
+    path: '/changecity/',
+    name: 'changecity',
+    meta: {
+      title: "城市选择",
+      index: 1,
+      showF: true,
+      showH: true,
+      shownav:false
+    },
+    component: resolve => require(["../../components/changecity"], resolve)
   },
 ];

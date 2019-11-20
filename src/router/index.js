@@ -4,10 +4,23 @@ import RouterCommon from "./common"; // 引入通用模块
 import RouterModule from "./modules"; // 引入业务逻辑模块
 
 Vue.use(Router);
+
 var routes = [...RouterCommon, ...RouterModule];
+const scrollBehavior = function (to, from, savedPosition) {
+  // if the returned position is falsy or an empty object,
+  // will retain current scroll position.
+
+  if(to.hash){
+    console.log(to.hash)
+    return {
+      selector:to.hash
+    }
+  }
+}
 const router = new Router({
   mode: "history",
-  routes: routes
+  routes: routes,
+  scrollBehavior
 });
 
 const cancelLastReq = next => {

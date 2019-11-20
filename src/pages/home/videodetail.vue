@@ -8,12 +8,6 @@
                           id="foo"
                           v-if="playerOptions.sources[0].src"
             ></video-player>
-            <van-sticky :offset="0">
-                <div class="navbox">
-                    <span class="iconfont iconfanhui" @click="backlist"></span>
-                    <div class="comnanme van-ellipsis">{{videoinfo.name}}</div>
-                </div>
-            </van-sticky>
         </div>
         <div class="comitem">
             <div class="comnanme">{{videoinfo.name}}</div>
@@ -26,7 +20,6 @@
         </div>
     </div>
 </template>
-
 <script>
     export default {
         name: "videodetail",
@@ -76,9 +69,6 @@
                     }
                 })
             },
-            backlist() {
-                this.$router.go(-1);
-            },
         }
     }
 </script>
@@ -87,8 +77,10 @@
     @import "../../style/reset";
 
     .vbox {
+      width: 1200px;
+      margin: 20px auto;
+      background-color: #fff;
         .swiperbox {
-            height: 211px;
             /*border-radius: 16px;*/
             position: relative;
             overflow: hidden;

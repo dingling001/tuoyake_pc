@@ -150,7 +150,7 @@
       },
       // 去套餐详情
       gotaocandetail(id) {
-        this.$router.push({path: '/taocan', query: {goods_id: id, cid: this.id}})
+        this.$router.push({path: `/taocan/${id}/${this.id}`})
       },
       s_to_hs(s) {
         //计算分钟

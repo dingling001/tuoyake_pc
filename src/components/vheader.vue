@@ -47,7 +47,7 @@
     data() {
       return {
         cur: 0,
-        city: '天津市',
+        city: localStorage.city || '天津市',
         top: 0,
         tyktoken: localStorage.user_tpc || null,
         tkeyword: '',
@@ -142,7 +142,8 @@
       },
       // 切换城市
       changCity() {
-        console.log('切换城市')
+        // console.log('切换城市')
+        this.$router.push({path: '/changecity/'})
       },
       // 跳转
       gonav(index, path) {
@@ -174,7 +175,7 @@
         this.$router.push({path: '/my'})
       },
       // 下载
-      godownload(){
+      godownload() {
         // this.$router.push({path: '/download'})
       }
     },

@@ -2,7 +2,7 @@
   <div v-cloak class="app">
     <div id="map"></div>
     <vHeader ref="nav" v-if="showH" :shownav="shownav"></vHeader>
-    <div class="contains">
+    <div :class="['contains', shownav?'':'shownav']">
       <router-view></router-view>
     </div>
     <vFooter v-if="showF"></vFooter>
@@ -96,6 +96,9 @@
     min-height: 66.4vh;
     min-width: 1200px;
     margin: 0 auto;
+  }
+  .shownav{
+    min-height: 71vh;
   }
 
 
