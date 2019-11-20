@@ -193,3 +193,15 @@ export const GetSignList = (page = 0, status = 1) =>
     "POST",
     true
   );
+// 我的订单
+// 状态:0=全部,1=未付款,2=未使用,3=已使用,4=取消/退款
+export const OrderIndex = (page = 0, status = 0) =>
+  axios(
+    "/api/order/index", {
+      token: localStorage.user_tpc,
+      page,
+      status
+    },
+    "POST",
+    true
+  );

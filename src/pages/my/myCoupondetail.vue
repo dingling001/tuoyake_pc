@@ -3,8 +3,8 @@
         <div class="cup_d">
             <div class="title">
                 {{cup_info.name}}
-                <div class="leftcricle"></div>
-                <div class="rightcricle"></div>
+                <!--<div class="leftcricle"></div>-->
+                <!--<div class="rightcricle"></div>-->
                 <div class="status">{{cup_info.status_text}}</div>
             </div>
             <div class="date">
@@ -54,7 +54,7 @@
 
 <style scoped lang="scss">
     .cup_box {
-        background: linear-gradient(90deg, rgba(252, 208, 116, 1), rgba(255, 85, 73, 1));
+        /*background: linear-gradient(90deg, rgba(252, 208, 116, 1), rgba(255, 85, 73, 1));*/
 
         .cup_d {
             background-color: #fff;

@@ -19,31 +19,16 @@
     </div>
     <div class="hr"></div>
     <div class="mlink">
-      <div class="mitem">
-        <div class="title">累计有效积分<span>100</span>分可领取以下商品</div>
-
+      <div class="mitem" v-for="item in sglist" :key="item.id">
+        <div class="listimg"><img :src="item.image" alt=""></div>
+        <div class="title">累计有效积分<span>{{item.score}}</span>分可领取</div>
+        <div class="listitem">{{item.goods_name}}</div>
+        <div :class="['btn',item.status!=1?'disabled':''] ">
+          <span v-if="item.status==0">未达成</span>
+          <span v-else-if="item.status ==1">立即领取</span>
+          <span v-else-if="item.status==2">已领取</span>
+        </div>
       </div>
-      <!--      <van-cell is-link :border='false' to="myReward">-->
-      <!--        &lt;!&ndash; 使用 title 插槽来自定义标题 &ndash;&gt;-->
-      <!--        <template slot="title">-->
-      <!--          <span class="iconfont iconmedal-fill"></span>-->
-      <!--          <span class="custom-title">奖励领取</span>-->
-      <!--        </template>-->
-      <!--      </van-cell>-->
-      <!--      <van-cell is-link :border='false' to="myAddress">-->
-      <!--        &lt;!&ndash; 使用 title 插槽来自定义标题 &ndash;&gt;-->
-      <!--        <template slot="title">-->
-      <!--          <span class="iconfont icondizhiguanli"></span>-->
-      <!--          <span class="custom-title">地址设置</span>-->
-      <!--        </template>-->
-      <!--      </van-cell>-->
-      <!--      <van-cell is-link :border='false' to="myRules">-->
-      <!--        &lt;!&ndash; 使用 title 插槽来自定义标题 &ndash;&gt;-->
-      <!--        <template slot="title">-->
-      <!--          <span class="iconfont icondictionary-fill"></span>-->
-      <!--          <span class="custom-title">规则说明</span>-->
-      <!--        </template>-->
-      <!--      </van-cell>-->
     </div>
   </div>
 </template>
@@ -53,11 +38,13 @@
     name: "myPoints",
     data() {
       return {
-        score: 0
+        score: 0,
+        sglist: []
       }
     },
     created() {
-      this._ScoreIndex()
+      this._ScoreIndex();
+      this._ScoreGoods();
     },
     methods: {
       // 获取我的积分
@@ -70,6 +57,13 @@
       },
       myAddress() {
         this.$router.push({path: '/my/myAddress'})
+      },
+      _ScoreGoods() {
+        this.$api.ScoreGoods().then(res => {
+          if (res.code == 1) {
+            this.sglist = res.data;
+          }
+        })
       },
       // 返回上一页
       backmy() {
@@ -189,16 +183,54 @@
       z-index: 2;
       overflow: hidden;
       background-color: #fff;
-      padding: 0 34px;
+      padding: 34px;
 
       .mitem {
+        width: 180px;
+        float: left;
+        text-align: center;
+        margin: 0 40px 40px 0;
+        cursor: pointer;
+
+        &:nth-child(4n) {
+          margin: 0 0 40px 0;
+        }
+
+        .listimg {
+          width: 180px;
+          height: 180px;
+          text-align: center;
+
+          img {
+            width: 100%;
+          }
+        }
+
+        .listitem {
+          font-size: 18px;
+          color: #333;
+          line-height: 42px;
+        }
+
         .title {
-          padding: 42px 0 30px 0;
           color: #999999;
+          line-height: 30px;
           font-size: 14px;
 
           span {
             color: #333;
+          }
+        }
+
+        .btn {
+          width: 110px;
+          background-color: $baseBlue;
+          color: #fff;
+          line-height: 30px;
+          margin: 0 auto;
+
+          &.disabled {
+            background-color: #ccc;
           }
         }
       }

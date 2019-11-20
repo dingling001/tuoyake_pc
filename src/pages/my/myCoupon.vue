@@ -42,7 +42,7 @@
       return {
         active: 0,
         page: 0,
-        navs: ['未使用', '已使用'],
+        navs: ['待使用优惠券', '已使用优惠券'],
         couplist: [],
         type: 1
       }
@@ -59,7 +59,7 @@
       },
       // 切换
       changetype() {
-        this.type = this.active + 1;
+        this.type = parseInt()+ 1;
         this.page = 0;
         this._GetCouponList()
       },
@@ -78,10 +78,19 @@
   .coupbox {
     background-color: #ffff;
 
-    /deep/ .van-hairline--top-bottom, .van-hairline-unset--top-bottom {
-      &:after {
-        border: 0;
-        border-bottom: 1px solid #ebedf0;
+    /deep/ .el-tabs__nav {
+      border-radius: 5px;
+      margin: 0 auto;
+      float: none;
+      width: 500px;
+
+      .el-tabs__item {
+        font-size: 16px;
+        color: #999;
+
+        &.is-active {
+          color: $baseBlue;
+        }
       }
     }
 

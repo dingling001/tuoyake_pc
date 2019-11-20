@@ -90,20 +90,8 @@
       gomychieve() {
         this.$router.push('/myAchieve')
       },
-      // 下拉刷新
-      onRefresh() {
-        setTimeout(() => {
-          this.isDownLoading = false;
-          this.page = 0;
-          this._GetSignList();
-        }, 500);
-      },
-      // 上拉加载
-      onLoad() {
-        this.page++;
-        this.isUpLoading = true;
-        this._GetSignList();
-      },
+
+
       // 获取报名列表
       _GetSignList() {
         let pageNumber = this.page + 1;

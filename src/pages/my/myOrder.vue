@@ -2,76 +2,56 @@
   <div class="colbox">
     <el-tabs v-model="active" @tab-click="changetype">
       <el-tab-pane label="全部" name="1">
-        <div class="recommentlist" v-if="list.length&&active==1">
-          <div class="recmmentitem" v-for="(item ,index) in list" :key="item.id">
-            <div class="rec_img"><img :src="item.image" alt=""></div>
-            <div class="rec_name">{{item.name}}</div>
-            <div class="rec_type">
-              <div class="starbox">
-                <span class="iconfont iconstar-fill iconactive" v-for="i in parseInt(item.star)"></span>
-              </div>
-              <div class="typebox">
-                <span v-for="c in item.label_ids">{{c}}</span>
-              </div>
-            </div>
-            <div class="rec_address single-line-text">{{item.address}}</div>
-          </div>
-        </div>
-        <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
-                  :scrollTo="680" v-if="totalPages>per_page"></pcpaging>
       </el-tab-pane>
       <el-tab-pane label="待付款" name="2">
-        <div v-if="list.length" class="comlist">
-          <div class="jitem " v-for="(item,index) in list" :key="item.id"
-               @click="gossdetail(item.id)">
-            <div class="jimg">
-              <img :src="item.image" alt="">
-              <!--<video :src="item.file" preload="auto" controls></video>-->
-              <!--<span>12:30</span>-->
-            </div>
-            <div class="jright">
-              <div class="jname van-ellipsis">{{item.name}}</div>
-              <!--<div class="jinfo"><span class="name">{{item.contact}}</span><span class="tel">{{item.contact_number}}</span>-->
-              <!--</div>-->
-              <div class="jaddress van-ellipsis"><span>赛事时间：</span>{{item.start_time}} <b>~</b> {{item.end_time}}</div>
-              <div class="synopsis van-ellipsis">{{item.synopsis}}</div>
-              <el-button type="primary" size="small">立即报名</el-button>
-            </div>
-          </div>
-        </div>
       </el-tab-pane>
       <el-tab-pane label="待使用" name="3">
-        <div v-if="list.length" class="vlist">
-          <div class="videoitem" v-for="(item,index) in list" :key="item.id"
-               @click="govdetail(item.id)">
-            <div class="vimg">
-              <img :src="item.poster" alt="">
-              <span class="view_num"><span class="iconfont iconbofang1"></span>{{s_to_hs(item.duration)}}</span>
-            </div>
-            <div class="vright">
-              <div class="vname van-ellipsis">{{item.name}}</div>
-              <div class="vtime"><span class="iconfont icontime-circle"></span><span>{{item.create_time}}</span></div>
-              <div class="vsynopsis">{{item.synopsis}}</div>
-            </div>
+      </el-tab-pane>
+      <el-tab-pane label="已取消" name="4">
+      </el-tab-pane>
+      <el-tab-pane label="已完成" name="5">
+      </el-tab-pane>
+      <div class="recommentlist" v-if="list.length">
+        <div class="listitem" v-for="item in list" :key="item.id">
+          <div class="statusbox">
+            <span class="label1">
+               <span class="time">{{item.create_time}}</span>
+            <span>订单状态：
+              <span>{{item.status_text}}</span>
+            </span>
+            </span>
+            <span class="price">单价</span>
+            <span class="price">总价</span>
+            <span class="btnbox">操作</span>
+          </div>
+          <div class="listcontent border">
+            <span class="label1">
+              <span class="labelimg"><img :src="item.image" alt=""></span>
+              <span class="labelright">
+                <span class="labelname">{{item.goods_name}}</span>
+                <span class="labeldes">{{item.content}}</span>
+              </span>
+            </span>
+            <span class="price">
+             ¥{{item.price}}
+              <span>x{{item.number}}</span>
+            </span>
+            <span class="price">
+              ¥{{parseInt(item.number)*parseFloat(item.price)}}
+            </span>
+            <span class="btnbox">
+                <el-button type="danger" size="mini" v-if="item.status==1">去付款</el-button>
+                   <el-button type="primary" size="mini" v-if="item.status==2">去使用</el-button>
+                  <el-button type="info" size="mini" v-if="item.status==1||item.status==2">取消订单</el-button>
+                  <el-button type="info" size="mini" v-if="item.status==3">删除订单</el-button>
+                  <el-button type="info" size="mini" v-if="item.status==8">已取消</el-button>
+
+            </span>
           </div>
         </div>
-      </el-tab-pane>
-      <el-tab-pane label="已完成" name="4">
-        <div v-if="list.length" class="comlist">
-          <div class="jitem van-row--flex" v-for="(item,index) in list" :key="item.id"
-               @click="gotaocandetail(item.id)">
-            <div class="jimg"><img :src="item.image" alt=""></div>
-            <div class="jright">
-              <div class="jname van-ellipsis">{{item.name}}</div>
-              <!--<div class="jinfo"><span class="name">{{item.contact}}</span><span class="tel">{{item.contact_number}}</span>-->
-              <!--</div>-->
-              <div class="jaddress van-ellipsis">{{item.content}}</div>
-              <div class="price">￥{{item.price}}</div>
-              <div class="jbtn">立即抢购</div>
-            </div>
-          </div>
-        </div>
-      </el-tab-pane>
+      </div>
+      <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
+                :scrollTo="680" v-if="totalPages>per_page"></pcpaging>
     </el-tabs>
   </div>
 </template>
@@ -87,8 +67,9 @@
         active: '1',
         list: [],
         page: 0,
-        per_page: 12,
         totalPages: 0,
+        status: 0,
+        per_page: 10
       }
     },
     components: {
@@ -100,12 +81,9 @@
     methods: {
       // 获取列表
       _CollectionIndex() {
-        this.$api.CollectionIndex(
-          this.type,
+        this.$api.OrderIndex(
           this.page,
-          this.lat,
-          this.lng,
-          this.per_page
+          this.status
         ).then(res => {
           if (res.code == 1) {//请求成功
             console.log(res)
@@ -132,7 +110,7 @@
       // 改变类型
       changetype(val, event) {
         this.page = 0;
-        this.type = parseInt(val.index) + 1;
+        this.status = val.index
         this.list = [];
         this._CollectionIndex()
       },
@@ -211,337 +189,135 @@
       overflow: hidden;
       padding: 40px 48px 0 48px;
 
-      .recmmentitem {
-        float: left;
-        width: 240px;
-        margin-bottom: 50px;
-        margin-right: 48px;
-        /*padding: 0 48px 50px 0;*/
-        cursor: pointer;
-
-        &:nth-child(3n) {
-          margin-right: 0;
-        }
-
-        &:hover .rec_name {
-          color: $baseBlue;
-          font-weight: bold;
-        }
-
-        &:hover {
-          /*background-color: #F8F8F8;*/
-        }
-
-        .rec_img {
-          width: 240px;
-          height: 240px;
-          border-radius: 5px;
-          overflow: hidden;
-
-          img {
-            width: 100%;
-          }
-        }
-
-        .rec_name {
-          padding: 18px 0;
-          font-size: 16px;
-          color: #333333;
-        }
-
-        .rec_type {
-          overflow: hidden;
-
-          .starbox {
-            float: left;
-            width: 60px;
-            margin-right: 28px;
-
-            .iconfont {
-              color: #c3c3c3;
-              margin-left: -2px;
-              /*margin-right: 5px;*/
-            }
-
-            .iconactive {
-              color: $baseRed;
-            }
-          }
-
-          .typebox {
-            float: left;
-
-            span {
-              background-color: #FEEAEB;
-              color: #E03A43;
-              padding: 2px 5px;
-              /*width: 56px;*/
-              text-align: center;
-              border-radius: 10px;
-              display: inline-block;
-              font-size: 13px;
-              margin-right: 5px;
-            }
-          }
-
-        }
-
-        .rec_address {
-          color: #999999;
-          font-size: 12px;
-          padding-top: 18px;
-        }
-      }
-    }
-
-    .comlist {
-      padding: 23px 0;
-
-      .taocan {
-        padding: 15px 18px;
-        font-weight: bold;
-        font-size: 16px;
-        /*px*/
-        color: #333;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        .spanbox {
-          display: flex;
-          align-items: center;
-        }
-
-        .span {
-          display: inline-block;
-          width: 18px;
-          height: 18px;
-          text-align: center;
-          line-height: 18px;
-          background-color: $baseRed;
-          color: #fff;
-          font-size: 12px;
-          /*px*/
-          margin-right: 5px;
-        }
-
-        .all {
-          font-size: 13px;
-          /*px*/
-          color: #999;
-
-          .iconfont {
-            color: #CCCCCC;
-            font-size: 12px;
-            /* px*/
-          }
-        }
-      }
-
-      .jitem {
-        margin: 0 17px 17px 17px;
-        /*display: flex;*/
-        padding: 0 0 15px 0;
-        border-bottom: 1px solid #eee;
-        /*no*/
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
-
-        .jimg {
-          width: 240px;
-          height: 135px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          /*border: 1px solid #eee;*/
-          /*no*/
-          margin-right: 17px;
-          flex-shrink: 0;
-          overflow: hidden;
-          position: relative;
-          float: left;
-
-          img {
-            height: 100%;
-          }
+      .listitem {
+        .statusbox {
+          background-color: #F8F8F8;
+          line-height: 40px;
+          font-size: 14px;
+          color: #666;
+          padding: 0 23px;
 
           span {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            border-radius: 3px;
-            background-color: rgba(0, 0, 0, .7);
-            color: #fff;
-            font-size: 9px;
-            /*px*/
-            text-align: center;
-            line-height: 16px;
-            padding: 1px 3px;
-          }
-        }
-
-        .jright {
-          flex: 1;
-          /*display: flex;*/
-          /*flex-direction: column;*/
-          /*justify-content: space-between;*/
-          position: relative;
-          float: left;
-          height: 135px;
-
-          &:hover .jname {
-            font-weight: bold;
-            color: $baseBlue;
+            display: inline-block;
           }
 
-          .jname {
-            font-size: 18px;
-            /* px */
-            font-weight: bold;
-            color: #333;
-            padding-bottom: 20px;
-          }
+          .label1 {
+            width: 400px;
 
-          .jinfo {
-            font-size: 14px;
-            /*px*/
-            color: #666666;
-          }
+            .labelimg {
+              display: block;
+            }
 
-          .jaddress {
-            color: #666666;
-            font-size: 12px;
-            /*px*/
-            padding-bottom: 10px;
+            .labelright {
+              display: block;
+            }
           }
 
           .price {
-            color: $baseRed;
-            font-weight: bold;
-            font-size: 15px;
-            /*px*/
-          }
-
-          .synopsis {
-            max-width: 622px;
-
-            font-size: 12px;
-            /*px*/
-            color: #666666;
-          }
-
-          /deep/ .el-button {
-            width: 100px;
-            background-color: $baseBlue;
-            margin-top: 20px;
-          }
-
-          .jbtn {
-            width: 100px;
-            background: linear-gradient(0deg, rgba(255, 135, 126, 1), rgba(242, 49, 59, 1));
-            border-radius: 5px;
-            position: absolute;
-            left: 16px;
-            bottom: 0;
-            line-height: 32px;
+            width: 130px;
             text-align: center;
-            color: #F8F8F8;
-            font-size: 13px;
-            /*px*/
-            &.s_jbtn {
-              background: $baseBlue;
-            }
           }
 
+          .btnbox {
+            width: 130px;
+            text-align: center;
+
+
+          }
         }
 
-      }
-    }
-
-    .vlist {
-      /*display: flex;*/
-      /*align-items: center;*/
-      /*justify-content: space-between;*/
-      /*flex-wrap: wrap;*/
-      padding: 10px 17px;
-
-      .videoitem {
-        /*width: 162px;*/
-        margin-bottom: 22px;
-        overflow: hidden;
-        cursor: pointer;
-
-        .vimg {
-          width: 240px;
-          height: 135px;
-          display: flex;
-          align-content: center;
-          justify-content: center;
+        .listcontent {
+          border: 1px solid #E4E4E4;
+          padding: 0 23px;
+          font-size: 14px;
           overflow: hidden;
-          background-color: #000;
-          float: left;
-          margin-right: 17px;
-          position: relative;
 
-          .view_num {
-            position: absolute;
-            right: 0;
-            bottom: 10px;
-            background-color: rgba(0, 0, 0, 1);
-            color: #fff;
-            font-size: 12px;
-            border-radius: 10px;
-            padding: 5px 20px;
+          span {
+            display: inline-block;
+          }
 
-            .iconbofang1 {
-              margin-right: 5px;
-              font-size: 12px;
+          .label1 {
+            width: 400px;
+            display: inline-flex;
+            align-items: center;
+            padding: 30px 0;
+            border-right: 1px solid #e4e4e4;
+            float: left;
 
+            .labelimg {
+              width: 60px;
+              height: 60px;
+              overflow: hidden;
+              line-height: 60px;
+              text-align: center;
+              background-color: #f5f5f5;
+              margin-right: 18px;
+
+              img {
+                width: 100%;
+                vertical-align: middle;
+              }
+
+              /*display: block;*/
+            }
+
+            .labelright {
+              /*display: block;*/
+              height: 60px;
+
+              .labelname {
+                display: block;
+                color: #333333;
+                font-size: 16px;
+                padding: 7px 0;
+
+              }
+
+              .labeldes {
+                display: block;
+                font-size: 12px;
+                color: #999999;
+
+
+              }
             }
           }
 
-          img {
-            width: 100%;
-          }
-        }
-
-        .vright {
-          float: left;
-
-          &:hover .vname {
-            color: $baseBlue;
-          }
-
-          .vname {
-            font-size: 16px;
-            /*px*/
+          .price {
+            width: 130px;
+            height: 120px;
+            padding: 30px 0 0 0;
+            text-align: center;
             color: #333;
-            padding: 17px 0;
-            font-weight: bold;
-          }
+            font-size: 16px;
+            line-height: 30px;
+            border-right: 1px solid #e4e4e4;
+            float: left;
 
-          .vtime {
-            font-size: 14px;
-            /*px*/
-            color: #666666;
-            padding-bottom: 20px;
-
-            .iconfont {
-              color: #AAAAAA;
-              font-size: 14px;
-              /*px*/
-              margin-right: 5px;
+            span {
+              display: block;
+              color: #999999;
             }
           }
 
-          .vsynopsis {
-            font-size: 14px;
+          .btnbox {
+            text-align: center;
+            width: 130px;
+            float: left;
+            padding: 30px 0 0 0;
 
+            /deep/ .el-button {
+              margin: 0 0 15px 0;
+              display: inline-block;
+              width: 80px;
+              padding: 7px 0;
+              text-align: center;
+            }
           }
         }
-
       }
     }
+
+
   }
 </style>

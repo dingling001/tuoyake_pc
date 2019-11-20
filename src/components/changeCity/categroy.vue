@@ -129,6 +129,9 @@
         display: inline-block;
         font-size: 14px;
         cursor: pointer;
+        &:hover{
+          color: $baseBlue;
+        }
       }
     }
   }

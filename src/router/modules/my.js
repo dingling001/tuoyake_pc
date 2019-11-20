@@ -89,7 +89,7 @@ export default [
         },
       },
       {
-        path: '/myCoupondetail',
+        path: '/my/myCoupondetail',
         name: 'myCoupondetail',
         component: resolve => require(["../../pages/my/myCoupondetail"], resolve),
         meta: {
