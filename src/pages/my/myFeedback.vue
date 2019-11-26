@@ -45,7 +45,7 @@
         dialogImageUrl: '',
         dialogVisible: false,
         post: {
-          token: localStorage.user_tpc
+          token: this.$com.getCookies('user_tpc'),
         }
       }
     },

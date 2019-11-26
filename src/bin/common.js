@@ -141,29 +141,29 @@ const dateFtt = (fmt, date) => {
       );
   return fmt;
 };
-const getCookie = c_name => {
-  if (document.cookie.length > 0) {
-    let c_start = document.cookie.indexOf(c_name + "=");
-    if (c_start != -1) {
-      c_start = c_start + c_name.length + 1;
-      let c_end = document.cookie.indexOf(";", c_start);
-      if (c_end == -1) c_end = document.cookie.length;
-      return document.cookie.substring(c_start, c_end);
-    }
-  }
-  return "";
-};
+// const getCookie = c_name => {
+//   if (document.cookie.length > 0) {
+//     let c_start = document.cookie.indexOf(c_name + "=");
+//     if (c_start != -1) {
+//       c_start = c_start + c_name.length + 1;
+//       let c_end = document.cookie.indexOf(";", c_start);
+//       if (c_end == -1) c_end = document.cookie.length;
+//       return document.cookie.substring(c_start, c_end);
+//     }
+//   }
+//   return "";
+// };
 /**
  * 删除cookie
  * @param name cookie的名称
  */
-const delCookie = function (name) {
-  var domain =
-    window.location.host == "www.hymuseum.org.cn"
-      ? STATIC_WEB_URL.substr(11, STATIC_WEB_URL.length)
-      : STATIC_WEB_URL.substr(13, STATIC_WEB_URL.length);
-  document.cookie = "" + name + "=" + escape("") + ";domain=" + domain;
-};
+// const delCookie = function (name) {
+//   var domain =
+//     window.location.host == "www.hymuseum.org.cn"
+//       ? STATIC_WEB_URL.substr(11, STATIC_WEB_URL.length)
+//       : STATIC_WEB_URL.substr(13, STATIC_WEB_URL.length);
+//   document.cookie = "" + name + "=" + escape("") + ";domain=" + domain;
+// };
 const showToast = function (message, type, duration) {
   Message({
     showClose: true,
@@ -184,13 +184,49 @@ const showLoading = function (message, duration, callback) {
     callback()
   }, duration || 2000);
 };
+const getCookies = function (key) {
+  let arr = document.cookie.split('; ');
+  for (let i = 0; i < arr.length; i++) {
+    let arr2 = arr[i].trim().split('=');
+    if (arr2[0] == key) {
+      return arr2[1]
+    }
+  }
+  return null
+};
+const setCookie = function (key, value, day) {
+  let setting = arguments[0]
+  if (Object.prototype.toString.call(setting).slice(8, -1) === 'Object') {
+    for (let i in setting) {
+      let oDate = new Date()
+      oDate.setDate(oDate.getDate() + day)
+      document.cookie = i + '=' + setting[i] + ';expires=' + oDate
+    }
+  } else {
+    let oDate = new Date()
+    oDate.setDate(oDate.getDate() + day)
+    document.cookie = key + '=' + value + ';expires=' + oDate
+  }
+};
+const removeCookie = function (key) {
+  let setting = arguments[0]
+  if (Object.prototype.toString.call(setting).slice(8, -1) === 'Array') {
+    setting.forEach(key => {
+      this.set(key, "", -1)
+    })
+  } else {
+    this.set(key, "", -1)
+  }
+
+};
 export default {
   checkPhone,
   checkIdcard,
   dateFtt,
-  delCookie,
   analyzeIDCard,
-  getCookie,
   showToast,
-  showLoading
+  showLoading,
+  getCookies,
+  setCookie,
+  removeCookie
 };

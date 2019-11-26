@@ -107,12 +107,12 @@
             // console.log(res)
             if (res.code == 1) {
               this.$com.showToast('注册成功,正在为您自动登录', 'success');
-              localStorage.user_tpc = res.data.userinfo.token;
+              this.$com.setCookie('user_tpc',res.data.userinfo.token);
               // showLoading('正在为您自动登录');
               setTimeout(() => {
                 this.$router.push('/home')
               }, 2000)
-              // localStorage.user_tpc = res.data.userinfo.token;
+              // this.$com.getCookies('user_tpc'), = res.data.userinfo.token;
               // this.$com.showToast('登录成功', 'success');
               // let redirect = decodeURIComponent(this.$route.query.redirect || "/");
               // this.$router.push(redirect);

@@ -14,6 +14,8 @@
     "axios": "^0.18.0",
     "crypto": "^1.0.1",
     "element-ui": "^2.12.0",
+    "fundebug-javascript": "^2.0.0",
+    "fundebug-vue": "0.0.1",
     "js-pinyin": "^0.1.9",
     "localforage": "^1.7.3",
     "lodash": "^4.17.15",

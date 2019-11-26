@@ -71,9 +71,11 @@
           cb(this.cities.filter(item => item.value.indexOf(query) > -1))
         }
       }, 200),
+      // 选择城市
       handleSelect(item) {
         console.log(item.value);
-        localStorage.city = item.value;
+        // localStorage.city = item.value;
+        this.$com.setCookie('pccity',item.value);
         location.href = '/'
       },
       changeprov(e) {
@@ -97,7 +99,8 @@
         // })
       },
       changecity(e) {
-        localStorage.city = e;
+        // localStorage.city = e;
+        this.$com.setCookie('pccity',e);
         location.href = '/'
       }
     }

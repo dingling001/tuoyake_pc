@@ -9,7 +9,7 @@
         <div class="phone_box" @click="gocode"><span class="iconfont iconyouxiang"></span><span>手机验证码登录</span></div>
       </div>
       <el-form-item prop="account">
-        <el-input v-model="ruleForm.account" placeholder="请输入手机号" clearable></el-input>
+        <el-input v-model="ruleForm.account" placeholder="请输入手机号" clearable maxlength="11"></el-input>
       </el-form-item>
       <el-form-item prop="password">
         <el-input v-model="ruleForm.password" placeholder="请输入密码" type="password" clearable autocomplete></el-input>
@@ -38,7 +38,7 @@
       }
     },
     created() {
-      if (localStorage.user_tpc) {
+      if (this.$com.getCookies('user_tpc')) {
         this.$router.replace('/')
       }
     },
@@ -54,7 +54,7 @@
             // console.log(res)
             if (res.code == 1) {
               this.$com.showToast('登录成功', 'success');
-              localStorage.setItem('user_tpc', res.data.userinfo.token);
+              this.$com.setCookie('user_tpc', res.data.userinfo.token);
               setTimeout(() => {
                 // this.$router.go(-1)
                 let redirect = decodeURIComponent(this.$route.query.redirect || "/");

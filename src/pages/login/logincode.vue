@@ -44,7 +44,7 @@
       }
     },
     created() {
-      if (localStorage.user_tpc) {
+      if (this.$com.getCookies('user_tpc')) {
         this.$router.replace('/')
       }
       this.redirect = this.$route.query.redirect
@@ -99,7 +99,7 @@
           this.$api.MobileLogin(this.ruleForm.mobile, this.ruleForm.captcha).then((res) => {
             // console.log(res)
             if (res.code == 1) {
-              localStorage.user_tpc = res.data.userinfo.token;
+              this.$com.setCookie('user_tpc',res.data.userinfo.token);
               this.$com.showToast('登录成功', 'success');
               let redirect = decodeURIComponent(this.$route.query.redirect || "/");
               this.$router.push(redirect);

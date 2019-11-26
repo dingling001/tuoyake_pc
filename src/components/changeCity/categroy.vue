@@ -58,7 +58,8 @@
     },
     methods: {
       changecity(c) {
-        localStorage.city = c;
+        // localStorage.city = c;
+        this.$com.setCookie('pccity',c);
         location.href = '/'
       }
     }

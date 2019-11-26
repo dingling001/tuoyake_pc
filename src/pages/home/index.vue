@@ -26,31 +26,38 @@
           <img :src="item.image" alt="">
         </swiper-slide>
         <!-- Optional controls -->
-        <div class="swiper-pagination" slot="pagination"></div>
+        <div class="swiper-pagination" slot="pagination" v-if="swiperlist.length>1"></div>
       </swiper>
 
     </div>
 
     <div class="recommendbox">
       <div class="recommendtitle">
-        <div class="recommentleft"><span class="iconfont icontuijian"></span><span>推荐网吧</span></div>
-        <div class="recommentright"><span>查看更多</span><span class="iconbox"><span
-          class="iconfont iconjiantou"></span></span></div>
+        <div class="recommentleft"><span class="iconfont icontuijian"></span> <span>推荐网吧</span></div>
+        <!--        <div class="recommentright"><span>查看更多</span><span class="iconbox"><span-->
+        <!--          class="iconfont iconjiantou"></span></span></div>-->
       </div>
-      <div class="recommentlist" v-if="netlist.length">
-        <div class="recmmentitem" v-for="(item ,index) in netlist" :key="item.id" @click="go_detail(item.id)">
+      <div class="recommentlist" v-if="isload&&netlist.length">
+        <div class="recmmentitem animated zoomIn" v-for="(item ,index) in netlist" :key="item.id"
+             @click="go_detail(item.id)">
           <div class="rec_img"><img :src="item.image" alt=""></div>
           <div class="rec_name">{{item.name}}</div>
           <div class="rec_type">
-            <div class="starbox">
-              <span class="iconfont iconstar-fill iconactive" v-for="i in parseInt(item.star)"></span>
-            </div>
-            <div class="typebox">
-              <span v-for="c in item.label_ids">{{c}}</span>
-            </div>
+
+          </div>
+          <div class="starbox">
+            <span class="iconfont iconstar-fill iconactive" v-for="i in parseInt(item.star)"></span>
+          </div>
+          <div class="typebox">
+            <span v-for="(c,cindex) in item.label_ids" :key="cindex" v-if="cindex<3">{{c}}</span>
+            <span v-if="item.label_ids.length>3" class="more">更多</span>
           </div>
           <div class="rec_address single-line-text">{{item.address}}</div>
+          <div class="sharebox"></div>
         </div>
+      </div>
+      <div v-if="isload&&netlist.length==0" class="recommentlist">
+        <NoData :text="'抱歉，该地区暂无推荐'"></NoData>
       </div>
       <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
                 :scrollTo="680" v-if="total>per_page"></pcpaging>
@@ -100,7 +107,7 @@
         ind: 0,
         mySwiper: {},
         totalPages: 0,
-        total:0,
+        total: 0,
         swiperOption: {
           pagination: '.swiper-pagination',
           //循环
@@ -109,17 +116,22 @@
           autoplay: 20000,
           //滑动速度
           speed: 1000,
+          effect: 'fade',
+          fadeEffect: {
+            crossFade: true,
+          },
           observeParents: true,
-          observers: true
+          observers: true,
           // delay:1000
-        }
+        },
+        isload: false
       };
     },
 
     mounted() {
       // window.addEventListener("scroll", this.handleScroll);
       // this.height = document.body.clientHeight;
-
+      this.city = this.$com.getCookies('pccity');
       this._GetSlideList();
       this._GetLabelList();
       this._GetBarList();
@@ -189,10 +201,11 @@
           this.circle,
           this.per_page
         ).then(res => {
+          this.isload = true;
           if (res.code == 1) {//请求成功
             this.netlist = res.data.data;
             this.totalPages = res.data.total / this.per_page;
-            this.total=res.data.total;
+            this.total = res.data.total;
           }
           // console.log(this.netlist)
         })
@@ -263,12 +276,14 @@
 
         .swiper-pagination-bullet {
           transition: ease-in-out .2s;
+          background-color: rgba(255, 255, 255, .72);
         }
 
         .swiper-pagination-bullet-active {
           width: 25px;
-          height: 6px;
-          border-radius: 2px;
+          height: 8px;
+          border-radius: 4px;
+          background-color: $baseBlue;
         }
       }
     }
@@ -278,6 +293,7 @@
       width: 1200px;
       margin: 0 auto;
       background-color: #fff;
+      position: relative;
 
       .recommendtitle {
         overflow: hidden;
@@ -289,6 +305,7 @@
         .recommentleft {
           float: left;
           font-size: 16px;
+          font-weight: bold;
 
           .iconfont {
             color: $baseRed;
@@ -340,6 +357,7 @@
       .recommentlist {
         overflow: hidden;
         padding: 40px 48px 0 48px;
+        min-height: 300px;
 
         .recmmentitem {
           float: left;
@@ -348,6 +366,7 @@
           margin-right: 48px;
           /*padding: 0 48px 50px 0;*/
           cursor: pointer;
+          overflow: hidden;
 
           &:nth-child(4n) {
             margin-right: 0;
@@ -367,59 +386,77 @@
             height: 240px;
             border-radius: 5px;
             overflow: hidden;
+            transition: ease-in-out .3s;
 
             img {
               width: 100%;
             }
+
+            &:hover {
+              /*transform: rotateY(360deg);*/
+            }
           }
 
           .rec_name {
-            padding: 18px 0;
+            padding: 20px 0 10px;
             font-size: 16px;
             color: #333333;
           }
 
           .rec_type {
             overflow: hidden;
+          }
 
-            .starbox {
-              float: left;
-              width: 60px;
-              margin-right: 28px;
+          .starbox {
+            /*float: left;*/
+            width: 60px;
+            margin: 0 0 10px 0;
 
-              .iconfont {
-                color: #c3c3c3;
-                margin-left: -2px;
-                /*margin-right: 5px;*/
-              }
-
-              .iconactive {
-                color: $baseRed;
-              }
+            .iconfont {
+              color: #c3c3c3;
+              margin-right: 2px;
             }
 
-            .typebox {
-              float: left;
+            .iconactive {
+              color: $baseRed;
+            }
+          }
 
-              span {
-                background-color: #FEEAEB;
-                color: #E03A43;
-                padding: 2px 5px;
-                /*width: 56px;*/
-                text-align: center;
-                border-radius: 10px;
-                display: inline-block;
-                font-size: 13px;
-                margin-right: 5px;
+          .typebox {
+            /*float: left;*/
+            margin: 5px 0 0 0;
+            min-height: 22px;
+            position: relative;
+
+            span {
+              background-color: #FEEAEB;
+              color: #E03A43;
+              padding: 2px 5px;
+              /*width: 56px;*/
+              text-align: center;
+              border-radius: 10px;
+              display: inline-block;
+              font-size: 13px;
+              margin: 0 5px 5px 0;
+
+              &.more {
+                position: absolute;
+                right: 0;
+                font-size: 12px;
+
+                &:before {
+                  content: '...';
+                  position: absolute;
+                  left: -10px;
+                }
               }
             }
-
           }
 
           .rec_address {
             color: #999999;
             font-size: 12px;
-            padding-top: 18px;
+            padding-top: 10px;
           }
         }
       }

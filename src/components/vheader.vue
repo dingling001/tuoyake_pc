@@ -47,9 +47,9 @@
     data() {
       return {
         cur: 0,
-        city: localStorage.city || '天津市',
+        city: '北京市',
         top: 0,
-        tyktoken: localStorage.user_tpc || null,
+        tyktoken: '',
         tkeyword: '',
         navs: [
           {
@@ -117,9 +117,13 @@
       }
     },
     created() {
+      this.tyktoken = this.$com.getCookies('user_tpc');
+      console.log(this.$com.getCookies('pccity'));
+      this.city = this.$com.getCookies('pccity');
       if (this.tyktoken) {
         this._GetUserInfo()
       }
+
     },
     methods: {
       // 获取个人信息
@@ -130,7 +134,7 @@
             this.user_info = res.data;
           } else {
             this.$com.showToast(res.msg || '登录已失效');
-            localStorage.removeItem('user_tpc')
+            this.$com.Cookie.remove('user_tpc');
             this.tyktoken = '';
             this.$router.push('/login')
           }
@@ -166,6 +170,7 @@
       // 退出登录
       loginout() {
         localStorage.removeItem('user_tpc');
+        this.$com.Cookie.remove('user_tpc')
         this.tyktoken = '';
         this.$com.showToast('退出登录', 'warning')
         this.$router.replace('/')
@@ -176,7 +181,7 @@
       },
       // 下载
       godownload() {
-        // this.$router.push({path: '/download'})
+        this.$router.push({path: '/download'})
       }
     },
     beforeRouteEnter(to, form, next) {
@@ -335,9 +340,10 @@
         cursor: pointer;
         padding: 11px 0;
         border-bottom: 2px solid #fff;
+        transition: ease-in-out .3s;
 
         &:hover {
-          color: $baseBlue;
+           color: $baseBlue;
           border-color: $baseBlue;
           font-weight: bold;
         }

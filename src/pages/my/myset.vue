@@ -45,7 +45,7 @@
             }
         },
         mounted() {
-            this.user_tpc = localStorage.user_tpc;
+            this.user_tpc = this.$com.getCookies('user_tpc');
             this._GetUserInfo();
         },
         methods: {

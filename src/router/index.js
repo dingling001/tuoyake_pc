@@ -42,7 +42,7 @@ router.beforeEach((to, from, next) => {
   }
   if (to.meta.needLogin) {
     // 哪些需要验证
-    if (!localStorage.getItem("user_tpc")) {
+    if (!this.$com.getCookies("user_tpc")) {
       // token存在条件
       next({
         path: "/login", // 验证失败要跳转的页面
