@@ -52,7 +52,7 @@
         return {
           value: item.id,
           label: item.name,
-          areaArr: item.cityArr[0].areaArr
+          cityArr: item.cityArr
         }
       })
       console.log(this.province)
@@ -82,7 +82,7 @@
         // var city = ress.data;
         this.province.map((item, index) => {
           if (item.label == e) {
-            this.city = this.province[index].areaArr.map(item => {
+            this.city = this.province[index].cityArr.map(item => {
               return {
                 value: item.id,
                 label: item.name

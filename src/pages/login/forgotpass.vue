@@ -1,6 +1,6 @@
 <template>
   <div class="login_box">
-     <div class="login_head" @click="$router.push('/')">
+    <div class="login_head" @click="$router.push('/')">
       <img src="../../img/index/index_logo.png" alt="">
     </div>
     <el-form class="loginform" ref="form" :model="ruleForm">
@@ -9,7 +9,7 @@
         <!--<div class="phone_box" @click="gocode"><span class="iconfont iconyouxiang"></span><span>密码登录</span></div>-->
       </div>
       <el-form-item prop="mobile">
-        <el-input v-model="ruleForm.mobile" placeholder="手机号" type="number" clearable></el-input>
+        <el-input v-model.number="ruleForm.mobile" placeholder="手机号"  clearable maxlength="11"></el-input>
       </el-form-item>
       <el-form-item prop="captcha">
         <el-input v-model="ruleForm.captcha" placeholder="请输入验证码" style="width: 70%" type="number"></el-input>
@@ -76,6 +76,9 @@
               this.send();
               this.$com.showToast(res.msg, 'success');
               this.ruleForm.captcha = res.data
+            }else{
+              this.$com.showToast(res.msg)
+
             }
           })
         }
@@ -106,6 +109,8 @@
           this.$com.showToast('密码不能为空')
         } else if (this.ruleForm.repassword == '') {
           this.$com.showToast('重复密码不能为空')
+        } else if (this.ruleForm.password.length < 6 || this.ruleForm.password > 12) {
+          this.$com.showToast('密码长度介于6～12位之间')
         } else if (this.ruleForm.newpassword !== this.ruleForm.repassword) {
           this.$com.showToast('两次密码不一致')
         } else {
@@ -218,6 +223,7 @@
         border-radius: 5px;
         padding: 14px 0;
         cursor: pointer;
+
         &:active {
           opacity: .9;
         }

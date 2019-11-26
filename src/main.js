@@ -20,10 +20,10 @@ Vue.component(VueQrcode.name, VueQrcode);
 Vue.use(api);
 Vue.use(Element);
 Vue.use(VideoPlayer)
-import * as fundebug from "fundebug-javascript";
-import fundebugVue from "fundebug-vue";
-fundebug.apikey = "58297e29dad84904a8d81fb669877e6dab803e60a80492b8f16c5e257328843b"
-fundebugVue(fundebug, Vue);
+// import * as fundebug from "fundebug-javascript";
+// import fundebugVue from "fundebug-vue";
+// fundebug.apikey = "58297e29dad84904a8d81fb669877e6dab803e60a80492b8f16c5e257328843b"
+// fundebugVue(fundebug, Vue);
 new Vue({
   el: "#app",
   router,

@@ -118,8 +118,7 @@
     },
     created() {
       this.tyktoken = this.$com.getCookies('user_tpc');
-      console.log(this.$com.getCookies('pccity'));
-      this.city = this.$com.getCookies('pccity');
+      this.city = this.$com.getCookies('pccity')||'北京';
       if (this.tyktoken) {
         this._GetUserInfo()
       }

@@ -1,6 +1,6 @@
 <template>
   <div class="login_box">
-     <div class="login_head" @click="$router.push('/')">
+    <div class="login_head" @click="$router.push('/')">
       <img src="../../img/index/index_logo.png" alt="">
     </div>
     <el-form class="loginform" ref="form" :model="ruleForm">
@@ -10,7 +10,7 @@
           class="iconfont iconxiangyou1"></span></span></div>
       </div>
       <el-form-item prop="mobile">
-        <el-input v-model="ruleForm.mobile" placeholder="手机号" clearable></el-input>
+        <el-input v-model="ruleForm.mobile" placeholder="手机号" clearable maxlength="11"></el-input>
       </el-form-item>
       <el-form-item prop="captcha">
         <el-input v-model="ruleForm.captcha" placeholder="请输入验证码" style="width: 70%"></el-input>
@@ -97,9 +97,10 @@
           this.$com.showToast('请输入验证码')
         } else if (this.ruleForm.password == '') {
           this.$com.showToast('请输入密码')
-
         } else if (this.ruleForm.repassword == '') {
           this.$com.showToast('请输入重复码')
+        } else if (this.ruleForm.password.length < 6 || this.ruleForm.password > 12) {
+          this.$com.showToast('密码长度介于6～12位之间')
         } else if (this.ruleForm.password != this.ruleForm.repassword) {
           this.$com.showToast('两次密码不一致')
         } else {
@@ -107,10 +108,10 @@
             // console.log(res)
             if (res.code == 1) {
               this.$com.showToast('注册成功,正在为您自动登录', 'success');
-              this.$com.setCookie('user_tpc',res.data.userinfo.token);
+              this.$com.setCookie('user_tpc', res.data.userinfo.token);
               // showLoading('正在为您自动登录');
               setTimeout(() => {
-                this.$router.push('/home')
+                this.$router.push('/')
               }, 2000)
               // this.$com.getCookies('user_tpc'), = res.data.userinfo.token;
               // this.$com.showToast('登录成功', 'success');

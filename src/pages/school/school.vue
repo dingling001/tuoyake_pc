@@ -4,8 +4,8 @@
     <div class="listbox">
       <div class="allschool">全部学院</div>
       <div class="list">
-        <div class="jitem" v-for="(item,index) in clublist" :key="item.category_id"
-             @click="godetail(item.category_id)">
+        <div class="jitem" v-for="(item,index) in clublist" :key="item.id"
+             @click="godetail(item.id)">
           <div class="jimg"><img :src="item.image" alt=""></div>
           <div class="jright">
             <div class="jname">{{item.name}}</div>
@@ -88,6 +88,10 @@
         this.district = '';
         this.page = 1;
       },
+      // 去详情
+      godetail(id) {
+        this.$router.push({path: '/schooldetail', query: {college_id: id}})
+      }
     }
   }
 </script>

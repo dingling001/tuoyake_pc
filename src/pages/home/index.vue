@@ -22,7 +22,7 @@
       <!--</div>-->
       <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
         <!-- slides -->
-        <swiper-slide v-for="(item,index) in swiperlist" :key="item.imgae">
+        <swiper-slide v-for="(item,index) in swiperlist" :key="index" @click.native="gosmdetail(iten.type,item.object_id)">
           <img :src="item.image" alt="">
         </swiper-slide>
         <!-- Optional controls -->
@@ -41,14 +41,14 @@
         <div class="recmmentitem animated zoomIn" v-for="(item ,index) in netlist" :key="item.id"
              @click="go_detail(item.id)">
           <div class="rec_img"><img :src="item.image" alt=""></div>
-          <div class="rec_name">{{item.name}}</div>
+          <div class="rec_name single-line-text">{{item.name}}</div>
           <div class="rec_type">
 
           </div>
           <div class="starbox">
             <span class="iconfont iconstar-fill iconactive" v-for="i in parseInt(item.star)"></span>
           </div>
-          <div class="typebox">
+          <div class="typebox single-line-text">
             <span v-for="(c,cindex) in item.label_ids" :key="cindex" v-if="cindex<3">{{c}}</span>
             <span v-if="item.label_ids.length>3" class="more">更多</span>
           </div>
@@ -131,7 +131,7 @@
     mounted() {
       // window.addEventListener("scroll", this.handleScroll);
       // this.height = document.body.clientHeight;
-      this.city = this.$com.getCookies('pccity');
+      this.city = this.$com.getCookies('pccity') || '北京';
       this._GetSlideList();
       this._GetLabelList();
       this._GetBarList();
@@ -167,9 +167,13 @@
 //               })
 //             }, 500)
           } else {
-            this.$common.showToast(res.msg)
+            this.$com.showToast(res.msg)
           }
         })
+      },
+      // 跳转
+      gosmdetail(type, id) {
+        console.log(type)
       },
       // 获取服务
       _GetLabelList() {

@@ -55,7 +55,7 @@ export default [
       showF: false,
       showH: false
     },
-    component: resolve => require(["../../pages/home/schooldetail"], resolve)
+    component: resolve => require(["../../pages/school/schooldetail"], resolve)
   },
   {
     path: '/taocan/:goods_id/:cid',
