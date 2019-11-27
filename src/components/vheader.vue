@@ -169,7 +169,7 @@
       // 退出登录
       loginout() {
         localStorage.removeItem('user_tpc');
-        this.$com.Cookie.remove('user_tpc')
+        this.$com.removeCookie('user_tpc');
         this.tyktoken = '';
         this.$com.showToast('退出登录', 'warning')
         this.$router.replace('/')

@@ -1,6 +1,6 @@
 import axios from "../api";
 
-
+import  $com from '../../bin/common'
 /**
  * 获取首页轮播图
  */
@@ -137,7 +137,7 @@ export const GetBarInfo = (id) =>
   axios(
     "/api/index/getBarInfo", {
       id,
-      token: this.$com.getCookies('user_tpc'),
+      token:  $com.getCookies('user_tpc'),
     },
     "POST",
     true
@@ -148,7 +148,7 @@ export const GetBarInfo = (id) =>
 export const SetCollection = (type = 1, object_id) =>
   axios(
     "/api/collection/setCollection", {
-      token: this.$com.getCookies('user_tpc'),
+      token:  $com.getCookies('user_tpc'),
       type,
       object_id,
     },
@@ -161,7 +161,7 @@ export const SetCollection = (type = 1, object_id) =>
 export const GetGoodsInfo = (goods_id) =>
   axios(
     "/api/index/getGoodsInfo", {
-      token:this.$com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
       goods_id,
     },
     "POST",
@@ -173,7 +173,7 @@ export const GetGoodsInfo = (goods_id) =>
 export const GetMatchInfo = (match_id) =>
   axios(
     "/api/index/getMatchInfo", {
-      token:this.$com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
       match_id,
     },
     "POST",
@@ -186,7 +186,7 @@ export const GetMatchInfo = (match_id) =>
 export const GetVideoList = (match_id) =>
   axios(
     "/api/index/getVideoList", {
-      token:this.$com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
       match_id,
     },
     "POST",
@@ -198,7 +198,7 @@ export const GetVideoList = (match_id) =>
 export const GetVideoInfo = (video_id) =>
   axios(
     "/api/index/getVideoInfo", {
-      token:this.$com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
       video_id,
     },
     "POST",

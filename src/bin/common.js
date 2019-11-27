@@ -212,10 +212,10 @@ const removeCookie = function (key) {
   let setting = arguments[0]
   if (Object.prototype.toString.call(setting).slice(8, -1) === 'Array') {
     setting.forEach(key => {
-      this.set(key, "", -1)
+      setCookie(key, "", -1)
     })
   } else {
-    this.set(key, "", -1)
+    setCookie(key, "", -1)
   }
 
 };

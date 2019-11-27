@@ -22,13 +22,12 @@
       <!--</div>-->
       <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
         <!-- slides -->
-        <swiper-slide v-for="(item,index) in swiperlist" :key="index" @click.native="gosmdetail(iten.type,item.object_id)">
-          <img :src="item.image" alt="">
+        <swiper-slide v-for="(item,index) in swiperlist" :key="index" @click.stop="gosmdetail(iten.type,item.object_id)">
+          <img :src="item.image" :alt="item.type_text" >
         </swiper-slide>
         <!-- Optional controls -->
         <div class="swiper-pagination" slot="pagination" v-if="swiperlist.length>1"></div>
       </swiper>
-
     </div>
 
     <div class="recommendbox">
@@ -111,7 +110,7 @@
         swiperOption: {
           pagination: '.swiper-pagination',
           //循环
-          loop: true,
+          // loop: true,
           //每张播放时长3秒，自动播放
           autoplay: 20000,
           //滑动速度
