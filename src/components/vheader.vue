@@ -15,7 +15,7 @@
             <span @click="loginout">退出</span>
           </span>
         </span>
-        <span class="business">商家中心</span>
+        <a class="business" href="http://admin.tuoyake.com/admin" target="_blank">商家中心</a>
       </div>
     </div>
     <div class="tnav">
@@ -117,8 +117,8 @@
       }
     },
     created() {
-      this.tyktoken = this.$com.getCookies('user_tpc');
-      this.city = this.$com.getCookies('pccity')||'北京';
+      this.tyktoken = this.$com.getCookies('user_tpc') || '';
+      this.city = this.$com.getCookies('pccity') || '北京';
       if (this.tyktoken) {
         this._GetUserInfo()
       }
@@ -181,7 +181,9 @@
       // 下载
       godownload() {
         this.$router.push({path: '/download'})
-      }
+      },
+      // 商家中心
+
     },
     beforeRouteEnter(to, form, next) {
       console.log(this)
@@ -283,6 +285,10 @@
         margin-right: 37px;
         float: left;
         cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
 
         img {
           width: 100%;
@@ -342,7 +348,7 @@
         transition: ease-in-out .3s;
 
         &:hover {
-           color: $baseBlue;
+          color: $baseBlue;
           border-color: $baseBlue;
           font-weight: bold;
         }

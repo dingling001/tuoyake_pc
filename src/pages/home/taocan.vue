@@ -37,7 +37,7 @@
       <div class="tancantitle">购买须知</div>
       <ul class="rules">
         <li v-for="(item,index) in goodinfo.rules" :key="index">
-          <span class="ruletitle">{{item.name}}</span><span>{{item.value}}</span>
+          <span class="ruletitle">【{{item.name}}】</span><span>{{item.value}}</span>
         </li>
       </ul>
     </div>
@@ -243,8 +243,7 @@
             background-color: $baseRed;
             font-size: 18px;
             display: inline-block;
-            cursor: pointer
-            ;
+            cursor: pointer;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -329,15 +328,16 @@
 
         li {
           color: #333;
-          line-height: 20px;
+          line-height: 30px;
           font-size: 13px;
           /*px*/
           .ruletitle {
-            min-width: 50px;
-            max-width: 100px;
             /*width: 50px;*/
+            min-width: 104px;
+
             text-align: justify;
-            margin-right: 25px;
+            text-align-last: justify;
+            margin-right: 19px;
             font-weight: bold;
             display: inline-block;
           }

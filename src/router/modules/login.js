@@ -23,17 +23,8 @@ export default [
     meta: {
       title: "注册",
       showF: false,
-      showH: false
-    }
-  },
-  {
-    path: '/regnext',
-    component: resolve => require(["../../pages/login/regnext"], resolve),
-    meta: {
-      title: "设置密码",
-      showF: false,
       showH: false,
-      needLogin: true
+      needLogin: false
     }
   },
   {

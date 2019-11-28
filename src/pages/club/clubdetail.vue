@@ -14,27 +14,26 @@
 
 <script>
   export default {
-    name: "schooldetail",
+    name: "clubdetail",
     data() {
       return {
-        college_id: '',
+        club_id: '',
         club_detail: {},
         offsettop: 0
       }
     },
     created() {
-      if (this.$route.query.college_id) {
-        this.college_id = this.$route.query.college_id;
+      if (this.$route.query.club_id) {
+        this.club_id = this.$route.query.club_id;
         this._ClubDetail()
       } else {
         this.$router.replace('/')
       }
-
     },
     methods: {
       // 获取俱乐部详情
       _ClubDetail() {
-        this.$api.CollegeDetail(this.college_id).then(res => {
+        this.$api.ClubDetail(this.club_id).then(res => {
           console.log(res)
           if (res.code == 1) {
             this.club_detail = res.data;
@@ -43,7 +42,7 @@
       },
       // 返回列表
       backlist() {
-        this.$router.push('/school')
+        this.$router.push('/club')
       }
     }
   }
@@ -52,9 +51,11 @@
 <style scoped lang="scss">
   .clubbox {
     background-position: top center;
-    background-size: 373px;
+    /*background-size: 373px;*/
     background-repeat: no-repeat;
+    /*background-attachment: fixed;*/
     width: 1200px;
+
     margin: 20px auto;
 
     .clubimg {
@@ -71,7 +72,6 @@
     }
 
     .clubitem {
-      border-radius: 10px 10px 0px 0px;
       padding: 34px 18px;
       margin: 20px 0 0 0;
       background-color: #fff;

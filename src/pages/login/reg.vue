@@ -13,7 +13,8 @@
         <el-input v-model="ruleForm.mobile" placeholder="手机号" clearable maxlength="11" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item prop="captcha">
-        <el-input v-model="ruleForm.captcha" placeholder="请输入验证码" style="width: 70%" autocomplete="off" maxlength="6" clearable></el-input>
+        <el-input v-model="ruleForm.captcha" placeholder="请输入验证码" style="width: 70%" autocomplete="off" maxlength="6"
+                  clearable></el-input>
         <el-button icon="el-icon-mobile-phone" @click="_SmsSend" style="width: 28%" type="text"
                    :disabled="disabled=!show">
           <span v-show="show">获取验证码</span>
@@ -21,10 +22,12 @@
         </el-button>
       </el-form-item>
       <el-form-item prop="newpassword">
-        <el-input v-model="ruleForm.password" placeholder="新密码" type="password" maxlength="12" clearable autocomplete="off"></el-input>
+        <el-input v-model="ruleForm.password" placeholder="新密码" type="password" maxlength="12" clearable
+                  autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item prop="repassword">
-        <el-input v-model="ruleForm.repassword" placeholder="重复新密码" type="password" maxlength="12" clearable autocomplete="off"></el-input>
+        <el-input v-model="ruleForm.repassword" placeholder="重复新密码" type="password" maxlength="12" clearable
+                  autocomplete="off"></el-input>
       </el-form-item>
       <div class="login_btn" @click="gonext">同意以下协议并注册</div>
       <div class="login_pass" @click="goAgree">用户协议</div>
@@ -46,17 +49,16 @@
           password: '',
           repassword: '',
         },
-        rules:{
-
-        },
+        rules: {},
         show: true,
         count: '',
         timer: null,
-        layerMask:0,
-        text_tip:'用户协议用户协议用户协议用户协议用户协议用户协议用户协议用户协议用户协议用户协议用户协议'
+        layerMask: 0,
+        text_tip: ''
       }
     },
     created() {
+      this._user_agreement();
     },
     methods: {
       // 获取验证码
@@ -66,7 +68,6 @@
         } else {
           this.$api.SmsSend(this.ruleForm.mobile, 'register').then((res) => {
             this.showbtn = false;
-            console.log(res)
             if (res.code == 1) {
               this.send();
               this.$com.showToast(res.msg, 'success');
@@ -76,6 +77,14 @@
             }
           })
         }
+      },
+      _user_agreement() {
+        this.$api.getConfig().then(res => {
+          if(res.code==1){
+            this.text_tip = res.data.user_agreement;
+          }
+          // console.log(this.text_tip)
+        })
       },
       // 倒计时
       send() {
@@ -134,7 +143,8 @@
       goAgree() {
         this.$alert(this.text_tip, '用户协议', {
           confirmButtonText: '知道了',
-          center:true,
+          center: true,
+          dangerouslyUseHTMLString: true,
           callback: action => {
 
           }
@@ -255,6 +265,7 @@
         }
       }
     }
+
     .notice {
       position: fixed;
       top: 50%;

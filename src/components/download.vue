@@ -23,13 +23,15 @@
   .download {
     width: 1200px;
     background-color: #fff;
-    margin: 100px auto;
+    margin: 50px auto;
     text-align: center;
+    min-height: 500px;
 
     .tips {
       color: #333333;
       font-weight: bold;
       font-size: 20px;
+      padding: 30px 0 0 0;
     }
 
     .tipitem {
@@ -52,12 +54,14 @@
         &:last-child {
           float: right;
         }
-        a{
+
+        a {
           line-height: 60px;
           display: inline-block;
           width: 100%;
         }
-        .iconfont{
+
+        .iconfont {
           margin-right: 10px;
           font-size: 20px;
         }

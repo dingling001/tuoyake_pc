@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import RouterCommon from "./common"; // 引入通用模块
 import RouterModule from "./modules"; // 引入业务逻辑模块
-
+import $com from '../bin/common'
 Vue.use(Router);
 
 var routes = [...RouterCommon, ...RouterModule];
@@ -42,7 +42,7 @@ router.beforeEach((to, from, next) => {
   }
   if (to.meta.needLogin) {
     // 哪些需要验证
-    if (!this.$com.getCookies("user_tpc")) {
+    if (!$com.getCookies("user_tpc")) {
       // token存在条件
       next({
         path: "/login", // 验证失败要跳转的页面

@@ -2,7 +2,7 @@ import axios from 'axios'; // 注意先安装哦
 import qs from 'qs'; // 序列化请求数据，视服务端的要求
 import config from './config.js'; // 导入入默认配置
 import store from '.././store.js';
-
+import $com from '../bin/common'
 let cancel,
   promiseArr = {};
 const CancelToken = axios.CancelToken;
@@ -120,9 +120,10 @@ export default (url = '', data = {}, type = 'GET', isRepeat = false) => {
         console.log(error)
         if (error.status === 401) {
           localStorage.removeItem("user_tpc");
+          $com.removeCookie('user_tpc')
           // 暂时缓存地址，授权成功后回跳这个地址
           localStorage.url = window.location.href;
-          window.location.href = window.location.origin + "/login";
+          // window.location.href = window.location.origin + "/login";
         }
       });
   });

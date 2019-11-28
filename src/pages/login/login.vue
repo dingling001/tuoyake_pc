@@ -1,6 +1,6 @@
 <template>
   <div class="login_box">
-     <div class="login_head" @click="$router.push('/')">
+    <div class="login_head" @click="$router.push('/')">
       <img src="../../img/index/index_logo.png" alt="">
     </div>
     <el-form class="loginform" :model="ruleForm" ref="ruleForm">
@@ -9,10 +9,12 @@
         <div class="phone_box" @click="gocode"><span class="iconfont iconyouxiang"></span><span>手机验证码登录</span></div>
       </div>
       <el-form-item prop="account">
-        <el-input v-model="ruleForm.account" placeholder="请输入手机号" clearable maxlength="11" autocomplete="off"></el-input>
+        <el-input v-model="ruleForm.account" placeholder="请输入手机号" clearable maxlength="11"
+                  autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input v-model="ruleForm.password" placeholder="请输入密码" type="password" clearable autocomplete="off"></el-input>
+        <el-input v-model="ruleForm.password" placeholder="请输入密码" type="password" clearable
+                  autocomplete="off"></el-input>
       </el-form-item>
       <div class="btns">
         <router-link tag="span" to="/forgotpass">忘记密码?</router-link>
@@ -177,6 +179,7 @@
         font-weight: bold;
         border-radius: 5px;
         padding: 14px 0;
+        cursor: pointer;
 
         &:active {
           opacity: .9;

@@ -1,6 +1,18 @@
 import axios from "../api";
 
 import  $com from '../../bin/common'
+
+
+/**
+ * 获取平台配置
+ */
+export const getConfig = () =>
+  axios(
+    "/api/common/getConfig", {
+    },
+    "POST",
+    true
+  );
 /**
  * 获取首页轮播图
  */

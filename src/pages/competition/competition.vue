@@ -7,7 +7,7 @@
               v-for="(item,index) in tabs" :key="item.order">{{item.name}}</span>
       </div>
       <div class="list" v-if="netlist.length">
-        <div class="recmmentitem" v-for="(item ,index) in netlist" :key="item.id">
+        <div class="recmmentitem" v-for="(item ,index) in netlist" :key="item.id" >
           <div class="rec_img"><img :src="item.image" alt=""></div>
           <div class="rec_right">
             <div class="rec_name">{{item.name}}</div>

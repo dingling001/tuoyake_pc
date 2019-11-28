@@ -13,6 +13,8 @@
         </div>
         <div class="adressitem">地址： <span class="address">{{comdata.info.address}}</span></div>
         <div class="phonecall">电话：{{comdata.info.contact_number}}</div>
+        <div class="phonecall" v-if="comdata.info.synopsis">{{comdata.info.synopsis}}</div>
+
         <div class="iconbox" @click="clllection">
           <div :class="['iconfont iconheart-fill', comdata.info.is_collection==0? '':'iconactive']"></div>
           <div>{{comdata.info.is_collection==0?'收藏':'已收藏'}}</div>
@@ -589,6 +591,10 @@
               background-color: $baseBlue;
               color: #fff;
               font-size: 14px;
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
             }
           }
         }

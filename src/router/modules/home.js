@@ -33,30 +33,9 @@ export default [
       shownav: false,
       needLogin: false
     },
-    component: resolve => require(["../../pages/home/competitiondetail"], resolve)
+    component: resolve => require(["../../pages/competition/competitiondetail"], resolve)
   },
-  {
-    path: '/clubdetail',
-    name: 'clubdetail',
-    meta: {
-      title: "俱乐部详情",
-      index: 1,
-      showF: false,
-      showH: false
-    },
-    component: resolve => require(["../../pages/home/clubdetail"], resolve)
-  },
-  {
-    path: '/schooldetail',
-    name: 'schooldetail',
-    meta: {
-      title: "学院详情",
-      index: 1,
-      showF: false,
-      showH: false
-    },
-    component: resolve => require(["../../pages/school/schooldetail"], resolve)
-  },
+
   {
     path: '/taocan/:goods_id/:cid',
     name: 'taocan',

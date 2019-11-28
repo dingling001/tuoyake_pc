@@ -106,6 +106,10 @@
         this.tab = index;
         this.order = order;
         this._GetBarList();
+      },
+      // 去详情
+      godetail(id) {
+        this.$router.push({path: '/clubdetail', query: {club_id: id}})
       }
     }
   }
