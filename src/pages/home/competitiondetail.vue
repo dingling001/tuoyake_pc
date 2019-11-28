@@ -192,7 +192,7 @@
       },
       // 去套餐详情
       gotaocandetail(id) {
-        this.$router.push({path:  `/taocan/${id}/${this.id}`})
+        this.$router.push({path: `/taocan/${id}/${this.id}`})
       },
       gossdetail(id) {
         this.$router.push({path: '/gamedetail', query: {match_id: id, cid: this.id}})
@@ -254,6 +254,7 @@
           font-size: 12px;
           width: 100px;
           text-align: center;
+          cursor: pointer;
 
           .iconfont {
             font-size: 25px;
@@ -301,7 +302,8 @@
           display: block;
           padding-bottom: 20px;
         }
-        .timeon{
+
+        .timeon {
           span {
             background-color: #FEEAEB;
             color: #E03A43;

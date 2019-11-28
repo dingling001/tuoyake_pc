@@ -29,6 +29,24 @@
       <div class="login_btn" @click="gonext">同意以下协议并注册</div>
       <div class="login_pass" @click="goAgree">用户协议</div>
     </el-form>
+    <div class="notice" v-show="layerMask==1">
+      <div class="title">用户协议</div>
+      <div class="content" v-html="text_tip">
+        <!--        <p>1、预约讲解员需要提前选择参观人数，讲解语种（每20个人会再安排一位讲解员，超过20个游客增加一位讲解员，不足20人安排一个讲解员）；</p>-->
+        <!--        <p>2、预约讲解员需要提前支付预约费用，如需取消需要提前一个工作日通过电话或预约端进行取消；</p>-->
+        <!--        <p>3、如有特殊情况工作人员会通过预留电话提前电话联系游客；</p>-->
+        <!--        <p>4、预约讲解开始当天不能进行取消，费用照常收取；</p>-->
+        <!--        <p>5、游客未在预约时间内到场，预约讲解视为取消失败，照常收取讲解费用不做保留；</p>-->
+        <!--        <p>6、预约只能需要提前至少一个工作日开始，不能预约当日讲解员。</p>-->
+        <!--        <p>7、预约讲解员需要提前预约当天入馆门票，如未预约门票不能入关，讲解费用不退。</p>-->
+      </div>
+      <div class="checkbox" :class="{'checked':ischecked}" @click="ischecked=!ischecked"><label>已查看并同意</label>
+      </div>
+      <div class="layer__btns">
+        <div class="l__btn cancel" @click="go_index">取消预约</div>
+        <div class="l__btn confirm" @click="go_next">确定预约</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -49,6 +67,8 @@
         show: true,
         count: '',
         timer: null,
+        layerMask:0,
+        text_tip:''
       }
     },
     created() {
@@ -244,6 +264,43 @@
         }
       }
     }
+    .notice {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 70px;
+      background-color: #fff;
+      border-radius: 6px;
+      z-index: 1202;
 
+      .title {
+        font-size: 18px;
+        font-weight: 400;
+        color: #000000;
+        line-height: 36px;
+      }
+
+      .content {
+        width: 700px;
+        font-size: 16px;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 1);
+        line-height: 36px;
+        padding: 20px;
+        min-height: 300px;
+        white-space: pre-line;
+      }
+
+      .checkbox {
+        height: 20px;
+        line-height: 20px;
+
+        label {
+          float: left;
+        }
+
+      }
+    }
   }
 </style>

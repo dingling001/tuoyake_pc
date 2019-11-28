@@ -20,9 +20,9 @@
       <!--&lt;!&ndash; 如果需要分页器 &ndash;&gt;-->
       <!--<div class="swiper-pagination"></div>-->
       <!--</div>-->
-      <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
+      <swiper :options="swiperOption" ref="mySwiper">
         <!-- slides -->
-        <swiper-slide v-for="(item,index) in swiperlist" :key="index" @click.stop="gosmdetail(iten.type,item.object_id)">
+        <swiper-slide v-for="(item,index) in swiperlist" :key="index" @click="gosmdetail(iten.type,item.object_id)">
           <img :src="item.image" :alt="item.type_text" >
         </swiper-slide>
         <!-- Optional controls -->
@@ -172,6 +172,7 @@
       },
       // 跳转
       gosmdetail(type, id) {
+        alert(111)
         console.log(type)
       },
       // 获取服务

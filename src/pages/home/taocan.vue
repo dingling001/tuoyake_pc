@@ -118,7 +118,7 @@
         }
       },
       goapp() {
-        // this.$router.push('/download')
+        this.$router.push('/download')
       }
     }
   }
@@ -243,7 +243,12 @@
             background-color: $baseRed;
             font-size: 18px;
             display: inline-block;
-            cursor: pointer;
+            cursor: pointer
+            ;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
           }
 
         }
@@ -256,6 +261,7 @@
           font-size: 12px;
           width: 100px;
           text-align: center;
+          cursor: pointer;
 
           .iconfont {
             font-size: 25px;
