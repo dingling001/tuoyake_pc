@@ -8,7 +8,7 @@
     </div>
     <div class="cityitem">
       <div class="label"><label>区域</label><span :class="['all', cityindex==-1?'activetag':'']">全部</span></div>
-      <div class="tagbox">
+      <div class="tagbox" v-loading="showdistrictlist" v-if="districtlist.length">
         <el-dropdown v-for="(item,index) in districtlist" class="tag" :key="item.id" @command="commandid($event,index)"
                      @visible-change="getchildlist($event,index)">
           <span :class="['el-dropdown-link',index==cityindex?'cityactive':'']">
@@ -53,7 +53,8 @@
         labeled: '',
         cityarea: '',
         childindex: -1,
-        cityindex: -1
+        cityindex: -1,
+        showdistrictlist:true
       }
     },
     props: {
@@ -79,6 +80,7 @@
       // 获取当前城市的区
       _GetAreaListTree() {
         this.$api.GetAreaListTree(this.citypid).then(res => {
+          this.showdistrictlist=false;
           if (res.code == 1) {
             this.districtlist = res.data;
             for (var i in this.districtlist) {

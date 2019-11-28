@@ -3,14 +3,16 @@
     <div class="barinfo">
       <div class="leftinfo">
         <div class="comnanme">{{comdata.info.name}}</div>
-        <div class="starbox">
-          <div class="iconfont iconstar-fill star" v-for="item in Number(comdata.info.star)"></div>
-          <div class="iconfont iconstar-fill" v-if="Number(comdata.info.star)<5"
-               v-for="item in 5-Number(comdata.info.star)"></div>
+        <div class="stars">
+          <div class="starbox">
+            <div class="iconfont iconstar-fill star" v-for="item in Number(comdata.info.star)"></div>
+            <div class="iconfont iconstar-fill" v-if="Number(comdata.info.star)<5"
+                 v-for="item in 5-Number(comdata.info.star)"></div>
+          </div>
+          <div class="timeon"><span v-for="(item,index) in comdata.info.label_ids" :key="index">{{item}}</span></div>
         </div>
         <div class="adressitem">地址： <span class="address">{{comdata.info.address}}</span></div>
         <div class="phonecall">电话：{{comdata.info.contact_number}}</div>
-        <div class="timeon"><span v-for="item in comdata.info.label_ids">{{item}}</span></div>
         <div class="iconbox" @click="clllection">
           <div :class="['iconfont iconheart-fill', comdata.info.is_collection==0? '':'iconactive']"></div>
           <div>{{comdata.info.is_collection==0?'收藏':'已收藏'}}</div>
@@ -19,13 +21,21 @@
       <div class="swiperbox">
         <div class="swiper1">
           <swiper :options="swiperOption" ref="mySwiper" v-if="comdata.info.album_images.length">
-            <swiper-slide v-for="(item,index) in comdata.info.album_images" :key="index"><img :src="item" alt="">
+            <swiper-slide v-for="(item,index) in comdata.info.album_images" :key="index">
+<!--              <el-image-->
+<!--                :src="item"-->
+<!--                :preview-src-list="comdata.info.album_images">-->
+<!--              </el-image>-->
+              <img :src="item" alt="" >
+              <div class="mask animated zoomIn fast" @click="onPreview">
+                <i class="el-icon-zoom-in"></i>
+              </div>
             </swiper-slide>
           </swiper>
         </div>
         <div class="swiper2">
           <swiper :options="swiperOption1" ref="mySwiper1" v-if="comdata.info.album_images.length">
-            <swiper-slide v-for="(item,index) in comdata.info.album_images" :key="index"><img :src="item" alt="">
+            <swiper-slide v-for="(item,index) in comdata.info.album_images" :key="index"><img :src="item" alt="" >
             </swiper-slide>
           </swiper>
         </div>
@@ -67,6 +77,10 @@
         </div>
       </div>
     </div>
+    <el-image-viewer
+      v-if="showViewer"
+      :on-close="closeViewer"
+      :url-list="comdata.info.album_images" />
     <!--    <div class="comitem">-->
     <!--      <div class="comnanme">{{comdata.info.name}}</div>-->
     <!--      <div class="starbox">-->
@@ -132,10 +146,11 @@
 <script>
   import 'swiper/dist/css/swiper.css'
   import {swiper, swiperSlide} from 'vue-awesome-swiper'
-
+  import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
   export default {
     name: "competitiondetail",
     data() {
+      var _=this;
       return {
         id: '',
         comdata: {
@@ -160,18 +175,28 @@
           direction: 'vertical',
           observers: true,
           observeParents: true,
-          // spaceBetween: 7,
-          // loop: true,
-          slidesPerView: 4
+          spaceBetween: 7,
+          loop: true,
+          slidesPerView: 3,
+          centeredSlides:true,
+          slideToClickedSlide: true,
+          onSlideChangeStart: function(swiper){
+            // alert(swiper.realIndex);
+            var s = _.$refs.mySwiper.swiper;
+            s.slideTo(swiper.realIndex,1000,false)
+          }
         },
         show: false,
         index: 0,
-        collectiontext: '收藏'
+        collectiontext: '收藏',
+
+        showViewer:false
       }
     },
     components: {
       swiper,
       swiperSlide,
+      ElImageViewer
     },
     created() {
       if (this.$route.params.id) {
@@ -182,6 +207,13 @@
       }
     },
     methods: {
+      onPreview() {
+        this.showViewer = true
+      },
+      // 关闭查看器
+      closeViewer() {
+        this.showViewer = false
+      },
       // 获取详情
       _GetBarInfo() {
         this.$api.GetBarInfo(this.id).then(res => {
@@ -275,17 +307,40 @@
           font-weight: bold;
         }
 
-        .starbox {
-          display: flex;
-          align-items: center;
+        .stars {
+          overflow: hidden;
           padding: 25px 0 20px;
 
-          .iconstar-fill {
-            color: #E4E4E4;
-            font-size: 20px;
-            /*px*/
-            &.star {
-              color: $baseRed;
+          .starbox {
+            display: flex;
+            align-items: center;
+            float: left;
+            margin-right: 100px;
+
+            .iconstar-fill {
+              color: #E4E4E4;
+              font-size: 20px;
+              /*px*/
+              &.star {
+                color: $baseRed;
+              }
+            }
+          }
+
+          .timeon {
+            float: left;
+            line-height: 22px;
+
+            span {
+              background-color: #FEEAEB;
+              color: #E03A43;
+              padding: 0 5px;
+              /*width: 56px;*/
+              text-align: center;
+              border-radius: 10px;
+              display: inline-block;
+              font-size: 13px;
+              margin-right: 5px;
             }
           }
         }
@@ -303,19 +358,6 @@
           padding-bottom: 20px;
         }
 
-        .timeon {
-          span {
-            background-color: #FEEAEB;
-            color: #E03A43;
-            padding: 2px 5px;
-            /*width: 56px;*/
-            text-align: center;
-            border-radius: 10px;
-            display: inline-block;
-            font-size: 13px;
-            margin-right: 5px;
-          }
-        }
 
       }
 
@@ -329,19 +371,39 @@
 
         .swiper1 {
           width: 256px;
-          height: 256px;
+          max-height: 256px;
+          height: 192px;
           float: left;
 
           .swiper-container {
-            height: 256px;
+            height: 192px;
 
             .swiper-slide {
               background-color: #f5f5f5;
               color: #fff;
               /*border-radius: 10px;*/
               overflow: hidden;
-              height: 256px;
-
+              /*height: 256px;*/
+              cursor: pointer;
+              &:hover .mask{
+                display: block;
+              }
+              .mask{
+                display: none;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin:  auto;
+                color: #fff;
+                background-color: rgba(0,0,0,.3);
+                text-align: center;
+                line-height: 192px;
+                .el-icon-zoom-in{
+                  font-size: 30px;
+                }
+              }
               img {
                 width: 100%;
               }
@@ -351,24 +413,18 @@
 
         .swiper2 {
           width: 59px;
-          height: 238px;
+          height: 192px;
           float: right;
 
           .swiper-container {
-            height: 238px;
+            height: 192px;
 
             .swiper-slide {
+              cursor: pointer;
               background-color: #f5f5f5;
               color: #fff;
               /*border-radius: 10px;*/
               overflow: hidden;
-              height: 59px !important;
-              margin-bottom: 7px;
-
-              &:nth-child(4n) {
-                margin: 0;
-              }
-
               img {
                 height: 100%;
               }

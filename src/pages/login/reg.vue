@@ -3,17 +3,17 @@
     <div class="login_head" @click="$router.push('/')">
       <img src="../../img/index/index_logo.png" alt="">
     </div>
-    <el-form class="loginform" ref="form" :model="ruleForm">
+    <el-form class="loginform" ref="form" :model="ruleForm" :rules="rules">
       <div class="logintitle">
         <div class="account">注册</div>
         <div class="phone_box" @click="backlogin">已有账号？<span class="login">登录<span
           class="iconfont iconxiangyou1"></span></span></div>
       </div>
       <el-form-item prop="mobile">
-        <el-input v-model="ruleForm.mobile" placeholder="手机号" clearable maxlength="11"></el-input>
+        <el-input v-model="ruleForm.mobile" placeholder="手机号" clearable maxlength="11" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item prop="captcha">
-        <el-input v-model="ruleForm.captcha" placeholder="请输入验证码" style="width: 70%"></el-input>
+        <el-input v-model="ruleForm.captcha" placeholder="请输入验证码" style="width: 70%" autocomplete="off" maxlength="6" clearable></el-input>
         <el-button icon="el-icon-mobile-phone" @click="_SmsSend" style="width: 28%" type="text"
                    :disabled="disabled=!show">
           <span v-show="show">获取验证码</span>
@@ -21,32 +21,14 @@
         </el-button>
       </el-form-item>
       <el-form-item prop="newpassword">
-        <el-input v-model="ruleForm.password" placeholder="新密码" type="password" clearable></el-input>
+        <el-input v-model="ruleForm.password" placeholder="新密码" type="password" maxlength="12" clearable autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item prop="repassword">
-        <el-input v-model="ruleForm.repassword" placeholder="重复新密码" type="password" clearable></el-input>
+        <el-input v-model="ruleForm.repassword" placeholder="重复新密码" type="password" maxlength="12" clearable autocomplete="off"></el-input>
       </el-form-item>
       <div class="login_btn" @click="gonext">同意以下协议并注册</div>
       <div class="login_pass" @click="goAgree">用户协议</div>
     </el-form>
-    <div class="notice" v-show="layerMask==1">
-      <div class="title">用户协议</div>
-      <div class="content" v-html="text_tip">
-        <!--        <p>1、预约讲解员需要提前选择参观人数，讲解语种（每20个人会再安排一位讲解员，超过20个游客增加一位讲解员，不足20人安排一个讲解员）；</p>-->
-        <!--        <p>2、预约讲解员需要提前支付预约费用，如需取消需要提前一个工作日通过电话或预约端进行取消；</p>-->
-        <!--        <p>3、如有特殊情况工作人员会通过预留电话提前电话联系游客；</p>-->
-        <!--        <p>4、预约讲解开始当天不能进行取消，费用照常收取；</p>-->
-        <!--        <p>5、游客未在预约时间内到场，预约讲解视为取消失败，照常收取讲解费用不做保留；</p>-->
-        <!--        <p>6、预约只能需要提前至少一个工作日开始，不能预约当日讲解员。</p>-->
-        <!--        <p>7、预约讲解员需要提前预约当天入馆门票，如未预约门票不能入关，讲解费用不退。</p>-->
-      </div>
-      <div class="checkbox" :class="{'checked':ischecked}" @click="ischecked=!ischecked"><label>已查看并同意</label>
-      </div>
-      <div class="layer__btns">
-        <div class="l__btn cancel" @click="go_index">取消预约</div>
-        <div class="l__btn confirm" @click="go_next">确定预约</div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -64,11 +46,14 @@
           password: '',
           repassword: '',
         },
+        rules:{
+
+        },
         show: true,
         count: '',
         timer: null,
         layerMask:0,
-        text_tip:''
+        text_tip:'用户协议用户协议用户协议用户协议用户协议用户协议用户协议用户协议用户协议用户协议用户协议'
       }
     },
     created() {
@@ -119,7 +104,7 @@
           this.$com.showToast('请输入密码')
         } else if (this.ruleForm.repassword == '') {
           this.$com.showToast('请输入重复码')
-        } else if (this.ruleForm.password.length < 6 || this.ruleForm.password > 12) {
+        } else if (this.ruleForm.password.length < 6 || this.ruleForm.password.length > 12) {
           this.$com.showToast('密码长度介于6～12位之间')
         } else if (this.ruleForm.password != this.ruleForm.repassword) {
           this.$com.showToast('两次密码不一致')
@@ -127,7 +112,7 @@
           this.$api.Register(this.ruleForm.mobile, this.ruleForm.captcha, this.ruleForm.password, this.ruleForm.repassword).then((res) => {
             // console.log(res)
             if (res.code == 1) {
-              this.$com.showToast('注册成功,正在为您自动登录', 'success');
+              this.$com.showToast('注册成功,正在为您自动登录...', 'success');
               this.$com.setCookie('user_tpc', res.data.userinfo.token);
               // showLoading('正在为您自动登录');
               setTimeout(() => {
@@ -147,7 +132,13 @@
         this.$router.push('/login')
       },
       goAgree() {
+        this.$alert(this.text_tip, '用户协议', {
+          confirmButtonText: '知道了',
+          center:true,
+          callback: action => {
 
+          }
+        });
       }
     }
   }

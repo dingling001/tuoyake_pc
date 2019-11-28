@@ -22,8 +22,8 @@
       <!--</div>-->
       <swiper :options="swiperOption" ref="mySwiper">
         <!-- slides -->
-        <swiper-slide v-for="(item,index) in swiperlist" :key="index" @click="gosmdetail(iten.type,item.object_id)">
-          <img :src="item.image" :alt="item.type_text" >
+        <swiper-slide v-for="(item,index) in swiperlist" :key="index">
+          <img :src="item.image" :alt="item.type_text">
         </swiper-slide>
         <!-- Optional controls -->
         <div class="swiper-pagination" slot="pagination" v-if="swiperlist.length>1"></div>
@@ -36,7 +36,7 @@
         <!--        <div class="recommentright"><span>查看更多</span><span class="iconbox"><span-->
         <!--          class="iconfont iconjiantou"></span></span></div>-->
       </div>
-      <div class="recommentlist" v-if="isload&&netlist.length">
+      <div class="recommentlist" v-if="isload&&netlist.length" v-loading="showlist">
         <div class="recmmentitem animated zoomIn" v-for="(item ,index) in netlist" :key="item.id"
              @click="go_detail(item.id)">
           <div class="rec_img"><img :src="item.image" alt=""></div>
@@ -121,9 +121,23 @@
           },
           observeParents: true,
           observers: true,
+          preventClicks : false,//默认true
+          on:{
+            // 使用es6的箭头函数，使this指向vue对象
+            click: ()=>{
+              // 通过$refs获取对应的swiper对象
+              console.log(111)
+              let swiper = this.$refs.mySwiper.swiper;
+              let i = swiper.activeIndex;
+              let flag = this.swiperlist[i];
+              console.log(flag)
+              // location.href = flag.url;
+            }
+          }
           // delay:1000
         },
-        isload: false
+        isload: false,
+        showlist: true
       };
     },
 
@@ -172,7 +186,6 @@
       },
       // 跳转
       gosmdetail(type, id) {
-        alert(111)
         console.log(type)
       },
       // 获取服务
@@ -206,6 +219,7 @@
           this.per_page
         ).then(res => {
           this.isload = true;
+          this.showlist = false;
           if (res.code == 1) {//请求成功
             this.netlist = res.data.data;
             this.totalPages = res.data.total / this.per_page;

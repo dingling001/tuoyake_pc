@@ -40,31 +40,34 @@ instance.interceptors.response.use(
   function (error) {
     console.log(error)
     console.log(error.response.status)
-    switch (error.response.status) {
-      case 400:
-        console.log('请求错误');
-        break;
-      case 401:
-        console.log('未授权，请登录');
-        break;
-      case 408:
-        store.commit('reFresh');
-        break;
-      //请求接口过载的提示
-      case 503:
-        store.commit('setHotState');
-        break;
-      case 500:
-        store.commit('reFresh');
-        break;
-      case 501:
-        store.commit('reFresh');
-        break;
-      case 502:
-        store.commit('reFresh');
-        break;
-      default:
+    if (error == 'timeout of 10000ms exceeded'){
+      console.log('网络超时了')
     }
+      switch (error.response.status) {
+        case 400:
+          console.log('请求错误');
+          break;
+        case 401:
+          console.log('未授权，请登录');
+          break;
+        case 408:
+          store.commit('reFresh');
+          break;
+        //请求接口过载的提示
+        case 503:
+          store.commit('setHotState');
+          break;
+        case 500:
+          store.commit('reFresh');
+          break;
+        case 501:
+          store.commit('reFresh');
+          break;
+        case 502:
+          store.commit('reFresh');
+          break;
+        default:
+      }
     error.status = error.response.status;
     return Promise.reject(error);
   }

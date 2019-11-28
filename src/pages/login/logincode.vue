@@ -9,10 +9,10 @@
         <!--<div class="phone_box" @click="gocode"><span class="iconfont iconyouxiang"></span><span>密码登录</span></div>-->
       </div>
       <el-form-item prop="mobile">
-        <el-input v-model="ruleForm.mobile" placeholder="手机号" clearable></el-input>
+        <el-input v-model="ruleForm.mobile" placeholder="手机号" clearable autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item prop="captcha">
-        <el-input v-model="ruleForm.captcha" placeholder="请输入验证码" style="width: 70%"></el-input>
+        <el-input v-model="ruleForm.captcha" placeholder="请输入验证码" style="width: 70%" autocomplete="off"></el-input>
         <el-button icon="el-icon-mobile-phone" @click="_SmsSend" style="width: 28%" type="success"
                    :disabled="disabled=!show">
           <span v-show="show">获取验证码</span>

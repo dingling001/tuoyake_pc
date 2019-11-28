@@ -172,18 +172,7 @@ const showToast = function (message, type, duration) {
     duration: duration || 1500
   })
 };
-const showLoading = function (message, duration, callback) {
-  const loading = Loading({
-    lock: true,
-    text: message,
-    spinner: 'el-icon-loading',
-    background: 'rgba(0, 0, 0, 0.1)'
-  });
-  setTimeout(() => {
-    loading.close();
-    callback()
-  }, duration || 2000);
-};
+
 const getCookies = function (key) {
   let arr = document.cookie.split('; ');
   for (let i = 0; i < arr.length; i++) {
@@ -225,7 +214,6 @@ export default {
   dateFtt,
   analyzeIDCard,
   showToast,
-  showLoading,
   getCookies,
   setCookie,
   removeCookie

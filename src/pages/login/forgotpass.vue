@@ -9,10 +9,10 @@
         <!--<div class="phone_box" @click="gocode"><span class="iconfont iconyouxiang"></span><span>密码登录</span></div>-->
       </div>
       <el-form-item prop="mobile">
-        <el-input v-model.number="ruleForm.mobile" placeholder="手机号"  clearable maxlength="11"></el-input>
+        <el-input v-model.number="ruleForm.mobile" placeholder="手机号"  clearable maxlength="11" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item prop="captcha">
-        <el-input v-model="ruleForm.captcha" placeholder="请输入验证码" style="width: 70%" type="number"></el-input>
+        <el-input v-model="ruleForm.captcha" placeholder="请输入验证码" style="width: 70%" type="number" autocomplete="off"></el-input>
         <el-button icon="el-icon-mobile-phone" @click="_SmsSend" style="width: 28%" type="success"
                    :disabled="disabled=!show">
           <span v-show="show">获取验证码</span>
@@ -20,10 +20,10 @@
         </el-button>
       </el-form-item>
       <el-form-item prop="newpassword">
-        <el-input v-model="ruleForm.newpassword" placeholder="新密码" type="password" clearable></el-input>
+        <el-input v-model="ruleForm.newpassword" placeholder="新密码" type="password" clearable autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item prop="repassword">
-        <el-input v-model="ruleForm.repassword" placeholder="重复新密码" type="password" clearable></el-input>
+        <el-input v-model="ruleForm.repassword" placeholder="重复新密码" type="password" clearable autocomplete="off"></el-input>
       </el-form-item>
       <!--<van-field v-model="mobile" placeholder="手机号" type="number" clearable/>-->
       <!--<van-field v-model="captcha" placeholder="短信验证码" type="text" center clearable>-->
