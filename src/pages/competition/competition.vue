@@ -1,13 +1,14 @@
 <template>
   <div class="cbox">
-    <city-select @removeall="removeAll" @labeled="labeledfn" @cityarea="cityareafn"></city-select>
+    <city-select @removeall="removeAll" @labeled="labeledfn" @cityarea="cityareafn" @removecity="removecity"
+                 @removelabel="removelabel" @allarea="allarea" @alllabel="alllabel"></city-select>
     <div class="listbox">
-      <div class="listtab">
+      <div class="listtab" v-loading="showlist">
         <span :class="{'ativetab':tab==index}" @click="orderby(index,item.order)"
               v-for="(item,index) in tabs" :key="item.order">{{item.name}}</span>
       </div>
-      <div class="list" v-if="netlist.length">
-        <div class="recmmentitem" v-for="(item ,index) in netlist" :key="item.id" >
+      <div class="list" v-if="showdata&&netlist.length">
+        <div class="recmmentitem" v-for="(item ,index) in netlist" :key="item.id" @click="go_detail(item.id)">
           <div class="rec_img"><img :src="item.image" alt=""></div>
           <div class="rec_right">
             <div class="rec_name">{{item.name}}</div>
@@ -24,8 +25,8 @@
           </div>
         </div>
       </div>
-      <div v-else>
-        暂无数据
+      <div v-if="showdata&&netlist.length==0" class="list">
+        <NoData :text="'暂无符合条件的商家'"></NoData>
       </div>
       <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
                 :scrollTo="200" v-if="netlist.length"></pcpaging>
@@ -66,7 +67,9 @@
           },
         ],
         tab: '',
-        order: 1
+        order: 1,
+        showdata: false,
+        showlist: true
       }
     },
     components: {
@@ -93,6 +96,8 @@
           this.per_page,
           this.order
         ).then(res => {
+          this.showdata = true;
+          this.showlist = false;
           if (res.code == 1) {//请求成功
             this.netlist = res.data.data
             this.totalPages = res.data.total / this.per_page;
@@ -102,35 +107,66 @@
       },
       // 分页
       getPresentPage(val) {
+        this.showlist = true;
         this.page = val;
         this._GetBarList();
       },
       // 选中服务标签
       labeledfn(val) {
-        console.log(val)
+        this.showlist = true;
         this.page = 1;
         this.label = val;
         this._GetBarList();
-
       },
       // 选中地区
       cityareafn(val) {
+        this.showlist = true;
         this.page = 1;
         this.district = val;
         this._GetBarList();
       },
       // 清除所有条件
       removeAll(val) {
+        this.showlist = true;
         this.label = '';
         this.district = '';
         this.page = 1;
         this._GetBarList();
       },
+      removecity(val) {
+        this.showlist = true;
+        this.district = val;
+        this.page = 1;
+        this._GetBarList();
+      },
+      removelabel(val) {
+        this.showlist = true;
+        this.label = val;
+        this.page = 1;
+        this._GetBarList();
+      },
+      allarea(val) {
+        console.log(val)
+        this.district = val;
+        this.page = 1;
+        this._GetBarList();
+      },
+      alllabel(val) {
+        console.log(val)
+        this.label = val;
+        this.page = 1;
+        this._GetBarList();
+      },
       // 排序
       orderby(index, order) {
+        this.showlist = true;
         this.tab = index;
         this.order = order;
+        this.page = 1;
         this._GetBarList();
+      },
+      go_detail(id) {
+        this.$router.push({path: '/competitiondetail/' + id})
       }
     }
   }
@@ -140,8 +176,9 @@
   @import "../../style/reset";
 
   .cbox {
-    width: 1200px ;
+    width: 1200px;
     margin: 0 auto;
+
     .listbox {
       background-color: #fff;
       margin: 20px 0;
@@ -149,6 +186,7 @@
       .listtab {
         border-bottom: 1px solid #EEEEEE;
         margin: 0 27px;
+        position: relative;
 
         span {
           display: inline-block;
@@ -169,6 +207,8 @@
 
       .list {
         overflow: hidden;
+        min-height: 300px;
+        position: relative;
 
         .recmmentitem {
           /*float: left;*/

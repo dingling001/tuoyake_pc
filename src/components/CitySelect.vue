@@ -7,7 +7,8 @@
       <span class="clearall" @click="removeall">.清除全部</span>
     </div>
     <div class="cityitem">
-      <div class="label"><label>区域</label><span :class="['all', cityindex==-1?'activetag':'']">全部</span></div>
+      <div class="label"><label>区域</label>
+        <span :class="['all', cityindex==-1?'activetag':'']"  @click="allarea">全部</span></div>
       <div class="tagbox" v-loading="showdistrictlist" v-if="districtlist.length">
         <el-dropdown v-for="(item,index) in districtlist" class="tag" :key="item.id" @command="commandid($event,index)"
                      @visible-change="getchildlist($event,index)">
@@ -25,7 +26,7 @@
       </div>
     </div>
     <div class="cityitem" v-if="showlabel">
-      <div class="label"><label>服务</label><span :class="['all', labelindex==-1?'activetag':'']">全部</span>
+      <div class="label"><label>服务</label><span :class="['all', labelindex==-1?'activetag':'']" @click="alllabel">全部</span>
       </div>
       <div class="tagbox">
         <div class="tag" v-for="(item,index) in labellist"
@@ -33,7 +34,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -43,7 +43,7 @@
     data() {
       return {
         citypid: '',
-        city: '天津市',
+        city: '',
         districtlist: [],
         labellist: [],
         selcetname: '',
@@ -54,7 +54,7 @@
         cityarea: '',
         childindex: -1,
         cityindex: -1,
-        showdistrictlist:true
+        showdistrictlist: true
       }
     },
     props: {
@@ -70,7 +70,7 @@
     methods: {
       // 根据城市换取id
       _GetAreaPidByName() {
-        this.$api.GetAreaPidByName(this.city).then(res => {
+        this.$api.GetAreaPidByName(this.$com.getCookies('pccity')||this.city).then(res => {
           if (res.code == 1) {
             this.citypid = res.data;
             this._GetAreaListTree();
@@ -80,7 +80,7 @@
       // 获取当前城市的区
       _GetAreaListTree() {
         this.$api.GetAreaListTree(this.citypid).then(res => {
-          this.showdistrictlist=false;
+          this.showdistrictlist = false;
           if (res.code == 1) {
             this.districtlist = res.data;
             for (var i in this.districtlist) {
@@ -129,6 +129,17 @@
       removecity() {
         this.cityarea = '';
         this.cityindex = -1;
+        this.$emit('removecity', this.cityarea)
+      },
+      allarea() {
+        this.cityindex=-1;
+        this.cityarea = '';
+        this.$emit('allarea', '')
+      },
+      alllabel(){
+        this.labelindex=-1;
+        this.labeled = '';
+        this.$emit('alllabel', '')
       },
       // 选中服务标签
       lableselect(index, labeled) {
@@ -139,15 +150,16 @@
       removelabel() {
         this.labeled = '';
         this.labelindex = -1;
+        this.$emit('removelabel', this.labeled)
       },
+      // 清除全部
       removeall() {
         this.labeled = '';
         this.labelindex = -1;
         this.cityarea = '';
         this.cityindex = -1;
-        this.$emit('removeall', 'clearall')
+        this.$emit('removeall', this.labeled, this.cityarea)
       }
-
     }
   }
 </script>
@@ -159,6 +171,7 @@
     margin: 20px 0;
     background-color: #fff;
     padding-bottom: 15px;
+    min-height: 100px;
 
     .selectbox {
       padding: 11px 20px;
@@ -232,7 +245,7 @@
 
     .tagbox {
       padding-left: 160px;
-      min-height: 30px;
+      min-height: 100px;
 
       .tag {
         min-width: 130px;

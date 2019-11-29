@@ -11,7 +11,7 @@
       </el-tab-pane>
       <el-tab-pane label="已完成" name="5">
       </el-tab-pane>
-      <div class="recommentlist" v-if="list.length">
+      <div class="recommentlist" v-if="listshow&&list.length">
         <div class="listitem" v-for="item in list" :key="item.id">
           <div class="statusbox">
             <span class="label1">
@@ -29,7 +29,7 @@
               <span class="labelimg"><img :src="item.image" alt=""></span>
               <span class="labelright">
                 <span class="labelname">{{item.goods_name}}</span>
-                <span class="labeldes">{{item.content}}</span>
+                <span class="labeldes" v-html="item.content">{</span>
               </span>
             </span>
             <span class="price">
@@ -37,18 +37,20 @@
               <span>x{{item.number}}</span>
             </span>
             <span class="price">
-              ¥{{parseInt(item.number)*parseFloat(item.price)}}
+              ¥{{(parseInt(item.number)*parseFloat(item.price)).toFixed(2)}}
             </span>
             <span class="btnbox">
                 <el-button type="danger" size="mini" v-if="item.status==1">去付款</el-button>
                    <el-button type="primary" size="mini" v-if="item.status==2">去使用</el-button>
-                  <el-button type="info" size="mini" v-if="item.status==1||item.status==2">取消订单</el-button>
+<!--                  <el-button type="info" size="mini" v-if="item.status==1||item.status==2">取消订单</el-button>-->
                   <el-button type="info" size="mini" v-if="item.status==3">删除订单</el-button>
                   <el-button type="info" size="mini" v-if="item.status==8">已取消</el-button>
-
             </span>
           </div>
         </div>
+      </div>
+      <div class="recommentlist" v-if="listshow&&list.length==0">
+        <NoData :text="'暂无相关订单'"></NoData>
       </div>
       <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
                 :scrollTo="680" v-if="totalPages>per_page"></pcpaging>
@@ -69,7 +71,8 @@
         page: 0,
         totalPages: 0,
         status: 0,
-        per_page: 10
+        per_page: 10,
+        listshow: false
       }
     },
     components: {
@@ -85,6 +88,7 @@
           this.page,
           this.status
         ).then(res => {
+          this.listshow = true;
           if (res.code == 1) {//请求成功
             console.log(res)
             this.list = res.data.data;
@@ -188,6 +192,8 @@
     .recommentlist {
       overflow: hidden;
       padding: 40px 48px 0 48px;
+      position: relative;
+      min-height: 300px;
 
       .listitem {
         .statusbox {
@@ -240,7 +246,7 @@
             width: 400px;
             display: inline-flex;
             align-items: center;
-            padding: 30px 0;
+            padding: 10px 0;
             border-right: 1px solid #e4e4e4;
             float: left;
 
@@ -277,8 +283,7 @@
                 display: block;
                 font-size: 12px;
                 color: #999999;
-
-
+                white-space: pre-wrap;
               }
             }
           }

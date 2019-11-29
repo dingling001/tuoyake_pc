@@ -49,6 +49,18 @@ export default [
     component: resolve => require(["../../pages/home/taocan"], resolve)
   },
   {
+    path: '/gameindex',
+    name: 'gameindex',
+    meta: {
+      title: "赛事列表",
+      showH: true,
+      showF: true,
+      shownav: false,
+      needLogin: false
+    },
+    component: resolve => require(["../../pages/home/gameindex"], resolve)
+  },
+  {
     path: '/gamedetail',
     name: 'gamedetail',
     meta: {

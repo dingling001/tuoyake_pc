@@ -216,3 +216,31 @@ export const GetVideoInfo = (video_id) =>
     "POST",
     true
   );
+/**
+ * 获取赛事报名
+ */
+export const SetMatchSign = (match_id,username,mobile,team_name,email,remark) =>
+  axios(
+    "/api/index/setMatchSign", {
+      match_id,
+      username,
+      mobile,
+      team_name,
+      email,
+      remark,
+      token: $com.getCookies('user_tpc'),
+    },
+    "POST",
+    true
+  );
+/**
+ * 推荐门店
+ */
+export const GetRecommendBarByGoods = (goods_id) =>
+  axios(
+    "/api/index/getRecommendBarByGoods", {
+      goods_id,
+    },
+    "POST",
+    true
+  );

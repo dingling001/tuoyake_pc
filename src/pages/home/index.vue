@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <div class="bannerbox">
+    <div class="bannerbox" v-loading="showswiperloading">
       <!--<div class="swiper-container banner" ref="mySwiper">-->
       <!--&lt;!&ndash;        <div class="swiper-wrapper">&ndash;&gt;-->
       <!--&lt;!&ndash;          &lt;!&ndash;          <div&ndash;&gt;&ndash;&gt;-->
@@ -20,7 +20,7 @@
       <!--&lt;!&ndash; 如果需要分页器 &ndash;&gt;-->
       <!--<div class="swiper-pagination"></div>-->
       <!--</div>-->
-      <swiper :options="swiperOption" ref="mySwiper">
+      <swiper :options="swiperOption" ref="mySwiper" v-if="swipershow&&swiperlist.length">
         <!-- slides -->
         <swiper-slide v-for="(item,index) in swiperlist" :key="index">
           <img :src="item.image" :alt="item.type_text">
@@ -28,22 +28,20 @@
         <!-- Optional controls -->
         <div class="swiper-pagination" slot="pagination" v-if="swiperlist.length>1"></div>
       </swiper>
+      <NoData :text="'抱歉,商家居然没传图'" v-if="swipershow&&swiperlist.length==0"></NoData>
     </div>
 
-    <div class="recommendbox">
+    <div class="recommendbox" v-loading="showlist">
       <div class="recommendtitle">
         <div class="recommentleft"><span class="iconfont icontuijian"></span> <span>推荐网吧</span></div>
         <!--        <div class="recommentright"><span>查看更多</span><span class="iconbox"><span-->
         <!--          class="iconfont iconjiantou"></span></span></div>-->
       </div>
-      <div class="recommentlist" v-if="isload&&netlist.length" v-loading="showlist">
+      <div class="recommentlist" v-if="isload&&netlist.length">
         <div class="recmmentitem animated zoomIn" v-for="(item ,index) in netlist" :key="item.id"
              @click="go_detail(item.id)">
           <div class="rec_img"><img :src="item.image" alt=""></div>
           <div class="rec_name single-line-text">{{item.name}}</div>
-          <div class="rec_type">
-
-          </div>
           <div class="starbox">
             <span class="iconfont iconstar-fill iconactive" v-for="i in parseInt(item.star)"></span>
           </div>
@@ -53,6 +51,9 @@
           </div>
           <div class="rec_address single-line-text">{{item.address}}</div>
           <div class="sharebox"></div>
+          <div class="rec_type" v-if="item.recommend">
+            推荐
+          </div>
         </div>
       </div>
       <div v-if="isload&&netlist.length==0" class="recommentlist">
@@ -108,6 +109,8 @@
         mySwiper: {},
         totalPages: 0,
         total: 0,
+        swipershow: false,
+        showswiperloading: true,
         swiperOption: {
           pagination: '.swiper-pagination',
           //循环
@@ -131,27 +134,40 @@
               case 0:
                 break;
               case 1:
-                _.$router.push({path: 'competitiondetail/' + flag.object_id});
+                if (flag.object_id == 0) {
+                  _.$router.push({path: '/competition'});
+                } else {
+                  _.$router.push({path: '/competitiondetail/' + flag.object_id});
+                }
                 break;
               case 2:
-                _.$router.push({path: '/gamedetail', query: {match_id: flag.object_id}});
+                if (flag.object_id == 0) {
+
+                } else {
+                  _.$router.push({path: '/gamedetail', query: {match_id: flag.object_id}});
+                }
                 break;
               case 3:
-                _.$router.push({path: '/clubdetail', query: {club_id: flag.object_id}});
-
+                if (flag.object_id == 0) {
+                  _.$router.push({path: '/club'});
+                } else {
+                  _.$router.push({path: '/clubdetail', query: {club_id: flag.object_id}});
+                }
                 break;
               case 4:
-                _.$router.push({path: '/schooldetail', query: {college_id: flag.object_id}});
+                if (flag.object_id == 0) {
+                  _.$router.push({path: '/school'});
+                } else {
+                  _.$router.push({path: '/schooldetail', query: {college_id: flag.object_id}});
+                }
                 break;
               default:
                 location.replace('/')
-
             }
             // "type": "类型:0=无需跳转,1=网吧详情,2=赛事详情,3=俱乐部,4=电竞学院",
             //   "object_id": "跳转对象ID，根据type跳转对应详情界面，0为列表页",
-            console.log(flag)
+            // console.log(flag)
           }
-
           // delay:1000
         },
         isload: false,
@@ -185,6 +201,8 @@
       // 获取轮播图
       _GetSlideList() {
         this.$api.GetSlideList(this.city).then((res) => {
+          this.swipershow = true;
+          this.showswiperloading = false;
           if (res.code == 1) {
             this.swiperlist = res.data;
 //             setTimeout(() => {
@@ -275,7 +293,8 @@
       background-size: 100% auto;
       background-repeat: no-repeat;
       overflow: hidden;
-
+      height: 420px;
+      position: relative;
       /*.b {*/
       /*width: 1200px;*/
 
@@ -330,6 +349,7 @@
       margin: 0 auto;
       background-color: #fff;
       position: relative;
+      min-height: 300px;
 
       .recommendtitle {
         overflow: hidden;
@@ -403,9 +423,23 @@
           /*padding: 0 48px 50px 0;*/
           cursor: pointer;
           overflow: hidden;
+          position: relative;
 
           &:nth-child(4n) {
             margin-right: 0;
+          }
+
+          .rec_type {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 12px;
+            width: 60px;
+            line-height: 25px;
+            text-align: center;
+            color: #fff;
+            border-radius: 5px 0 5px 0;
+            background: linear-gradient(90deg, #ec8215, #f0a532);
           }
 
           &:hover .rec_name {

@@ -5,6 +5,7 @@
     <!--        <span>关于平台</span>-->
     <!--        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>-->
     <!--      </div>-->
+    <div class="logobox"><img :src="platinfo.logo" alt=""></div>
     <div class="pitem">
       加盟热线：{{platinfo.join_hotline}}
     </div>
@@ -68,6 +69,15 @@
     margin: 20px auto;
     width: 1200px;
     padding: 30px 100px;
+
+    .logobox {
+      width: 114px;
+      margin: 20px auto;
+
+      img {
+        width: 100%;
+      }
+    }
 
     .plogo {
       padding: 40px 0;

@@ -6,7 +6,7 @@
       <div class="taocaninfo">
         <div class="comnanme">{{goodinfo.name}}</div>
         <!--<div class="taocannum">-->
-        <div class="taocandes">{{goodinfo.content}}</div>
+        <div class="taocandes" v-html="goodinfo.content"></div>
         <!--</div>-->
         <div class="btnbox">
           <div class="price">套餐价<span><span>¥ </span>{{goodinfo.price}}</span></div>
@@ -15,7 +15,7 @@
             <input type="number" v-model="num" placeholder="">
             <span class="iconfont iconplus-circle" @click="plus"></span>
           </div>
-          <div class="taocan_btn" @click="goapp">￥{{goodinfo.price*num}} 立即抢购</div>
+          <div class="taocan_btn" @click="goapp" v-if="goodinfo.price">￥{{goodinfo.price*num}} 立即抢购</div>
         </div>
         <div class="nright" @click="clllection">
           <div :class="['iconfont iconheart-fill', goodinfo.is_collection==0? '':'iconactive']"></div>
@@ -33,8 +33,26 @@
     <!--</div>-->
     <!--</div>-->
     <!--</div>-->
+    <div class="rulesbox" v-if="recommendlist.length">
+      <div class="taocantitle"><span class="iconfont iconxihuan"></span> 猜你喜欢</div>
+      <div class="recommend_list">
+        <div class="rec_right" v-for="(item,index) in recommendlist" :key="item.id" @click="go_detail(item.id)">
+          <div class="rec_name single-line-text">{{item.name}}</div>
+          <!--            <div class="rec_type">-->
+          <div class="starbox">
+            <span class="iconfont iconstar-fill iconactive" v-for="i in parseInt(item.star)"></span>
+          </div>
+          <div class="typebox single-line-text">
+            <span v-for="c in item.label_ids">{{c}}</span>
+          </div>
+          <!--            </div>-->
+          <div class="rec_address single-line-text"><span class="el-icon-location-outline"></span>{{item.address}}
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="rulesbox" v-if="goodinfo.rules.length">
-      <div class="tancantitle">购买须知</div>
+      <div class="taocantitle"><span class="iconfont icongoumaixuzhi"></span> 购买须知</div>
       <ul class="rules">
         <li v-for="(item,index) in goodinfo.rules" :key="index">
           <span class="ruletitle">【{{item.name}}】</span><span>{{item.value}}</span>
@@ -42,7 +60,7 @@
       </ul>
     </div>
     <div class="rulesbox" v-if="goodinfo.rules.length">
-      <div class="tancantitle">套餐详情</div>
+      <div class="taocantitle"><span class="iconfont icontaocanxiangqing"></span> 套餐详情</div>
       <div class="content" v-html="goodinfo.content"></div>
     </div>
 
@@ -62,7 +80,8 @@
         cid: '',
         goods_id: '',
         num: 0,
-        is_share: 0
+        is_share: 0,
+        recommendlist: []
       }
     },
     created() {
@@ -80,6 +99,18 @@
         this.$api.GetGoodsInfo(this.goods_id).then(res => {
           if (res.code == 1) {
             this.goodinfo = res.data
+            this._GetRecommendBarByGoods();
+          }
+        })
+      },
+      go_detail(id) {
+        this.$router.push({path: '/competitiondetail/' + id})
+      },
+      // 获取推荐列表
+      _GetRecommendBarByGoods() {
+        this.$api.GetRecommendBarByGoods(this.goods_id).then(res => {
+          if (res.code == 1) {
+            this.recommendlist = res.data;
           }
         })
       },
@@ -165,7 +196,7 @@
           padding: 13px 0 20px;
         }
 
-        .tancantitle {
+        .taocantitle {
           font-size: 13px;
           /*px*/
           color: #999999;
@@ -175,6 +206,9 @@
           padding: 0 0 40px 0;
           color: #666666;
           font-size: 14px;
+          width: 800px;
+          line-height: 20px;
+          white-space: pre-wrap;
           border-bottom: 1px solid #eee;
           /*px*/
         }
@@ -323,6 +357,17 @@
       background-color: #fff;
       margin: 20px 0 0 0;
 
+      .taocantitle {
+        font-weight: bold;
+        font-size: 16px;
+
+        .iconfont {
+          color: $baseRed;
+          font-size: 16px;
+          font-weight: bold;
+        }
+      }
+
       ul.rules {
         padding: 10px 0;
 
@@ -346,6 +391,75 @@
 
       .content {
         padding: 10px 0;
+      }
+
+      .recommend_list {
+        overflow: hidden;
+
+        .rec_right {
+          float: left;
+          width: 25%;
+          padding: 0 25px 0 20px;
+          border-right: 1px solid #eee;
+          cursor: pointer;
+
+          &:hover .rec_name {
+            color: $baseBlue;
+            font-weight: bold;
+          }
+
+          .rec_name {
+            padding: 18px 0;
+            font-size: 16px;
+            color: #333333;
+          }
+
+          .starbox {
+            /*float: left;*/
+            /*width: 96px;*/
+            padding-bottom: 10px;
+
+            .iconfont {
+              color: #c3c3c3;
+              margin-right: 5px;
+            }
+
+            .iconactive {
+              color: $baseRed;
+            }
+          }
+
+          .typebox {
+            /*float: left;*/
+            padding-bottom: 15px;
+            overflow: hidden;
+
+            span {
+              background-color: #FEEAEB;
+              color: #E03A43;
+              padding: 5px 12px;
+              text-align: center;
+              border-radius: 10px;
+              display: inline-block;
+              font-size: 12px;
+              margin: 0 5px 5px 0;
+            }
+          }
+
+
+          .rec_address {
+            color: #999999;
+            font-size: 12px;
+
+            .el-icon-location-outline {
+              margin-right: 5px;
+            }
+          }
+
+          &:last-child {
+            border: 0;
+          }
+        }
       }
     }
   }

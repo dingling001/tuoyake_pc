@@ -5,7 +5,7 @@
               v-for="(item,index) in tabs" :key="item.order">{{item.name}}</span>
     </div>
     <div class="list" v-if="netlist.length">
-      <div class="recmmentitem" v-for="(item ,index) in netlist" :key="item.id">
+      <div class="recmmentitem" v-for="(item ,index) in netlist" :key="item.id" @click="go_detail(item.id)">
         <div class="rec_img"><img :src="item.image" alt=""></div>
         <div class="rec_right">
           <div class="rec_name">{{item.name}}</div>
@@ -24,7 +24,8 @@
     </div>
     <div class="common-list" v-else>
       <div class="common-list-main">
-        <div class="no-search-content">对不起，没有符合条件的商家</div>
+<!--        <div class="no-search-content">对不起，没有符合条件的商家</div>-->
+        <NoData :text="'对不起，没有符合条件的商家'"></NoData>
       </div>
     </div>
     <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
@@ -116,6 +117,9 @@
         this.tab = index;
         this.order = order;
         this._GetBarList();
+      },
+      go_detail(id) {
+        this.$router.push({path: '/competitiondetail/' + id})
       }
     }
   }
@@ -240,17 +244,11 @@
         }
       }
     }
-
     .common-list {
       &-main {
-        .no-search-content {
-          padding: 50px 0;
-          text-align: center;
-          background-color: #f5f5f5;
-        }
+        min-height: 500px;
+        position: relative;
       }
     }
-
   }
-
 </style>

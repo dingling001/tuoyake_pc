@@ -15,12 +15,13 @@
         :backPosition="0">
       </BackToTop>
     </el-tooltip>
+    <NetError v-if="showneterror"></NetError>
   </div>
 </template>
 <script>
   import vHeader from "./components/vheader.vue";
   import vFooter from "./components/vfooter.vue";
-
+  import NetError from './components/NetError'
   import BackToTop from './components/backTop'
 
   export default {
@@ -29,7 +30,7 @@
       return {
         showH: true,
         showF: true,
-        shownav:true,
+        shownav: true,
         myBackToTopStyle: {
           'right': '100px',
           'bottom': '150px',
@@ -38,7 +39,8 @@
           'border-radius': '20px',
           'line-height': '40px',
           'background-color': '#fff'
-        }
+        },
+        showneterror: localStorage.showneterror || false
       };
     },
     provide() {
@@ -49,7 +51,8 @@
     components: {
       vHeader,
       vFooter,
-      BackToTop
+      BackToTop,
+      NetError
     },
     watch: {
       '$route': {
@@ -60,7 +63,7 @@
         },
         immediate: true
       },
-      'shownav':{
+      'shownav': {
         handler(val) {
           // this.showH = val.meta.showH;
           // this.showF = val.meta.showF;
@@ -76,6 +79,12 @@
         _.showF = to.meta.showF;
         _.shownav = to.meta.shownav;
       });
+      window.addEventListener('offline', function () {
+        _.showneterror = true
+      })
+      window.addEventListener('online', function () {
+        _.showneterror = false
+      })
     },
 
     methods: {
@@ -97,7 +106,8 @@
     min-width: 1200px;
     margin: 0 auto;
   }
-  .shownav{
+
+  .shownav {
     min-height: 71vh;
   }
 

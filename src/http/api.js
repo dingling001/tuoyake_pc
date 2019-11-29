@@ -3,6 +3,7 @@ import qs from 'qs'; // 序列化请求数据，视服务端的要求
 import config from './config.js'; // 导入入默认配置
 import store from '.././store.js';
 import $com from '../bin/common'
+
 let cancel,
   promiseArr = {};
 const CancelToken = axios.CancelToken;
@@ -39,35 +40,37 @@ instance.interceptors.response.use(
   },
   function (error) {
     console.log(error)
-    console.log(error.response.status)
-    if (error == 'timeout of 10000ms exceeded'){
+    // console.log(error.response.status)
+    if (error == 'Error: timeout of 10000ms exceeded') {
       console.log('网络超时了')
+      localStorage.showneterror = true;
+      window.location.reload();
     }
-      switch (error.response.status) {
-        case 400:
-          console.log('请求错误');
-          break;
-        case 401:
-          console.log('未授权，请登录');
-          break;
-        case 408:
-          store.commit('reFresh');
-          break;
-        //请求接口过载的提示
-        case 503:
-          store.commit('setHotState');
-          break;
-        case 500:
-          store.commit('reFresh');
-          break;
-        case 501:
-          store.commit('reFresh');
-          break;
-        case 502:
-          store.commit('reFresh');
-          break;
-        default:
-      }
+    switch (error.response.status) {
+      case 400:
+        console.log('请求错误');
+        break;
+      case 401:
+        console.log('未授权，请登录');
+        break;
+      case 408:
+        store.commit('reFresh');
+        break;
+      //请求接口过载的提示
+      case 503:
+        store.commit('setHotState');
+        break;
+      case 500:
+        store.commit('reFresh');
+        break;
+      case 501:
+        store.commit('reFresh');
+        break;
+      case 502:
+        store.commit('reFresh');
+        break;
+      default:
+    }
     error.status = error.response.status;
     return Promise.reject(error);
   }
@@ -114,13 +117,15 @@ export default (url = '', data = {}, type = 'GET', isRepeat = false) => {
     }
     instance(options)
       .then((res) => {
+        localStorage.removeItem('showneterror');
         resolve(res);
       })
       .catch((error) => {
         console.log(error)
         if (error.status === 401) {
           localStorage.removeItem("user_tpc");
-          $com.removeCookie('user_tpc')
+          localStorage.removeItem('showneterror');
+          $com.removeCookie('user_tpc');
           // 暂时缓存地址，授权成功后回跳这个地址
           localStorage.url = window.location.href;
           // window.location.href = window.location.origin + "/login";

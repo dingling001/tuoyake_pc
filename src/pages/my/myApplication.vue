@@ -24,8 +24,8 @@
         <el-tab-pane label="进行中的赛事"></el-tab-pane>
         <el-tab-pane label="获奖赛事"></el-tab-pane>
         <el-tab-pane label="已结束的赛事"></el-tab-pane>
-        <div class="comlist" v-if="singList.length">
-          <div class="jitem van-row--flex" v-for="(item,index) in singList" :key="item.id" @click="gossdetail(item.id)">
+        <div class="comlist" v-if="sing&&singList.length">
+          <div class="jitem van-row--flex" v-for="(item,index) in singList" :key="item.id" @click="gossdetail(item.match_id)">
             <div class="jimg"><img :src="item.image" alt="">
               <!--<span v-if="item.recommend==1">精选</span>-->
             </div>
@@ -40,7 +40,7 @@
             </div>
           </div>
         </div>
-        <div class="nodata" v-else>暂无数据</div>
+        <div class="nodata" v-if="sing&&singList.length==0">暂无数据</div>
       </el-tabs>
     </div>
   </div>
@@ -60,7 +60,8 @@
         page: 0,
         status: 1,
         singList: [],
-        nav_active: 0
+        nav_active: 0,
+        sing: false
       }
     },
     created() {
@@ -90,39 +91,19 @@
       gomychieve() {
         this.$router.push('/myAchieve')
       },
-
-
       // 获取报名列表
       _GetSignList() {
         let pageNumber = this.page + 1;
         this.$api.GetSignList(pageNumber, this.status).then(res => {
+          this.sing = true;
           if (res.code == 1) {//请求成功
-            if (this.singList.length) {//当请求前有数据时 第n次请求
-              if (this.isUpLoading) {// 上拉加载
-                this.singList = this.singList.concat(res.data.data) //上拉加载新数据添加到数组中
-                this.$nextTick(() => { //在下次 DOM 更新循环结束之后执行延迟回调
-                  this.isUpLoading = false  //关闭上拉加载中
-                })
-                if (res.data.data.length < 10) {//没有更多数据
-                  this.finished = true   //上拉加载完毕
-                }
-              }
-              if (this.isDownLoading) {//关闭下拉刷新
-                this.isDownLoading = false; //关闭下拉刷新中
-                this.singList = res.data.data; //重新给数据赋值
-                if (this.finished) { //如果上拉加载完毕为true则设为false。解决上拉加载完毕后再下拉刷新就不会执行上拉加载问题
-                  this.finished = false
-                }
-              }
-            } else {
-              this.singList = res.data.data
-            }
+            this.singList = res.data.data
           }
         })
       },
       // 去赛事详情
       gossdetail(id) {
-        this.$router.push({path: '/gamedetail', query: {match_id: id, cid: this.id}})
+        this.$router.push({path: '/gamedetail', query: {match_id: id}})
       },
     }
   }
@@ -204,8 +185,8 @@
         width: 800px;
         margin: 0 auto 40px auto;
         height: 90px;
-        background:linear-gradient(82deg,rgba(242, 104, 78, 1),rgba(238, 51, 63, 1));
-        box-shadow:0px 2px 0px 0px rgba(255,181,181,0.5), 0px 10px 0px 0px rgba(255,255,255,0.3);
+        background: linear-gradient(82deg, rgba(242, 104, 78, 1), rgba(238, 51, 63, 1));
+        box-shadow: 0px 2px 0px 0px rgba(255, 181, 181, 0.5), 0px 10px 0px 0px rgba(255, 255, 255, 0.3);
         position: relative;
 
         .label_process {
@@ -216,9 +197,9 @@
           margin: 0 auto;
           top: 35px;
           height: 14px;
-          background:rgba(194,23,23,1);
-          box-shadow:0px 3px 0px 0px rgba(0, 0, 0, 0.3);
-          border-radius:7px;
+          background: rgba(194, 23, 23, 1);
+          box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.3);
+          border-radius: 7px;
         }
       }
     }
@@ -303,6 +284,7 @@
           /*no*/
           position: relative;
           overflow: hidden;
+          cursor: pointer;
 
           .jimg {
             width: 240px;
@@ -330,6 +312,10 @@
             flex-direction: column;
             justify-content: space-between;
             float: left;
+
+            &:hover .jname {
+              color: $baseBlue;
+            }
 
             .jname {
               font-size: 18px;

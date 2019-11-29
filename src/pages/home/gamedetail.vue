@@ -15,7 +15,7 @@
       <div class="taocaninfo">
         <div class="comnanme">{{matchinfo.name}}</div>
         <!--<div class="taocannum">-->
-        <div class="taocandes">{{matchinfo.content}}</div>
+        <div class="taocandes" v-html="matchinfo.content"></div>
         <!--</div>-->
         <div class="btnbox">
           <!--<div class="price">套餐价<span><span>¥ </span>{{matchinfo.price}}</span></div>-->
@@ -24,10 +24,11 @@
           <!--<input type="number" v-model="num" placeholder="">-->
           <!--<span class="iconfont iconplus-circle" @click="plus"></span>-->
           <!--</div>-->
-          <div class="taocan_btn" @click="goapp">立即报名</div>
+          <div class="taocan_btn" @click="goapp" v-if="matchinfo.is_sign==0">立即报名</div>
+          <div class="taocan_btn" @click="gomy" v-else>我的报名</div>
         </div>
-        <div class="nright" @click="clllection">
-          <div :class="['iconfont iconheart-fill', matchinfo.is_collection==0? '':'iconactive']"></div>
+        <div class="nright" @click="clllection" title="收藏我吧">
+          <div :class="['iconfont iconheart-fill', matchinfo.is_collection==1? 'iconactive':'']"></div>
           <div>{{matchinfo.is_collection==0?'收藏':'已收藏'}}</div>
         </div>
       </div>
@@ -96,19 +97,21 @@
       },
       // 收藏
       clllection() {
-        this.$api.SetCollection(3, this.match_id).then(res => {
+        this.$api.SetCollection(2, this.match_id).then(res => {
           if (res.code == 1) {
             if (res.data.is_collection == 1) {
-              this.$com.showToast('收藏成功')
+              this.$com.showToast('收藏成功','success')
               this.matchinfo.is_collection = 1;
             } else {
-              this.$com.showToast('取消收藏')
+              this.$com.showToast('取消收藏','error')
               this.matchinfo.is_collection = 0;
             }
+          }else{
+            this.$com.showToast(res.msg,'error')
+
           }
           // this._GetBarInfo()
         })
-
       },
       backlist() {
         if (this.is_share == 1) {
@@ -125,9 +128,13 @@
       allvideo() {
         this.$router.push({path: '/videolist', query: {match_id: this.match_id}})
       },
-      // 下载app
+      // 去报名
       goapp() {
         this.$router.push({path: '/apoint/' + this.match_id})
+      },
+      // 我的报名
+      gomy() {
+        this.$router.push({path: '/my/myApplication'})
       },
       /**
        * 将秒转换为 分:秒
@@ -233,7 +240,7 @@
           }
 
           .numbox {
-            float: left;
+            /*float: left;*/
             cursor: pointer;
             display: inline-flex;
             align-items: center;
@@ -256,21 +263,20 @@
               outline: none;
               border: none;
               line-height: 40px;
-
             }
           }
 
-
           .taocan_btn {
-            float: left;
-            margin-left: 33px;
+            /*float: left;*/
+            /*margin-left: 33px;*/
+            margin: 0 auto;
             width: 180px;
             text-align: center;
             line-height: 40px;
             color: #fff;
             background-color: $baseBlue;
             font-size: 18px;
-            display: inline-block;
+            /*display: inline-block;*/
             cursor: pointer;
           }
 
@@ -284,6 +290,7 @@
           font-size: 12px;
           width: 100px;
           text-align: center;
+          cursor: pointer;
 
           .iconfont {
             font-size: 25px;
@@ -308,18 +315,21 @@
         padding: 20px 30px;
         border-bottom: 1px solid #eee;
         overflow: hidden;
-        .spanbox{
+
+        .spanbox {
           float: left;
           font-weight: bold;
           font-size: 18px;
           color: #333;
         }
-        .all_video{
+
+        .all_video {
           float: right;
           font-size: 14px;
           color: #666;
           cursor: pointer;
-          &:hover{
+
+          &:hover {
             color: $baseRed;
             font-weight: bold;
           }
@@ -454,7 +464,6 @@
             margin: 0 30px 0 0;
             position: relative;
             background-color: #f5f5f5;
-
 
 
             .view_num {

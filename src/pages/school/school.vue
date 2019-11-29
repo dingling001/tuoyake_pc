@@ -54,14 +54,13 @@
         this.$api.CollegeIndex(
           this.page,
           this.category_id,
+          this.$com.getCookies('pccity') || this.city,
           this.keyword,
-          this.city,
         ).then(res => {
           if (res.code == 1) {//请求成功
             this.clublist = res.data.data;
             this.totalPages = res.data.total;
           }
-
         })
       },
       // 分页
@@ -97,9 +96,12 @@
 </script>
 
 <style scoped lang="scss">
+  @import "../../style/reset";
+
   .sbox {
     width: 1200px;
     margin: 0 auto;
+
     .listbox {
       background-color: #fff;
       padding-bottom: 40px;
@@ -120,9 +122,9 @@
           padding: 40px 0 10px 0;
           border-bottom: 1px dashed #eee;
           overflow: hidden;
-
+          cursor: pointer;
           /*&:last-child {*/
-            /*border: 0;*/
+          /*border: 0;*/
           /*}*/
 
           .jimg {
@@ -147,6 +149,10 @@
             flex-direction: column;
             justify-content: space-between;
             float: left;
+
+            &:hover .jname {
+              color: $baseBlue;
+            }
 
             .jname {
               font-size: 18px;

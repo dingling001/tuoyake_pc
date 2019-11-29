@@ -50,14 +50,14 @@
     watch: {
       $route: {
         handler(val) {
-          console.log(val)
+          // console.log(val)
           this.cur = val.meta.cur;
         },
         immediate: true
       }
     },
     beforeRouteEnter(to, form, next) {
-      console.log(to)
+      // console.log(to)
       if (to.meta.cur) {
         next.cur = to.cur;
       }

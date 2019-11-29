@@ -1,5 +1,5 @@
 <template>
-  <div class="combox">
+  <div class="combox" v-loading="showdata">
     <div class="barinfo">
       <div class="leftinfo">
         <div class="comnanme">{{comdata.info.name}}</div>
@@ -14,7 +14,6 @@
         <div class="adressitem">地址： <span class="address">{{comdata.info.address}}</span></div>
         <div class="phonecall">电话：{{comdata.info.contact_number}}</div>
         <div class="phonecall" v-if="comdata.info.synopsis">{{comdata.info.synopsis}}</div>
-
         <div class="iconbox" @click="clllection">
           <div :class="['iconfont iconheart-fill', comdata.info.is_collection==0? '':'iconactive']"></div>
           <div>{{comdata.info.is_collection==0?'收藏':'已收藏'}}</div>
@@ -24,20 +23,20 @@
         <div class="swiper1">
           <swiper :options="swiperOption" ref="mySwiper" v-if="comdata.info.album_images.length">
             <swiper-slide v-for="(item,index) in comdata.info.album_images" :key="index">
-<!--              <el-image-->
-<!--                :src="item"-->
-<!--                :preview-src-list="comdata.info.album_images">-->
-<!--              </el-image>-->
-              <img :src="item" alt="" >
-              <div class="mask animated zoomIn fast" @click="onPreview">
-                <i class="el-icon-zoom-in"></i>
+              <!--              <el-image-->
+              <!--                :src="item"-->
+              <!--                :preview-src-list="comdata.info.album_images">-->
+              <!--              </el-image>-->
+              <img :src="item" alt="">
+              <div class="mask animated zoomIn faster" @click="onPreview">
+                <i class="el-icon-zoom-in"></i> <span>全部相册</span>
               </div>
             </swiper-slide>
           </swiper>
         </div>
         <div class="swiper2">
           <swiper :options="swiperOption1" ref="mySwiper1" v-if="comdata.info.album_images.length">
-            <swiper-slide v-for="(item,index) in comdata.info.album_images" :key="index"><img :src="item" alt="" >
+            <swiper-slide v-for="(item,index) in comdata.info.album_images" :key="index"><img :src="item" alt="">
             </swiper-slide>
           </swiper>
         </div>
@@ -64,6 +63,7 @@
     <div class="comlist" v-if="comdata.match.length">
       <div class="taocan">
         <div class="spanbox">赛事列表</div>
+        <div class="all" @click="goall">全部赛事 <span class="iconfont iconjiantou"></span></div>
       </div>
       <div class="slist">
         <div class="sitem " v-for="(item,index) in comdata.match" :key="item.id"
@@ -82,7 +82,7 @@
     <el-image-viewer
       v-if="showViewer"
       :on-close="closeViewer"
-      :url-list="comdata.info.album_images" />
+      :url-list="comdata.info.album_images"/>
     <!--    <div class="comitem">-->
     <!--      <div class="comnanme">{{comdata.info.name}}</div>-->
     <!--      <div class="starbox">-->
@@ -149,10 +149,11 @@
   import 'swiper/dist/css/swiper.css'
   import {swiper, swiperSlide} from 'vue-awesome-swiper'
   import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
+
   export default {
     name: "competitiondetail",
     data() {
-      var _=this;
+      var _ = this;
       return {
         id: '',
         comdata: {
@@ -180,19 +181,19 @@
           spaceBetween: 7,
           loop: true,
           slidesPerView: 3,
-          centeredSlides:true,
+          centeredSlides: true,
           slideToClickedSlide: true,
-          onSlideChangeStart: function(swiper){
+          onSlideChangeStart: function (swiper) {
             // alert(swiper.realIndex);
             var s = _.$refs.mySwiper.swiper;
-            s.slideTo(swiper.realIndex,1000,false)
+            s.slideTo(swiper.realIndex, 1000, false)
           }
         },
         show: false,
         index: 0,
         collectiontext: '收藏',
-
-        showViewer:false
+        showViewer: false,
+        showdata: true
       }
     },
     components: {
@@ -219,6 +220,7 @@
       // 获取详情
       _GetBarInfo() {
         this.$api.GetBarInfo(this.id).then(res => {
+          this.showdata = false;
           if (res.code == 1) {
             this.comdata = res.data;
           }
@@ -257,7 +259,10 @@
           }
           // this._GetBarInfo()
         })
-
+      },
+      // 全部赛事
+      goall(){
+        this.$router.push('/gameindex')
       }
     }
   }
@@ -387,25 +392,38 @@
               overflow: hidden;
               /*height: 256px;*/
               cursor: pointer;
-              &:hover .mask{
+
+              &:hover .mask {
                 display: block;
               }
-              .mask{
+
+              .mask {
                 display: none;
                 position: absolute;
                 left: 0;
                 right: 0;
                 top: 0;
                 bottom: 0;
-                margin:  auto;
+                margin: auto;
                 color: #fff;
-                background-color: rgba(0,0,0,.3);
+                background-color: rgba(0, 0, 0, .3);
                 text-align: center;
                 line-height: 192px;
-                .el-icon-zoom-in{
+                cursor: pointer;
+                font-size: 12px;
+                align-items: center;
+                /*transition: ease-in-out .2s;*/
+                /*&:hover{*/
+                /*  color: #ccc;*/
+                /*}*/
+                .el-icon-zoom-in {
                   font-size: 30px;
                 }
+
+                span {
+                }
               }
+
               img {
                 width: 100%;
               }
@@ -427,6 +445,7 @@
               color: #fff;
               /*border-radius: 10px;*/
               overflow: hidden;
+
               img {
                 height: 100%;
               }
@@ -442,10 +461,31 @@
 
       .taocan {
         padding: 20px 30px;
-        font-weight: bold;
-        font-size: 18px;
         color: #333;
         border-bottom: 1px solid #eee;
+        overflow: hidden;
+
+        .spanbox {
+          font-weight: bold;
+          font-size: 18px;
+          float: left;
+
+        }
+
+        .all {
+          cursor: pointer;
+          float: right;
+          font-size: 14px;
+          color: #333;
+
+          &:hover {
+            color: $baseRed;
+          }
+
+          .iconfont {
+            font-size: 14px;
+          }
+        }
       }
 
       .jlist {

@@ -2,26 +2,28 @@
   <div class="colbox">
     <el-tabs v-model="active" @tab-click="changetype">
       <el-tab-pane label="网吧" name="1">
-        <div class="recommentlist" v-if="list.length&&active==1">
-          <div class="recmmentitem" v-for="(item ,index) in list" :key="item.id">
-            <div class="rec_img"><img :src="item.image" alt=""></div>
+        <div class="recommentlist" v-if="isload&&list.length&&active==1">
+          <div class="recmmentitem" v-for="(item ,index) in list" :key="item.id" @click="godetail(item.id)">
+            <div class="rec_img" v-if="item.image"><img :src="item.image" alt=""></div>
             <div class="rec_name">{{item.name}}</div>
             <div class="rec_type">
-              <div class="starbox">
+              <div class="starbox" v-if="item.star&&item.star.length">
                 <span class="iconfont iconstar-fill iconactive" v-for="i in parseInt(item.star)"></span>
               </div>
-              <div class="typebox">
+              <div class="typebox" v-if="item.label_ids.length">
                 <span v-for="c in item.label_ids">{{c}}</span>
               </div>
             </div>
             <div class="rec_address single-line-text">{{item.address}}</div>
           </div>
         </div>
+        <NoData :text="'暂无收藏网吧'" v-if="isload&&list.length==0&&active==1"></NoData>
         <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
                   :scrollTo="680" v-if="totalPages>per_page"></pcpaging>
+
       </el-tab-pane>
       <el-tab-pane label="赛事" name="2">
-        <div v-if="list.length" class="comlist">
+        <div class="comlist" v-if="isload&&list.length&&active==2">
           <div class="jitem " v-for="(item,index) in list" :key="item.id"
                @click="gossdetail(item.id)">
             <div class="jimg">
@@ -39,9 +41,10 @@
             </div>
           </div>
         </div>
+        <NoData :text="'暂无收藏赛事'" v-if="isload&&list.length==0&&active==2"></NoData>
       </el-tab-pane>
       <el-tab-pane label="视频" name="3">
-        <div v-if="list.length" class="vlist">
+        <div class="vlist" v-if="isload&&list.length&&active==3">
           <div class="videoitem" v-for="(item,index) in list" :key="item.id"
                @click="govdetail(item.id)">
             <div class="vimg">
@@ -55,9 +58,10 @@
             </div>
           </div>
         </div>
+        <NoData :text="'暂无收藏视频'" v-if="isload&&list.length==0&&active==3"></NoData>
       </el-tab-pane>
       <el-tab-pane label="套餐" name="4">
-        <div v-if="list.length" class="comlist">
+        <div class="comlist" v-if="isload&&list.length">
           <div class="jitem van-row--flex" v-for="(item,index) in list" :key="item.id"
                @click="gotaocandetail(item.id)">
             <div class="jimg"><img :src="item.image" alt=""></div>
@@ -65,12 +69,13 @@
               <div class="jname van-ellipsis">{{item.name}}</div>
               <!--<div class="jinfo"><span class="name">{{item.contact}}</span><span class="tel">{{item.contact_number}}</span>-->
               <!--</div>-->
-              <div class="jaddress van-ellipsis">{{item.content}}</div>
+              <div class="jaddress van-ellipsis" v-html="item.content"></div>
               <div class="price">￥{{item.price}}</div>
               <div class="jbtn">立即抢购</div>
             </div>
           </div>
         </div>
+        <NoData :text="'暂无收藏视频'" v-if="isload&&list.length==0&&active==4"></NoData>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -89,6 +94,8 @@
         page: 0,
         per_page: 12,
         totalPages: 0,
+        isload: false
+
       }
     },
     components: {
@@ -107,6 +114,7 @@
           this.lng,
           this.per_page
         ).then(res => {
+          this.isload = true;
           if (res.code == 1) {//请求成功
             console.log(res)
             this.list = res.data.data;
@@ -134,11 +142,12 @@
         this.page = 0;
         this.type = parseInt(val.index) + 1;
         this.list = [];
+        this.isload = false;
         this._CollectionIndex()
       },
       // 去网吧详情
       godetail(id) {
-        this.$router.push({path: '/competitiondetail', query: {id: id}})
+        this.$router.push({path: '/competitiondetail/'+id})
       },
       // 去赛事详情
       gossdetail(id) {
@@ -201,6 +210,11 @@
         }
 
       }
+
+      .el-tabs__content {
+        min-height: 500px;
+        position: relative;
+      }
     }
 
     .pcpaging {
@@ -218,6 +232,7 @@
         margin-right: 48px;
         /*padding: 0 48px 50px 0;*/
         cursor: pointer;
+        min-height: 372px;
 
         &:nth-child(3n) {
           margin-right: 0;
@@ -244,7 +259,7 @@
         }
 
         .rec_name {
-          padding: 18px 0;
+          padding: 15px 0 0 0;
           font-size: 16px;
           color: #333333;
         }
@@ -255,7 +270,7 @@
           .starbox {
             float: left;
             width: 60px;
-            margin-right: 28px;
+            padding: 10px 0;
 
             .iconfont {
               color: #c3c3c3;
@@ -270,6 +285,7 @@
 
           .typebox {
             float: left;
+            margin: 5px 0 0 0;
 
             span {
               background-color: #FEEAEB;
@@ -280,7 +296,7 @@
               border-radius: 10px;
               display: inline-block;
               font-size: 13px;
-              margin-right: 5px;
+              margin: 0 5px 5px 0;
             }
           }
 
@@ -289,7 +305,7 @@
         .rec_address {
           color: #999999;
           font-size: 12px;
-          padding-top: 18px;
+          padding-top: 10px;
         }
       }
     }
@@ -386,9 +402,11 @@
           /*display: flex;*/
           /*flex-direction: column;*/
           /*justify-content: space-between;*/
+          width: 600px;
           position: relative;
           float: left;
           height: 135px;
+          padding: 0 0 15px 0;
 
           &:hover .jname {
             font-weight: bold;
@@ -414,6 +432,7 @@
             font-size: 12px;
             /*px*/
             padding-bottom: 10px;
+            /*white-space: nowrap;*/
           }
 
           .price {
@@ -425,7 +444,6 @@
 
           .synopsis {
             max-width: 622px;
-
             font-size: 12px;
             /*px*/
             color: #666666;
@@ -442,7 +460,7 @@
             background: linear-gradient(0deg, rgba(255, 135, 126, 1), rgba(242, 49, 59, 1));
             border-radius: 5px;
             position: absolute;
-            left: 16px;
+            right: 16px;
             bottom: 0;
             line-height: 32px;
             text-align: center;
