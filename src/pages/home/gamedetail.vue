@@ -100,14 +100,14 @@
         this.$api.SetCollection(2, this.match_id).then(res => {
           if (res.code == 1) {
             if (res.data.is_collection == 1) {
-              this.$com.showToast('收藏成功','success')
+              this.$com.showToast('收藏成功', 'success')
               this.matchinfo.is_collection = 1;
             } else {
-              this.$com.showToast('取消收藏','error')
+              this.$com.showToast('取消收藏', 'error')
               this.matchinfo.is_collection = 0;
             }
-          }else{
-            this.$com.showToast(res.msg,'error')
+          } else {
+            this.$com.showToast(res.msg, 'error')
 
           }
           // this._GetBarInfo()
@@ -212,12 +212,14 @@
           font-size: 14px;
           border-bottom: 1px solid #eee;
           /*px*/
+          width: 800px;
         }
 
         .btnbox {
           height: 40px;
           margin: 49px 0 0 0;
           overflow: hidden;
+          width: 800px;
 
           .price {
             color: #666666;

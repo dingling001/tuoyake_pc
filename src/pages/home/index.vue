@@ -76,7 +76,7 @@
       return {
         cur: 0,
         swiperlist: [],
-        city: '天津市',
+        city: '',
         page: 1,
         per_page: 8,
         keyword: '',
@@ -200,7 +200,7 @@
     methods: {
       // 获取轮播图
       _GetSlideList() {
-        this.$api.GetSlideList(this.city).then((res) => {
+        this.$api.GetSlideList(this.$com.getCookies('pccity') || this.city).then((res) => {
           this.swipershow = true;
           this.showswiperloading = false;
           if (res.code == 1) {

@@ -7,9 +7,9 @@
       </el-tab-pane>
       <el-tab-pane label="待使用" name="3">
       </el-tab-pane>
-      <el-tab-pane label="已取消" name="4">
+      <el-tab-pane label="已完成" name="4">
       </el-tab-pane>
-      <el-tab-pane label="已完成" name="5">
+      <el-tab-pane label="已取消" name="5">
       </el-tab-pane>
       <div class="recommentlist" v-if="listshow&&list.length">
         <div class="listitem" v-for="item in list" :key="item.id">
@@ -42,7 +42,7 @@
             <span class="btnbox">
                 <el-button type="danger" size="mini" v-if="item.status==1">去付款</el-button>
                    <el-button type="primary" size="mini" v-if="item.status==2">去使用</el-button>
-<!--                  <el-button type="info" size="mini" v-if="item.status==1||item.status==2">取消订单</el-button>-->
+              <!--                  <el-button type="info" size="mini" v-if="item.status==1||item.status==2">取消订单</el-button>-->
                   <el-button type="info" size="mini" v-if="item.status==3">删除订单</el-button>
                   <el-button type="info" size="mini" v-if="item.status==8">已取消</el-button>
             </span>
