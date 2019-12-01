@@ -133,6 +133,8 @@
               this.$com.showToast('取消收藏')
               this.goodinfo.is_collection = 0;
             }
+          }else{
+            this.$com.showToast(res.msg)
           }
           // this._GetBarInfo()
         })

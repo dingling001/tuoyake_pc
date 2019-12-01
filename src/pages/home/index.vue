@@ -45,9 +45,10 @@
           <div class="starbox">
             <span class="iconfont iconstar-fill iconactive" v-for="i in parseInt(item.star)"></span>
           </div>
-          <div class="typebox single-line-text">
-            <span v-for="(c,cindex) in item.label_ids" :key="cindex" v-if="cindex<3">{{c}}</span>
-            <span v-if="item.label_ids.length>3" class="more">更多</span>
+          <div class="typebox ">
+            <span class="single-line-text" :style="{maxWidth:(1/item.label_ids.length)*100+'%'}"
+                  v-for="(c,cindex) in item.label_ids" :key="cindex">{{c}}</span>
+            <!--<span v-if="item.label_ids.length>3" class="more">更多</span>-->
           </div>
           <div class="rec_address single-line-text">{{item.address}}</div>
           <div class="sharebox"></div>
@@ -116,13 +117,14 @@
           //循环
           // loop: true,
           //每张播放时长3秒，自动播放
-          autoplay: 20000,
+          autoplay: 2000,
           //滑动速度
           speed: 1000,
           effect: 'fade',
           fadeEffect: {
             crossFade: true,
           },
+          paginationClickable :true,
           observeParents: true,
           observers: true,
           preventClicks: false,//默认true
@@ -293,16 +295,17 @@
       background-size: 100% auto;
       background-repeat: no-repeat;
       overflow: hidden;
-      height: 420px;
+      /*height: 420px;*/
       position: relative;
       /*.b {*/
       /*width: 1200px;*/
-
+      padding: 40px 0 18px 0;
       /*}*/
       /deep/ .swiper-container {
         /*overflow: hidden;*/
         width: 1200px;
-        margin: 40px auto 18px auto;
+        /*margin: 40px auto 18px auto;*/
+        margin: 0 auto;
         height: 420px;
         /**/
         /* .slide {
@@ -438,7 +441,7 @@
             line-height: 25px;
             text-align: center;
             color: #fff;
-            border-radius: 5px 0 5px 0;
+            border-radius: 15px 0 15px 0;
             background: linear-gradient(90deg, #ec8215, #f0a532);
           }
 
@@ -454,7 +457,7 @@
           .rec_img {
             width: 240px;
             height: 240px;
-            border-radius: 5px;
+            border-radius: 15px;
             overflow: hidden;
             transition: ease-in-out .3s;
 
@@ -502,6 +505,7 @@
               background-color: #FEEAEB;
               color: #E03A43;
               padding: 2px 5px;
+              /*max-width: 33%;*/
               /*width: 56px;*/
               text-align: center;
               border-radius: 10px;
@@ -509,17 +513,17 @@
               font-size: 13px;
               margin: 0 5px 5px 0;
 
-              &.more {
-                position: absolute;
-                right: 0;
-                font-size: 12px;
-
-                &:before {
-                  content: '...';
+              /*  &.more {
                   position: absolute;
-                  left: -10px;
-                }
-              }
+                  right: 0;
+                  font-size: 12px;
+
+                  &:before {
+                    content: '...';
+                    position: absolute;
+                    left: -10px;
+                  }
+                }*/
             }
           }
 

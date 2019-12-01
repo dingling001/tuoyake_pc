@@ -10,9 +10,14 @@
               <div class="starbox" v-if="item.star&&item.star.length">
                 <span class="iconfont iconstar-fill iconactive" v-for="i in parseInt(item.star)"></span>
               </div>
-              <div class="typebox" v-if="item.label_ids.length">
-                <span v-for="c in item.label_ids">{{c}}</span>
-              </div>
+              <!--<div class="typebox" v-if="item.label_ids.length">-->
+                <!--<span v-for="c in item.label_ids">{{c}}</span>-->
+              <!--</div>-->
+            </div>
+            <div class="typebox ">
+            <span class="single-line-text" :style="{maxWidth:(1/item.label_ids.length)*100+'%'}"
+                  v-for="(c,cindex) in item.label_ids" :key="cindex">{{c}}</span>
+              <!--<span v-if="item.label_ids.length>3" class="more">更多</span>-->
             </div>
             <div class="rec_address single-line-text">{{item.address}}</div>
           </div>
@@ -300,6 +305,37 @@
             }
           }
 
+        }
+        .typebox {
+          /*float: left;*/
+          margin: 5px 0 0 0;
+          min-height: 22px;
+          position: relative;
+
+          span {
+            background-color: #FEEAEB;
+            color: #E03A43;
+            padding: 2px 5px;
+            /*max-width: 33%;*/
+            /*width: 56px;*/
+            text-align: center;
+            border-radius: 10px;
+            display: inline-block;
+            font-size: 13px;
+            margin: 0 5px 5px 0;
+
+            /*  &.more {
+                position: absolute;
+                right: 0;
+                font-size: 12px;
+
+                &:before {
+                  content: '...';
+                  position: absolute;
+                  left: -10px;
+                }
+              }*/
+          }
         }
 
         .rec_address {

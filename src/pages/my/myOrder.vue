@@ -12,7 +12,7 @@
       <el-tab-pane label="已取消" name="5">
       </el-tab-pane>
       <div class="recommentlist" v-if="listshow&&list.length">
-        <div class="listitem" v-for="item in list" :key="item.id">
+        <div class="listitem" v-for="item in list" :key="item.id" @click="goorder(item.id)">
           <div class="statusbox">
             <span class="label1">
                <span class="time">{{item.create_time}}</span>
@@ -134,6 +134,10 @@
       gotaocandetail(id) {
         this.$router.push({path: '/taocan', query: {goods_id: id, cid: this.id}})
       },
+      // 去订单详情
+      goorder(id) {
+        this.$router.push({path: '/download'})
+      },
       s_to_hs(s) {
         //计算分钟
         //算法：将秒数除以60，然后下舍入，既得到分钟数
@@ -196,6 +200,7 @@
       min-height: 300px;
 
       .listitem {
+        cursor: pointer;
         .statusbox {
           background-color: #F8F8F8;
           line-height: 40px;

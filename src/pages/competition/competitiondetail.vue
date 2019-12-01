@@ -170,7 +170,8 @@
           direction: 'vertical',
           observers: true,
           observeParents: true,
-          // loop: true,
+          centeredSlides: true,
+          loop: true,
           slidesPerView: 1
         },
         swiperOption1: {
@@ -379,11 +380,11 @@
         .swiper1 {
           width: 256px;
           max-height: 256px;
-          height: 192px;
+          height:147px;
           float: left;
 
           .swiper-container {
-            height: 192px;
+            height: 147px;
 
             .swiper-slide {
               background-color: #f5f5f5;
@@ -426,6 +427,7 @@
 
               img {
                 width: 100%;
+                height: 100%;
               }
             }
           }
@@ -433,11 +435,11 @@
 
         .swiper2 {
           width: 59px;
-          height: 192px;
+          height: 147px;
           float: right;
 
           .swiper-container {
-            height: 192px;
+            height: 147px;
 
             .swiper-slide {
               cursor: pointer;
@@ -448,6 +450,7 @@
 
               img {
                 height: 100%;
+                width: 100%;
               }
             }
           }
