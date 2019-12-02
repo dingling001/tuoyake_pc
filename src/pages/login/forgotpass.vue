@@ -9,10 +9,12 @@
         <!--<div class="phone_box" @click="gocode"><span class="iconfont iconyouxiang"></span><span>密码登录</span></div>-->
       </div>
       <el-form-item prop="mobile">
-        <el-input v-model.number="ruleForm.mobile" placeholder="手机号"  clearable maxlength="11" autocomplete="off"></el-input>
+        <el-input v-model.number="ruleForm.mobile" placeholder="手机号" clearable maxlength="11"
+                  autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item prop="captcha">
-        <el-input v-model="ruleForm.captcha" placeholder="请输入验证码" style="width: 70%" type="number" autocomplete="off"></el-input>
+        <el-input v-model="ruleForm.captcha" placeholder="请输入验证码" style="width: 70%" type="number"
+                  autocomplete="off"></el-input>
         <el-button icon="el-icon-mobile-phone" @click="_SmsSend" style="width: 28%" type="success"
                    :disabled="disabled=!show">
           <span v-show="show">获取验证码</span>
@@ -20,10 +22,12 @@
         </el-button>
       </el-form-item>
       <el-form-item prop="newpassword">
-        <el-input v-model="ruleForm.newpassword" placeholder="新密码" type="password" clearable autocomplete="off"></el-input>
+        <el-input v-model="ruleForm.newpassword" placeholder="新密码" type="password" clearable autocomplete="off"
+                  minlength="6" maxlength="12"></el-input>
       </el-form-item>
       <el-form-item prop="repassword">
-        <el-input v-model="ruleForm.repassword" placeholder="重复新密码" type="password" clearable autocomplete="off"></el-input>
+        <el-input v-model="ruleForm.repassword" placeholder="重复新密码" type="password" clearable autocomplete="off"
+                  minlength="6" maxlength="12"></el-input>
       </el-form-item>
       <!--<van-field v-model="mobile" placeholder="手机号" type="number" clearable/>-->
       <!--<van-field v-model="captcha" placeholder="短信验证码" type="text" center clearable>-->
@@ -38,7 +42,7 @@
       <!--<span>S</span>-->
       <!--</span>-->
       <!--</van-field>-->
-      <div class="login_btn" @click="gonext">重置密码</div>
+      <el-button class="login_btn" @click="gonext" :loading="repassstatus">重置密码</el-button>
       <div @click="backlogin" class="login_pass">密码登录</div>
     </el-form>
   </div>
@@ -59,6 +63,7 @@
         show: true,
         count: '',
         timer: null,
+        repassstatus:false
       }
     },
     created() {
@@ -76,7 +81,7 @@
               this.send();
               this.$com.showToast(res.msg, 'success');
               this.ruleForm.captcha = res.data
-            }else{
+            } else {
               this.$com.showToast(res.msg)
 
             }
@@ -109,12 +114,14 @@
           this.$com.showToast('密码不能为空')
         } else if (this.ruleForm.repassword == '') {
           this.$com.showToast('重复密码不能为空')
-        } else if (this.ruleForm.password.length < 6 || this.ruleForm.password > 12) {
+        } else if (this.ruleForm.newpassword.length < 6 || this.ruleForm.newpassword.length > 12) {
           this.$com.showToast('密码长度介于6～12位之间')
         } else if (this.ruleForm.newpassword !== this.ruleForm.repassword) {
           this.$com.showToast('两次密码不一致')
         } else {
+          this.repassstatus=true;
           this.$api.ResetPwd(this.ruleForm.mobile, this.ruleForm.captcha, this.ruleForm.newpassword, this.ruleForm.newpassword).then(res => {
+            this.repassstatus=false;
             if (res.code == 1) {
               this.$com.showToast(res.msg, 'success');
               this.backlogin()
@@ -214,6 +221,7 @@
       }
 
       .login_btn {
+        width: 300px;
         margin: 51px auto 0 auto;
         text-align: center;
         background-color: $baseBlue;
@@ -223,6 +231,7 @@
         border-radius: 5px;
         padding: 14px 0;
         cursor: pointer;
+        display: block;
 
         &:active {
           opacity: .9;

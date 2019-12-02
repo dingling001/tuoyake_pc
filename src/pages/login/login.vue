@@ -9,17 +9,18 @@
         <div class="phone_box" @click="gocode"><span class="iconfont iconyouxiang"></span><span>手机验证码登录</span></div>
       </div>
       <el-form-item prop="account">
-        <el-input v-model="ruleForm.account" placeholder="请输入手机号" clearable maxlength="11"
-                  autocomplete="off"></el-input>
+        <el-input v-model.trim="ruleForm.account" placeholder="请输入手机号" clearable maxlength="11"
+                  autocomplete="off" @input="accountinput"></el-input>
       </el-form-item>
       <el-form-item prop="password">
         <el-input v-model="ruleForm.password" placeholder="请输入密码" type="password" clearable
-                  autocomplete="off"></el-input>
+                  autocomplete="off" maxlength="12" minlength="6"></el-input>
       </el-form-item>
       <div class="btns">
         <router-link tag="span" to="/forgotpass">忘记密码?</router-link>
       </div>
-      <div class="login_btn" @click="loginpass">登录</div>
+      <!--<div  :loading="loginstatus"></div>-->
+      <el-button type="primary" class="login_btn" @click="loginpass" :loading="loginstatus">登录</el-button>
       <div class="tips">
         <router-link class="reg" to="/reg" tag="span">免费注册</router-link>
         <span class="iconfont iconjiantou"></span>
@@ -37,6 +38,7 @@
           account: '',
           password: '',
         },
+        loginstatus: false
       }
     },
     created() {
@@ -52,8 +54,10 @@
         } else if (this.ruleForm.password == '') {
           this.$com.showToast('请输入密码')
         } else {
+          this.loginstatus = true;
           this.$api.Login(this.ruleForm.account, this.ruleForm.password).then((res) => {
             // console.log(res)
+            this.loginstatus = false;
             if (res.code == 1) {
               this.$com.showToast('登录成功', 'success');
               this.$com.setCookie('user_tpc', res.data.userinfo.token);
@@ -71,6 +75,9 @@
       // 验证码登录
       gocode() {
         this.$router.push({path: '/logincode', query: {redirect: this.$route.query.redirect || '/my'}})
+      },
+      accountinput() {
+        this.ruleForm.account = this.ruleForm.account.replace(/[^\d]/g, '');
       }
     }
   }
@@ -180,6 +187,7 @@
         border-radius: 5px;
         padding: 14px 0;
         cursor: pointer;
+        display: block;
 
         &:active {
           opacity: .9;
