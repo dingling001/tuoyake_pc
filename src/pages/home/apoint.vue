@@ -70,7 +70,7 @@
 
           ],
           email: [
-            {type: 'email', required: true, message: '请输入正确的邮箱地址', trigger: 'blur'}
+            {type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur'}
           ],
           remark: [
             {min: 0, max: 150, message: '长度在 150 个字符', trigger: 'blur'}

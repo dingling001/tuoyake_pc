@@ -8,11 +8,11 @@
       <div class="score_item">
         <div class="item">
           <span class="mys">报名次数</span>
-          <span class="scroe">{{total}}</span>次
+          <span class="scroe"> {{total}}</span> 次
         </div>
         <div class="item">
           <span class="mys">获奖次数</span>
-          <span class="scroe">{{win}}</span>次
+          <span class="scroe"> {{win}}</span> 次
         </div>
       </div>
       <div class="score_label">
@@ -25,7 +25,8 @@
         <el-tab-pane label="获奖赛事"></el-tab-pane>
         <el-tab-pane label="已结束的赛事"></el-tab-pane>
         <div class="comlist" v-if="sing&&singList.length">
-          <div class="jitem van-row--flex" v-for="(item,index) in singList" :key="item.id" @click="gossdetail(item.match_id)">
+          <div class="jitem van-row--flex" v-for="(item,index) in singList" :key="item.id"
+               @click="gossdetail(item.match_id)">
             <div class="jimg"><img :src="item.image" alt="">
               <!--<span v-if="item.recommend==1">精选</span>-->
             </div>
@@ -40,7 +41,9 @@
             </div>
           </div>
         </div>
-        <div class="nodata" v-if="sing&&singList.length==0">暂无数据</div>
+        <div class="nodata" v-if="sing&&singList.length==0">
+          <NoData :text="'暂无相关赛事'"></NoData>
+        </div>
       </el-tabs>
     </div>
   </div>
@@ -81,6 +84,7 @@
       changgeNav() {
         this.status = parseInt(this.nav_active) + 1;
         this.page = 0;
+        this.sing = false;
         this.singList = [];
         this._GetSignList()
       },
@@ -172,6 +176,7 @@
             padding-bottom: 15px;
             font-weight: bold;
             color: #333;
+            transition: ease-in-out .3s;
           }
 
           .mys {
@@ -385,6 +390,8 @@
         text-align: center;
         font-size: 14px;
         padding: 50px 0;
+        min-height: 300px;
+        position: relative;
       }
     }
   }

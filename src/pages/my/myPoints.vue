@@ -3,7 +3,7 @@
     <div class="score_top">
       <div class="iconbox" @click="myAddress()">
         <div class="name">我的积分</div>
-        <div class="achieve_right">我的地址<span class="iconfont iconjiantou"></span></div>
+        <div class="achieve_right"><span>我的地址</span><span class="iconfont iconjiantou"></span></div>
       </div>
       <div class="score_item">
         <div class="item">
@@ -106,16 +106,20 @@
         .achieve_right {
           float: right;
           cursor: pointer;
+          line-height: 47px;
 
           &:hover {
             color: $baseRed;
           }
+          span{
+            line-height: 47px;
+            display: inline-block;
+            &.iconfont{
+              font-size: 15px;
+            }
+          }
         }
 
-        .iconcaret-right {
-          font-size: 12px;
-          /*px*/
-        }
       }
 
 

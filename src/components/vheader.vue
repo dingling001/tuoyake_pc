@@ -5,13 +5,14 @@
         <span class="iconfont iconchakantiezidingwei"></span>
         <span class="city">{{city}}</span>
         <span class="change" @click="changCity">[切换城市]</span>
-        <span class="login" >
+        <span class="login">
           <span class="loginbox" v-if="!tyktoken">
             <span class="reg" @click="login_fn">立即登录</span>
             <router-link to="/reg" tag="span">注册</router-link>
           </span>
-            <span class="loginbox" v-else v-loading="showuser">
-            <span class="reg" title="个人中心" @click="gomy">{{getTimeState}}，{{user_info.nickname}}</span>
+          <!--            <span class="loginbox" v-else v-loading="showuser">-->
+          <span class="loginbox" v-else>
+            <span class="reg" title="个人中心" @click="gomy" v-if="user_info.nickname">{{getTimeState}}，{{user_info.nickname}}</span>
             <span @click="loginout">退出</span>
           </span>
         </span>
@@ -74,7 +75,7 @@
           },
         ],
         user_info: {},
-        showuser:true
+        showuser: true
       };
     },
     props: {
@@ -130,7 +131,7 @@
       _GetUserInfo() {
         this.$api.GetUserInfo().then(res => {
           // console.log(res)
-          this.showuser=false
+          this.showuser = false
           if (res.code == 1) {
             this.user_info = res.data;
           } else {

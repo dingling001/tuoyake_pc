@@ -116,6 +116,34 @@ export default [
           cur: 5
         },
       },
+      {
+        path: '/my/myRules',
+        name: 'myRules',
+        component: resolve => require(["../../pages/my/myRules"], resolve),
+        meta: {
+          title: "规则说明",
+          showF: false,
+          showH: true,
+          shownav: false,
+          needLogin: true,
+          keepAlive: true,
+          cur: 3
+        },
+      },
+      {
+        path: '/my/myAddress',
+        name: 'myAddress',
+        component: resolve => require(["../../pages/my/myAddress"], resolve),
+        meta: {
+          title: "地址管理",
+          showF: false,
+          showH: true,
+          shownav: false,
+          needLogin: true,
+          keepAlive: true,
+          cur: 3
+        },
+      },
     ]
   },
   {

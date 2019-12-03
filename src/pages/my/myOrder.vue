@@ -40,11 +40,12 @@
               ¥{{(parseInt(item.number)*parseFloat(item.price)).toFixed(2)}}
             </span>
             <span class="btnbox">
-                <el-button type="danger" size="mini" v-if="item.status==1">去付款</el-button>
-                   <el-button type="primary" size="mini" v-if="item.status==2">去使用</el-button>
+<!--                <el-button type="danger" size="mini" v-if="item.status==1">去付款</el-button>-->
+              <!--                   <el-button type="primary" size="mini" v-if="item.status==2">去使用</el-button>-->
               <!--                  <el-button type="info" size="mini" v-if="item.status==1||item.status==2">取消订单</el-button>-->
-                  <el-button type="info" size="mini" v-if="item.status==3">删除订单</el-button>
-                  <el-button type="info" size="mini" v-if="item.status==8">已取消</el-button>
+              <!--                  <el-button type="info" size="mini" v-if="item.status==3">删除订单</el-button>-->
+              <!--                  <el-button type="info" size="mini" v-if="item.status==8">已取消</el-button>-->
+                <el-button type="primary" size="mini">查看详情</el-button>
             </span>
           </div>
         </div>
@@ -201,6 +202,7 @@
 
       .listitem {
         cursor: pointer;
+
         .statusbox {
           background-color: #F8F8F8;
           line-height: 40px;

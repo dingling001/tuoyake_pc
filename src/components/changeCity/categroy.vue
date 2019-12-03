@@ -61,6 +61,7 @@
         // localStorage.city = c;
         this.$com.setCookie('pccity',c);
         location.href = '/'
+        // this.$router.replace('/')
       }
     }
   }

@@ -124,7 +124,7 @@
           fadeEffect: {
             crossFade: true,
           },
-          paginationClickable :true,
+          paginationClickable: true,
           observeParents: true,
           observers: true,
           preventClicks: false,//默认true
@@ -291,15 +291,15 @@
   .index {
     .bannerbox {
       background-image: url("../../img/index/index_bg.jpg");
-      background-position: top;
-      background-size: 100% auto;
+      background-size: 100%;
       background-repeat: no-repeat;
       overflow: hidden;
       /*height: 420px;*/
+      min-height: 450px;
       position: relative;
       /*.b {*/
       /*width: 1200px;*/
-      padding: 40px 0 18px 0;
+      padding: 25px 0 0 0;
       /*}*/
       /deep/ .swiper-container {
         /*overflow: hidden;*/
@@ -349,7 +349,8 @@
 
     .recommendbox {
       width: 1200px;
-      margin: 0 auto;
+      /*margin: 0 auto;*/
+      margin: 18px auto;
       background-color: #fff;
       position: relative;
       min-height: 300px;
@@ -372,7 +373,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
           }
-
         }
 
         .recommentright {

@@ -77,6 +77,7 @@
         // localStorage.city = item.value;
         this.$com.setCookie('pccity',item.value);
         location.href = '/'
+        // this.$router.replace('/')
       },
       changeprov(e) {
         // var city = ress.data;
@@ -102,6 +103,7 @@
         // localStorage.city = e;
         this.$com.setCookie('pccity',e);
         location.href = '/'
+        // this.$router.replace('/')
       }
     }
   }

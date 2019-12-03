@@ -172,30 +172,21 @@ const showToast = function (message, type, duration) {
     duration: duration || 1500
   })
 };
-var userAgent = navigator.userAgent;
+// var userAgent = navigator.userAgent.toLowerCase();
 const getCookies = function (key) {
   var c = document.cookie
-  if (userAgent.indexOf("Safari") > -1) {
-    console.log(111)
-    c = decodeURIComponent(c)
-  }
   let arr = c.split('; ');
   for (let i = 0; i < arr.length; i++) {
     let arr2 = arr[i].trim().split('=');
     if (arr2[0] == key) {
-
-      return arr2[1]
+      return decodeURI(arr2[1])
     }
   }
   return null
 };
 const setCookie = function (key, value, day) {
   let setting = arguments[0]
-  if (userAgent.indexOf("Safari") > -1) {
-    console.log(111)
-    value = decodeURI(value)
-  }
-  console.log(value)
+  value = encodeURI(value)
   if (Object.prototype.toString.call(setting).slice(8, -1) === 'Object') {
     for (let i in setting) {
       let oDate = new Date()
