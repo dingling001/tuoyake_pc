@@ -283,7 +283,7 @@
       .leftinfo {
         float: left;
         width: 858px;
-        padding: 24px 0 54px 33px;
+        padding: 24px 0 24px 33px;
         position: relative;
 
         .iconbox {
@@ -375,7 +375,7 @@
         /*height: 238px;*/
         border-radius: 16px;
         position: relative;
-        padding: 24px 0 0 0;
+        padding: 54px 0 0 0;
 
         .swiper1 {
           width: 256px;
