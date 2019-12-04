@@ -20,8 +20,7 @@
               <span v-for="c in item.label_ids">{{c}}</span>
             </div>
             <!--            </div>-->
-            <div class="rec_address single-line-text"><span class="el-icon-location-outline"></span>{{item.address}}
-            </div>
+            <div class="rec_address single-line-text"><span class="el-icon-location-outline"></span>{{item.address}}</div>
           </div>
         </div>
       </div>

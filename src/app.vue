@@ -1,6 +1,5 @@
 <template>
   <div v-cloak class="app">
-    <div id="map"></div>
     <vHeader ref="nav" v-if="showH" :shownav="shownav"></vHeader>
     <div :class="['contains', shownav?'':'shownav']">
       <router-view></router-view>

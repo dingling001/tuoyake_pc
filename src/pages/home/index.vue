@@ -50,7 +50,9 @@
                   v-for="(c,cindex) in item.label_ids" :key="cindex">{{c}}</span>
             <!--<span v-if="item.label_ids.length>3" class="more">更多</span>-->
           </div>
-          <div class="rec_address single-line-text">{{item.address}}</div>
+          <div class="rec_address">
+            <span class="single-line-text">{{item.address}}</span>
+            <span> <i class="iconfont iconlocation"></i> 查看地图</span></div>
           <div class="sharebox"></div>
           <div class="rec_type" v-if="item.recommend">
             推荐
@@ -63,12 +65,14 @@
       <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
                 :scrollTo="680" v-if="total>per_page"></pcpaging>
     </div>
+    <amap :arriveCoor="[40.017349,116.407143]"></amap>
   </div>
 </template>
 <script>
   import pcpaging from '../../components/pcpaging'
   import 'swiper/dist/css/swiper.css'
   import {swiper, swiperSlide} from 'vue-awesome-swiper'
+  import amap from '../../components/amap'
 
   export default {
     name: "home",
@@ -197,7 +201,8 @@
     components: {
       pcpaging,
       swiper,
-      swiperSlide
+      swiperSlide,
+      amap
     },
     methods: {
       // 获取轮播图
@@ -528,9 +533,20 @@
           }
 
           .rec_address {
-            color: #999999;
             font-size: 12px;
             padding-top: 10px;
+
+            span {
+              display: inline-block;
+              color: $baseBlue;
+
+              &.single-line-text {
+                max-width: 168px;
+                color: #999999;
+
+              }
+            }
+
           }
         }
       }
