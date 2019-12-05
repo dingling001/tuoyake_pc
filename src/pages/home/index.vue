@@ -52,11 +52,12 @@
           </div>
           <div class="rec_address">
             <span class="single-line-text">{{item.address}}</span>
-            <span> <i class="iconfont iconlocation"></i> 查看地图</span></div>
+            <span @click.stop="showmap(index,item.lat,item.lng)"> <i class="iconfont iconlocation"></i> 查看地图</span></div>
           <div class="sharebox"></div>
           <div class="rec_type" v-if="item.recommend">
             推荐
           </div>
+
         </div>
       </div>
       <div v-if="isload&&netlist.length==0" class="recommentlist">
@@ -65,7 +66,16 @@
       <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
                 :scrollTo="680" v-if="total>per_page"></pcpaging>
     </div>
-    <amap :arriveCoor="[40.017349,116.407143]"></amap>
+    <el-dialog
+      title=""
+      :visible.sync="showdialog"
+      center>
+      <amap
+      :width="960"
+      slot
+      :height="300"
+      :point="[lat,lng]"/>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -177,7 +187,9 @@
           // delay:1000
         },
         isload: false,
-        showlist: true
+        showlist: true,
+        showdialog:false,
+        mindex: -1
       };
     },
 
@@ -230,6 +242,12 @@
       // 跳转
       gosmdetail(type, id) {
         console.log(type)
+      },
+      showmap(index,lat,lng) {
+        this.showdialog=true;
+        this.mindex = index;
+        this.lat=lat;
+        this.lng=lng
       },
       // 获取服务
       _GetLabelList() {
