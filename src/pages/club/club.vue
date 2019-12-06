@@ -1,9 +1,10 @@
 <template>
   <div class="cbox">
-    <city-select @removeall="removeAll" @labeled="labeledfn" @cityarea="cityareafn" :showlabel="false"></city-select>
+    <city-select  @removeall="removeAll" @labeled="labeledfn" @cityarea="cityareafn" @removecity="removecity"
+                  @removelabel="removelabel" @allarea="allarea" @alllabel="alllabel" :showlabel="false"></city-select>
     <div class="allschool">全部学院</div>
     <div class="jlist">
-      <div class="jitem van-row--flex" v-for="(item,index) in clublist" :key="item.category_id"
+      <div class="jitem van-row--flex" v-for="(item,index) in clublist" :key="item.id"
            @click="godetail(item.category_id)">
         <div class="jimg"><img :src="item.image" alt=""></div>
         <div class="jright">
@@ -29,7 +30,7 @@
         clublist: [],
         totalPages: 0,
         per_page: 10,
-        city: localStorage.city || '天津市',
+        city: '',
         lat: 0,
         lng: 0,
         recommend: 0,
@@ -51,7 +52,8 @@
           },
         ],
         tab: '',
-        order: 1
+        order: 1,
+        category_id: ""
       }
     },
     components: {
@@ -59,6 +61,7 @@
       pcpaging
     },
     created() {
+      this.city = this.$com.getCookies('pccity') || '北京'
       this._ClubIndex()
     },
     methods: {
@@ -67,8 +70,8 @@
         this.$api.ClubIndex(
           this.page,
           this.category_id,
+          this.district,
           this.keyword,
-          this.city,
         ).then(res => {
           if (res.code == 1) {//请求成功
             this.clublist = res.data.data;
@@ -82,22 +85,47 @@
       },
       // 选中服务标签
       labeledfn(val) {
-        console.log(val)
+        this.showlist = true;
         this.page = 1;
         this.label = val;
         this._ClubIndex();
-
       },
       // 选中地区
       cityareafn(val) {
+        this.showlist = true;
         this.page = 1;
         this.district = val;
         this._ClubIndex();
       },
       // 清除所有条件
       removeAll(val) {
+        this.showlist = true;
         this.label = '';
         this.district = '';
+        this.page = 1;
+        this._ClubIndex();
+      },
+      removecity(val) {
+        this.showlist = true;
+        this.district = val;
+        this.page = 1;
+        this._ClubIndex();
+      },
+      removelabel(val) {
+        this.showlist = true;
+        this.label = val;
+        this.page = 1;
+        this._ClubIndex();
+      },
+      allarea(val) {
+        console.log(val)
+        this.district = val;
+        this.page = 1;
+        this._ClubIndex();
+      },
+      alllabel(val) {
+        console.log(val)
+        this.label = val;
         this.page = 1;
         this._ClubIndex();
       },
@@ -105,7 +133,7 @@
       orderby(index, order) {
         this.tab = index;
         this.order = order;
-        this._GetBarList();
+        this._ClubIndex();
       },
       // 去详情
       godetail(id) {
@@ -121,6 +149,7 @@
   .cbox {
     width: 1200px;
     margin: 0 auto;
+
     .allschool {
       font-size: 18px;
       padding: 26px 27px;

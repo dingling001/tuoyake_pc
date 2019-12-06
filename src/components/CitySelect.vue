@@ -7,8 +7,9 @@
       <span class="clearall" @click="removeall">.清除全部</span>
     </div>
     <div class="cityitem">
-      <div class="label"><label>区域</label>
-        <span :class="['all', cityindex==-1?'activetag':'']"  @click="allarea">全部</span></div>
+      <div class="label"><label>区域</label><span :class="['all', cityindex==-1?'activetag':'']"
+                                                @click="allarea">全部</span>
+      </div>
       <div class="tagbox" v-loading="showdistrictlist" v-if="districtlist.length">
         <el-dropdown v-for="(item,index) in districtlist" class="tag" :key="item.id" @command="commandid($event,index)"
                      @visible-change="getchildlist($event,index)">
@@ -26,7 +27,8 @@
       </div>
     </div>
     <div class="cityitem" v-if="showlabel">
-      <div class="label"><label>服务</label><span :class="['all', labelindex==-1?'activetag':'']" @click="alllabel">全部</span>
+      <div class="label"><label>服务</label><span :class="['all', labelindex==-1?'activetag':'']"
+                                                @click="alllabel">全部</span>
       </div>
       <div class="tagbox">
         <div class="tag" v-for="(item,index) in labellist"
@@ -70,7 +72,7 @@
     methods: {
       // 根据城市换取id
       _GetAreaPidByName() {
-        this.$api.GetAreaPidByName(this.$com.getCookies('pccity')||this.city).then(res => {
+        this.$api.GetAreaPidByName(this.$com.getCookies('pccity') || this.city).then(res => {
           if (res.code == 1) {
             this.citypid = res.data;
             this._GetAreaListTree();
@@ -132,12 +134,12 @@
         this.$emit('removecity', this.cityarea)
       },
       allarea() {
-        this.cityindex=-1;
+        this.cityindex = -1;
         this.cityarea = '';
         this.$emit('allarea', '')
       },
-      alllabel(){
-        this.labelindex=-1;
+      alllabel() {
+        this.labelindex = -1;
         this.labeled = '';
         this.$emit('alllabel', '')
       },
@@ -210,6 +212,7 @@
 
   .cityitem {
     padding: 15px 20px 0;
+    min-height: 30px;
 
     .label {
       position: absolute;
@@ -245,7 +248,7 @@
 
     .tagbox {
       padding-left: 160px;
-      min-height: 100px;
+      min-height: 70px;
 
       .tag {
         min-width: 130px;

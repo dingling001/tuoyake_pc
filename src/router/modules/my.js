@@ -207,17 +207,17 @@ export default [
       needLogin: false
     },
   },
-  {
-    path: '/myRules',
-    name: 'myRules',
-    component: resolve => require(["../../pages/my/myRules"], resolve),
-    meta: {
-      title: "规则说明",
-      showF: false,
-      showH: true,
-      needLogin: true,
-    },
-  },
+  // {
+  //   path: '/myRules',
+  //   name: 'myRules',
+  //   component: resolve => require(["../../pages/my/myRules"], resolve),
+  //   meta: {
+  //     title: "规则说明",
+  //     showF: fals  e,
+  //     showH: true,
+  //     needLogin: true,
+  //   },
+  // },
   {
     path: '/myReward',
     name: 'myReward',
@@ -243,17 +243,17 @@ export default [
       needLogin: true,
     },
   },
-  {
-    path: '/myAddress',
-    name: 'myAddress',
-    component: resolve => require(["../../pages/my/myAddress"], resolve),
-    meta: {
-      title: "地址管理",
-      showF: false,
-      showH: true,
-      needLogin: true,
-    },
-  },
+  // {
+  //   path: '/myAddress',
+  //   name: 'myAddress',
+  //   component: resolve => require(["../../pages/my/myAddress"], resolve),
+  //   meta: {
+  //     title: "地址管理",
+  //     showF: false,
+  //     showH: true,
+  //     needLogin: true,
+  //   },
+  // },
   {
     path: '/editAddress',
     name: 'editAddress',

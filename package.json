@@ -25,6 +25,7 @@
     "video.js": "^7.4.1",
     "videojs": "^1.0.0",
     "vue": "^2.6.9",
+    "vue-amap": "^0.5.10",
     "vue-awesome-swiper": "^2.6.7",
     "vue-baidu-map": "^0.21.20",
     "vue-clipboard2": "^0.3.0",

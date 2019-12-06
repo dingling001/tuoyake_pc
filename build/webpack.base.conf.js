@@ -85,10 +85,9 @@ module.exports = {
     tls: "empty",
     child_process: "empty",
   },
-
-  externals: {
-    'AMap': 'AMap',
-    'Loca': 'Loca',
-    'AMapUI': 'AMapUI'
-  }
+  // externals: {
+  //   'AMap': 'AMap',
+  //   'Loca': 'Loca',
+  //   'AMapUI': 'AMapUI'
+  // }
 };

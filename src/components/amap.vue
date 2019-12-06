@@ -1,73 +1,119 @@
 <template>
-  <div :id="id" :style="{width:width+'px',height:height+'px',margin:'34px auto'}" class="m-map">
-
+  <div class="amap-page-container">
+    <el-amap :vid="id" :zoom="zoom" :center="center" :autoRotation="true" class="amap-demo">
+      <el-amap-marker vid="component-marker" :position="componentMarker.position" :content-render="componentMarker.contentRender" ></el-amap-marker>
+      <el-amap-marker v-for="(marker, index) in markers":key="index" :position="marker.position" :events="marker.events" :visible="marker.visible" :draggable="marker.draggable" :vid="index"></el-amap-marker>
+    </el-amap>
+    <div class="toolbar">
+      <button type="button" name="button" v-on:click="toggleVisible">toggle first marker</button>
+      <button type="button" name="button" v-on:click="changePosition">change position</button>
+      <button type="button" name="button" v-on:click="chnageDraggle">change draggle</button>
+      <button type="button" name="button" v-on:click="addMarker">add marker</button>
+      <button type="button" name="button" v-on:click="removeMarker">remove marker</button>
+    </div>
   </div>
 </template>
 
-<script>
-  export default {
-    props: {
-      width: {
-        type:Number,
-        default:300
-      },
-      height: {
-        type:Number,
-        default:300
-      },
-      point:{
-        type:Array,
-        default(){
-          return [116.46,39.92]
-        }
-      }
-    },
-    data(){
-      return {
-        id:`map`,
-        key:'515ce08f25f0fc3031ddc376eb6ed114'
-      }
-    },
-    watch:{
-      point: function(val,old){
-        this.map.setCenter(val)
-        this.marker.setPosition(val)
-      }
-    },
-    mounted() {
-      let self = this
-      self.id = `map${Math.random().toString().slice(4, 6)}`
-console.log(self.point)
-      console.log(AMap)
-      window.onmaploaded = () => {
-        let map = new AMap.Map(self.id, {
-          resizeEnable: true,
-          zoom: 11,
-          center: self.point
-        })
-        // self.map = map
-        console.log(map)
-        // new AMap.plugin('AMap.ToolBar', () => {
-        //   let toolbar = new AMap.ToolBar();
-        //   new AMap.addControl(toolbar)
-        //   let marker = new AMap.Marker({
-        //     icon: 'https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png',
-        //     position: self.point
-        //   })
-        //   self.marker = marker
-        //   marker.setMap(map)
-        // })
-      }
-      // const url = `https://webapi.amap.com/maps?v=1.4.10&key=${self.key}&callback=onmaploaded`
-      // let jsapi = document.createElement('script')
-      // jsapi.charset = 'utf-8'
-      // jsapi.src = url
-      // document.head.appendChild(jsapi)
-    },
-  }
-</script>
-<style scoped lang="scss">
-  .m-map{
-    background-color: #fff;
+<style>
+  .amap-demo {
+    height: 300px;
   }
 </style>
+
+<script>
+  const exampleComponents = {
+    props: ['text'],
+    template: `<div>text from  parent: {{text}}</div>`
+  }
+  module.exports = {
+    name: 'amap-page',
+    data() {
+      return {
+        count: 1,
+        slotStyle: {
+          padding: '2px 8px',
+          background: '#eee',
+          color: '#333',
+          border: '1px solid #aaa'
+        },
+        zoom: 14,
+        center: [121.5273285, 31.21515044],
+        markers: [
+          {
+            position: [121.5273285, 31.21515044],
+            events: {
+              click: () => {
+                alert('click marker');
+              },
+              dragend: (e) => {
+                console.log('---event---: dragend')
+                this.markers[0].position = [e.lnglat.lng, e.lnglat.lat];
+              }
+            },
+            visible: true,
+            draggable: false,
+            template: '<span>1</span>',
+          }
+        ],
+        renderMarker: {
+          position: [121.5273285, 31.21715058],
+          contentRender: (h, instance) => {
+            // if use jsx you can write in this
+            // return <div style={{background: '#80cbc4', whiteSpace: 'nowrap', border: 'solid #ddd 1px', color: '#f00'}} onClick={() => ...}>marker inner text</div>
+            return h(
+              'div',
+              {
+                style: {background: '#80cbc4', whiteSpace: 'nowrap', border: 'solid #ddd 1px', color: '#f00'},
+                on: {
+                  click: () => {
+                    const position = this.renderMarker.position;
+                    this.renderMarker.position = [position[0] + 0.002, position[1] - 0.002];
+                  }
+                }
+              },
+              ['marker inner text']
+            )
+          }
+        },
+        componentMarker: {
+          position: [121.5273285, 31.21315058],
+          contentRender: (h, instance) => h(exampleComponents,{style: {backgroundColor: '#fff'}, props: {text: 'father is here'}}, ['xxxxxxx'])
+        },
+        slotMarker: {
+          position: [121.5073285, 31.21715058]
+        },
+        id:'map'
+      };
+    },
+    mounted(){
+      this.id = `map${Math.random().toString().slice(4, 6)}`
+    },
+    methods: {
+      onClick() {
+        this.count += 1;
+      },
+      changePosition() {
+        let position = this.markers[0].position;
+        this.markers[0].position = [position[0] + 0.002, position[1] - 0.002];
+      },
+      chnageDraggle() {
+        let draggable = this.markers[0].draggable;
+        this.markers[0].draggable = !draggable;
+      },
+      toggleVisible() {
+        let visableVar = this.markers[0].visible;
+        this.markers[0].visible = !visableVar;
+      },
+      addMarker() {
+        let marker = {
+          position: [121.5273285 + (Math.random() - 0.5) * 0.02, 31.21515044 + (Math.random() - 0.5) * 0.02]
+        };
+        this.markers.push(marker);
+      },
+      removeMarker() {
+        if (!this.markers.length) return;
+        this.markers.splice(this.markers.length - 1, 1);
+      }
+    }
+  };
+</script>

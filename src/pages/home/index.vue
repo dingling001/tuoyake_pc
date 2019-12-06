@@ -23,7 +23,8 @@
       <swiper :options="swiperOption" ref="mySwiper" v-if="swipershow&&swiperlist.length">
         <!-- slides -->
         <swiper-slide v-for="(item,index) in swiperlist" :key="index">
-          <img :src="item.image" :alt="item.type_text">
+          <img :src="item.image" :alt="item.type_text" v-if="item.image">
+          <span v-else>加载中……</span>
         </swiper-slide>
         <!-- Optional controls -->
         <div class="swiper-pagination" slot="pagination" v-if="swiperlist.length>1"></div>
@@ -52,7 +53,8 @@
           </div>
           <div class="rec_address">
             <span class="single-line-text">{{item.address}}</span>
-            <span @click.stop="showmap(index,item.lat,item.lng)"> <i class="iconfont iconlocation"></i> 查看地图</span></div>
+            <span @click.stop="showmap(index,item.lat,item.lng)"> <i class="iconfont iconlocation"></i> 查看地图</span>
+          </div>
           <div class="sharebox"></div>
           <div class="rec_type" v-if="item.recommend">
             推荐
@@ -71,10 +73,10 @@
       :visible.sync="showdialog"
       center>
       <amap
-      :width="960"
-      slot
-      :height="300"
-      :point="[lat,lng]"/>
+        :width="960"
+        slot
+        :height="300"
+        :point="[lat,lng]"/>
     </el-dialog>
   </div>
 </template>
@@ -188,7 +190,7 @@
         },
         isload: false,
         showlist: true,
-        showdialog:false,
+        showdialog: false,
         mindex: -1
       };
     },
@@ -243,11 +245,11 @@
       gosmdetail(type, id) {
         console.log(type)
       },
-      showmap(index,lat,lng) {
-        this.showdialog=true;
+      showmap(index, lat, lng) {
+        this.showdialog = true;
         this.mindex = index;
-        this.lat=lat;
-        this.lng=lng
+        this.lat = lat;
+        this.lng = lng
       },
       // 获取服务
       _GetLabelList() {
@@ -553,15 +555,21 @@
           .rec_address {
             font-size: 12px;
             padding-top: 10px;
+            overflow: hidden;
 
             span {
               display: inline-block;
               color: $baseBlue;
+              float: right;
+
+              .iconfont {
+                font-size: 12px;
+              }
 
               &.single-line-text {
                 max-width: 168px;
                 color: #999999;
-
+                float: left;
               }
             }
 
