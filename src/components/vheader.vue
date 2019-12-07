@@ -171,10 +171,13 @@
       },
       // 退出登录
       loginout() {
+        this.$api.Logout(this.$com.getCookies('user_tpc')).then(res => {
+          // console.log(res)
+        });
         localStorage.removeItem('user_tpc');
         this.$com.removeCookie('user_tpc');
         this.tyktoken = '';
-        this.$com.showToast('退出登录', 'warning')
+        this.$com.showToast('退出登录', 'warning');
         this.$router.replace('/')
       },
       // 个人中心

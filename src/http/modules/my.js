@@ -1,5 +1,6 @@
 import axios from "../api";
 import $com from '../../bin/common'
+
 /**
  * 获取广告位
  */
@@ -39,7 +40,7 @@ export const SetFeedback = (content, images) =>
     "/api/user/setFeedback", {
       content,
       images,
-      token:  $com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
     },
     "POST",
     true
@@ -53,7 +54,7 @@ export const GetCouponList = (type = 1, page = 0) =>
     "/api/coupon/getCouponList", {
       type,
       page,
-      token:  $com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
     },
     "POST",
     true
@@ -65,7 +66,7 @@ export const GetCouponInfo = (id) =>
   axios(
     "/api/coupon/getCouponInfo", {
       id,
-      token:  $com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
     },
     "POST",
     true
@@ -76,7 +77,7 @@ export const GetCouponInfo = (id) =>
 export const Profile = (avatar, nickname) =>
   axios(
     "/api/user/profile", {
-      token:  $com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
       avatar,
       nickname
     },
@@ -89,7 +90,7 @@ export const Profile = (avatar, nickname) =>
 export const CollectionIndex = (type, page, lat = 0, lng = 0, per_page) =>
   axios(
     "/api/collection/index", {
-      token:  $com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
       type,
       page,
       lat,
@@ -105,7 +106,7 @@ export const CollectionIndex = (type, page, lat = 0, lng = 0, per_page) =>
 export const ScoreIndex = () =>
   axios(
     "/api/score/index", {
-      token:  $com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
     },
     "POST",
     true
@@ -116,7 +117,7 @@ export const ScoreIndex = () =>
 export const ScoreRule = () =>
   axios(
     "/api/score/rule", {
-      token:  $com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
     },
     "POST",
     true
@@ -127,7 +128,7 @@ export const ScoreRule = () =>
 export const SignRule = () =>
   axios(
     "/api/sign/rule", {
-      token:  $com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
     },
     "POST",
     true
@@ -139,7 +140,7 @@ export const SignRule = () =>
 export const ScoreGoods = () =>
   axios(
     "/api/score/goods", {
-      token:  $com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
     },
     "POST",
     true
@@ -151,7 +152,7 @@ export const ScoreGoods = () =>
 export const ScoreMyReceived = () =>
   axios(
     "/api/score/myReceived", {
-      token:  $com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
     },
     "POST",
     true
@@ -162,7 +163,7 @@ export const ScoreMyReceived = () =>
 export const AddressIndex = () =>
   axios(
     "/api/address/index", {
-      token:  $com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
     },
     "POST",
     true
@@ -173,7 +174,7 @@ export const AddressIndex = () =>
 export const SignIndex = () =>
   axios(
     "/api/sign/index", {
-      token:  $com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
     },
     "POST",
     true
@@ -186,7 +187,7 @@ export const SignIndex = () =>
 export const GetSignList = (page = 0, status = 1) =>
   axios(
     "/api/sign/getSignList", {
-      token:  $com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
       page,
       status
     },
@@ -198,9 +199,42 @@ export const GetSignList = (page = 0, status = 1) =>
 export const OrderIndex = (page = 0, status = 0) =>
   axios(
     "/api/order/index", {
-      token:  $com.getCookies('user_tpc'),
+      token: $com.getCookies('user_tpc'),
       page,
       status
+    },
+    "POST",
+    true
+  );
+export const SignGoods = () =>
+  axios(
+    "/api/sign/goods", {
+      token: $com.getCookies('user_tpc'),
+    },
+    "POST",
+    true
+  );
+
+export const SignAchievement = () =>
+  axios(
+    "/api/sign/achievement", {
+      token: $com.getCookies('user_tpc'),
+    },
+    "POST",
+    true
+  );
+export const AddressSetAddress = (name, mobile, province, city, district, address, is_default, id) =>
+  axios(
+    "/api/address/setAddress", {
+      token: $com.getCookies('user_tpc'),
+      name,
+      mobile,
+      province,
+      city,
+      district,
+      address,
+      is_default,
+      id,
     },
     "POST",
     true

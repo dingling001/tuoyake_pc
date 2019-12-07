@@ -1,9 +1,13 @@
 <template>
   <div class="sbox">
-    <city-select @removeall="removeAll" @labeled="labeledfn" @cityarea="cityareafn" :showlabel="false"></city-select>
+    <city-select @removeall="removeAll" @cityarea="cityareafn" @removecity="removecity" @allarea="allarea"
+                 :showlabel="false"></city-select>
     <div class="listbox">
-      <div class="allschool">全部学院</div>
-      <div class="list">
+      <div class="allschool"><span @click="allcate('',-1)" :class="{'activeacate':ind==-1}">全部学院</span><span
+        @click="allcate(item.id,index)" :class="{'activeacate':ind==index}" v-for="(item,index) in catelist"
+        :key="index">{{item.name}}</span>
+      </div>
+      <div class="list" v-if="cshow&&clublist.length">
         <div class="jitem" v-for="(item,index) in clublist" :key="item.id"
              @click="godetail(item.id)">
           <div class="jimg"><img :src="item.image" alt=""></div>
@@ -15,6 +19,9 @@
             <div class="jaddress ">简介：{{item.synopsis}}</div>
           </div>
         </div>
+      </div>
+      <div class="list" v-if="cshow&&clublist.length==0">
+        <NoData :text="'暂无学院'"></NoData>
       </div>
       <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
                 :scrollTo="200" v-if="clublist.length&&totalPages>per_page"></pcpaging>
@@ -38,7 +45,9 @@
         keyword: '',
         city: '',
         per_page: 10,
-        totalPages: 0
+        circle: '',
+        totalPages: 0,
+        catelist: [], ind: -1, cshow: false
       }
     },
     components: {
@@ -46,46 +55,73 @@
       pcpaging
     },
     created() {
+      this._CollegeCategory();
       this._CollegeIndex()
     },
     methods: {
+      _CollegeCategory() {
+        this.$api.CollegeCategory().then(res => {
+          if (res.code == 1) {
+            this.catelist = res.data;
+          }
+        })
+      },
       // 获取学院列表
       _CollegeIndex() {
+        this.cshow = false;
         this.$api.CollegeIndex(
           this.page,
           this.category_id,
-          this.$com.getCookies('pccity') || this.city,
+          this.$com.getCookies('pccity'),
           this.keyword,
+          this.district,
+          this.circle
         ).then(res => {
+          this.cshow = true;
           if (res.code == 1) {//请求成功
             this.clublist = res.data.data;
-            this.totalPages = res.data.total;
+            this.totalPages = res.data.total / this.per_page;
           }
         })
+      },
+      allcate(id, index) {
+        this.category_id = id;
+        this.ind = index;
+        this.page = 1;
+        this._CollegeIndex();
       },
       // 分页
       getPresentPage(val) {
         this.page = val;
         this._CollegeIndex();
       },
-      // 选中服务标签
-      labeledfn(val) {
-        console.log(val)
-        this.page = 1;
-        this.label = val;
-      },
+
       // 选中地区
       cityareafn(val) {
+        this.cshow = true;
         this.page = 1;
         this.district = val;
-        this._CollegeIndex()
-
+        this._CollegeIndex();
       },
       // 清除所有条件
       removeAll(val) {
+        this.cshow = true;
         this.label = '';
         this.district = '';
         this.page = 1;
+        this._CollegeIndex();
+      },
+      removecity(val) {
+        this.cshow = true;
+        this.district = val;
+        this.page = 1;
+        this._CollegeIndex();
+      },
+      allarea(val) {
+        console.log(val)
+        this.district = val;
+        this.page = 1;
+        this._CollegeIndex();
       },
       // 去详情
       godetail(id) {
@@ -111,10 +147,21 @@
         padding: 26px 0 22px 0;
         margin: 0 27px;
         border-bottom: 1px solid #eee;
+
+        span {
+          margin-right: 20px;
+          cursor: pointer;
+
+          &.activeacate {
+            color: $baseRed;
+          }
+        }
       }
 
       .list {
         padding-bottom: 50px;
+        position: relative;
+        min-height: 300px;
 
         .jitem {
           margin: 0 27px;

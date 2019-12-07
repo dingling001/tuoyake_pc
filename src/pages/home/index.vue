@@ -53,7 +53,7 @@
           </div>
           <div class="rec_address">
             <span class="single-line-text">{{item.address}}</span>
-            <span @click.stop="showmap(index,item.lat,item.lng)"> <i class="iconfont iconlocation"></i> 查看地图</span>
+            <!--<span @click.stop="showmap(index,item.lat,item.lng)"> <i class="iconfont iconlocation"></i> 查看地图</span>-->
           </div>
           <div class="sharebox"></div>
           <div class="rec_type" v-if="item.recommend">
@@ -133,9 +133,15 @@
           //循环
           // loop: true,
           //每张播放时长3秒，自动播放
-          autoplay: 2000,
+          autoplay:3000,
+          disableOnInteraction: false,
+          // autoplay: {
+          //   delay: 3000,
+          //   stopOnLastSlide: false,
+          //   disableOnInteraction: false,
+          // },
           //滑动速度
-          speed: 1000,
+          speed: 2000,
           effect: 'fade',
           fadeEffect: {
             crossFade: true,

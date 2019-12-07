@@ -10,10 +10,10 @@
           class="iconfont iconxiangyou1"></span></span></div>
       </div>
       <el-form-item prop="mobile">
-        <el-input v-model="ruleForm.mobile" placeholder="手机号" clearable maxlength="11" autocomplete="off"></el-input>
+        <el-input v-model="ruleForm.mobile" @input="accountinput" placeholder="手机号" clearable maxlength="11" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item prop="captcha">
-        <el-input v-model="ruleForm.captcha" placeholder="请输入验证码" style="width: 70%" autocomplete="off" maxlength="6"
+        <el-input v-model="ruleForm.captcha" @input="captchainput" placeholder="请输入验证码" style="width: 70%" autocomplete="off" maxlength="4"
                   clearable></el-input>
         <el-button icon="el-icon-mobile-phone" @click="_SmsSend" style="width: 28%" type="text"
                    :disabled="disabled=!show">
@@ -141,14 +141,20 @@
         this.$router.push('/login')
       },
       goAgree() {
-        this.$alert(this.text_tip, '用户协议', {
+        this.$alert(this.text_tip, '', {
           confirmButtonText: '知道了',
-          center: true,
+          // center: true,
           dangerouslyUseHTMLString: true,
           callback: action => {
 
           }
         });
+      },
+      accountinput() {
+        this.ruleForm.mobile = this.ruleForm.mobile.replace(/[^\d]/g, '');
+      },
+      captchainput(){
+        this.ruleForm.captcha = this.ruleForm.captcha.replace(/[^\d]/g, '');
       }
     }
   }

@@ -120,13 +120,15 @@ export const CollegeCategory = () =>
 /**
  * 获取学院列表
  */
-export const CollegeIndex = (page = 0, category_id, city, keyword = '') =>
+export const CollegeIndex = (page = 0, category_id, city, keyword = '',district,circle) =>
   axios(
     "/api/college/index", {
       page,
       category_id,
       city,
-      keyword
+      keyword,
+      district,
+      circle
     },
     "POST",
     true

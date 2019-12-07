@@ -44,7 +44,7 @@
         netlist: [],
         totalPages: 0,
         per_page: 10,
-        city: localStorage.city || '天津市',
+        city: '',
         lat: 0,
         lng: 0,
         recommend: 0,
@@ -76,6 +76,7 @@
       pcpaging
     },
     created() {
+      this.city=this.$com.getCookies('pccity')||'北京';
       this._GetBarList()
     },
     methods: {

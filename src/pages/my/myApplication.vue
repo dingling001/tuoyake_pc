@@ -15,8 +15,20 @@
           <span class="scroe"> {{win}}</span> 次
         </div>
       </div>
-      <div class="score_label">
-        <div class="label_process"></div>
+      <div class="score_label" :title="'已获奖'+win+'次'">
+        <div class="label_process">
+          <div class="label" :style="{width: pro_width}"></div>
+          <div class="timesbox">
+            <div class="timeitem1">
+              <span></span>
+              <div>1次</div>
+            </div>
+            <div class="timeitem" v-for="(item,index) in  tags">
+              <img :src="item.status?item.icon1:item.icon" alt="" class="animated zoomIn delay-1s">
+              <div>{{item.item}}次</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="mlink">
@@ -56,15 +68,43 @@
       return {
         total: 0,
         win: 0,
-        isDownLoading: false,
-        isUpLoading: false,
-        finished: false,
-        offset: 0,
+
         page: 0,
         status: 1,
         singList: [],
         nav_active: 0,
-        sing: false
+        sing: false,
+        pro_width: 0,
+        tags: [
+          {
+            item: 5,
+            icon: require('../../img/my/icon2.png'),
+            icon1: require('../../img/my/icon1.png'),
+            status: false
+          },
+          {
+            item: 15,
+            icon: require('../../img/my/icon2.png'),
+            icon1: require('../../img/my/icon1.png'),
+            status: false
+          },
+          {
+            item: 20,
+            icon: require('../../img/my/icon2.png'),
+            icon1: require('../../img/my/icon1.png'),
+            status: false
+          }, {
+            item: 25,
+            icon: require('../../img/my/icon2.png'),
+            icon1: require('../../img/my/icon1.png'),
+            status: false
+          }, {
+            item: 30,
+            icon: require('../../img/my/icon2.png'),
+            icon1: require('../../img/my/icon1.png'),
+            status: false
+          },
+        ]
       }
     },
     created() {
@@ -72,12 +112,18 @@
       this._GetSignList()
     },
     methods: {
-      // 获取我的积分
+      // 获取我获奖次数
       _SignIndex() {
         this.$api.SignIndex().then(res => {
           if (res.code == 1) {
             this.total = res.data.total;
-            this.win = res.data.win;
+            this.win = parseInt(res.data.win, 10);
+            for (var i in this.tags) {
+              if (this.win >= parseInt(this.tags[i].item)) {
+                this.tags[i].status = true;
+              }
+            }
+            this.pro_width = this.win >= 30 ? '100%' : (this.win / 30) * 100 + '%'
           }
         })
       },
@@ -88,12 +134,13 @@
         this.singList = [];
         this._GetSignList()
       },
+
       // 返回上一页
       backmy() {
         this.$router.go(-1)
       },
       gomychieve() {
-        this.$router.push('/myAchieve')
+        this.$router.push('/my/myAchieve')
       },
       // 获取报名列表
       _GetSignList() {
@@ -190,8 +237,10 @@
         width: 800px;
         margin: 0 auto 40px auto;
         height: 90px;
-        background: linear-gradient(82deg, rgba(242, 104, 78, 1), rgba(238, 51, 63, 1));
-        box-shadow: 0px 2px 0px 0px rgba(255, 181, 181, 0.5), 0px 10px 0px 0px rgba(255, 255, 255, 0.3);
+        background-size: cover;
+        background-image: url("../../img/my/bg.png");
+        background-repeat: no-repeat;
+        /*background: linear-gradient(82deg, rgba(242, 104, 78, 1), rgba(238, 51, 63, 1));*/
         position: relative;
 
         .label_process {
@@ -203,8 +252,59 @@
           top: 35px;
           height: 14px;
           background: rgba(194, 23, 23, 1);
-          box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.3);
+          box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.3);
           border-radius: 7px;
+          z-index: 1;
+          transition: ease-in-out .3s;
+
+          .label {
+            background-size: cover;
+            background-image: url("../../img/my/jindu.png");
+            background-repeat: no-repeat;
+            height: 14px;
+            position: absolute;
+            left: 0;
+            width: 0;
+            border-radius: 7px;
+            z-index: 1;
+            transition: ease-in-out 2s;
+          }
+
+          .timesbox {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            top: -10px;
+            z-index: 10;
+
+            .timeitem {
+              float: left;
+              width: 20%;
+              text-align: right;
+              color: #fff;
+              font-size: 12px;
+
+              img {
+                width: 27px;
+                height: 28px;
+                margin-bottom: 3px;
+              }
+            }
+
+            .timeitem1 {
+              position: absolute;
+              left: 0;
+              color: #fff;
+              font-size: 12px;
+
+              span {
+                display: inline-block;
+                width: 27px;
+                height: 28px;
+                margin-bottom: 3px;
+              }
+            }
+          }
         }
       }
     }
@@ -313,10 +413,11 @@
 
           .jright {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            /*display: flex;*/
+            /*flex-direction: column;*/
+            /*justify-content: space-between;*/
             float: left;
+            height: 150px;
 
             &:hover .jname {
               color: $baseBlue;

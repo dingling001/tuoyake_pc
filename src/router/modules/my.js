@@ -60,6 +60,20 @@ export default [
         },
       },
       {
+        path: '/my/myAchieve',
+        name: 'myAchieve',
+        component: resolve => require(["../../pages/my/myAchieve"], resolve),
+        meta: {
+          title: "获奖成就",
+          showF: false,
+          showH: true,
+          shownav: false,
+          needLogin: true,
+          keepAlive: true,
+          cur: 2
+        },
+      },
+      {
         path: '/my/myPoints',
         name: 'myPoints',
         component: resolve => require(["../../pages/my/myPoints"], resolve),
@@ -144,6 +158,7 @@ export default [
           cur: 3
         },
       },
+
     ]
   },
   {
@@ -203,7 +218,7 @@ export default [
       index: 1,
       showH: true,
       showF: true,
-      shownav:false,
+      shownav: false,
       needLogin: false
     },
   },
@@ -265,16 +280,6 @@ export default [
       needLogin: true,
     },
   },
-  {
-    path: '/myAchieve',
-    name: 'myAchieve',
-    component: resolve => require(["../../pages/my/myAchieve"], resolve),
-    meta: {
-      title: "获奖成就",
-      showF: false,
-      showH: false,
-      needLogin: true,
-    },
-  },
+
 
 ]

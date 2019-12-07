@@ -7,7 +7,7 @@
         <el-input v-model="formLabelAlign.username" placeholder="报名人姓名" maxlength="30" clearable></el-input>
       </el-form-item>
       <el-form-item label="手机号" prop="mobile">
-        <el-input v-model="formLabelAlign.mobile" placeholder="手机号" maxlength="11" clearable></el-input>
+        <el-input v-model="formLabelAlign.mobile" @input="accountinput" placeholder="手机号" maxlength="11" clearable></el-input>
       </el-form-item>
       <el-form-item label="战队名称" prop="team_name">
         <el-input v-model="formLabelAlign.team_name" placeholder="战队名称" maxlength="30" clearable></el-input>
@@ -131,8 +131,11 @@
           }
         });
 
-      }
-    }
+      },
+      accountinput() {
+        this.formLabelAlign.mobile = this.formLabelAlign.mobile.replace(/[^\d]/g, '');
+      },
+    },
   }
 </script>
 

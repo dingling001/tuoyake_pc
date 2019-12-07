@@ -45,6 +45,7 @@
     created() {
       this._ScoreIndex();
       this._ScoreGoods();
+      this._ScoreGoods();
     },
     methods: {
       // 获取我的积分

@@ -67,3 +67,11 @@ export const Register = (mobile, captcha, password, repassword) =>
     "POST",
     true
   );
+export const Logout = (token) =>
+  axios(
+    "/api/user/logout", {
+     token,
+    },
+    "POST",
+    true
+  );

@@ -1,9 +1,11 @@
 <template>
   <div class="cbox">
-    <city-select  @removeall="removeAll" @labeled="labeledfn" @cityarea="cityareafn" @removecity="removecity"
-                  @removelabel="removelabel" @allarea="allarea" @alllabel="alllabel" :showlabel="false"></city-select>
-    <div class="allschool">全部学院</div>
-    <div class="jlist">
+    <city-select @removeall="removeAll" @labeled="labeledfn" @cityarea="cityareafn" @removecity="removecity"
+                 @removelabel="removelabel" @allarea="allarea" @alllabel="alllabel" :showlabel="false"></city-select>
+    <div class="allschool"><span @click="allcate('',-1)" :class="{'activeacate':ind==-1}">全部电竞俱乐部</span><span
+      @click="allcate(item.id,index)" :class="{'activeacate':ind==index}" v-for="(item,index) in catelist"
+      :key="index">{{item.name}}</span></div>
+    <div class="jlist" v-if="cshow&&clublist.length">
       <div class="jitem van-row--flex" v-for="(item,index) in clublist" :key="item.id"
            @click="godetail(item.category_id)">
         <div class="jimg"><img :src="item.image" alt=""></div>
@@ -16,6 +18,11 @@
         </div>
       </div>
     </div>
+    <div class="jlist" v-if="cshow&&clublist.length==0">
+      <NoData :text="'暂无电竞俱乐部'"></NoData>
+    </div>
+    <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
+              :scrollTo="200" v-if="clublist.length&&totalPages>per_page"></pcpaging>
   </div>
 </template>
 
@@ -53,7 +60,8 @@
         ],
         tab: '',
         order: 1,
-        category_id: ""
+        category_id: "",
+        catelist: [], ind: -1, cshow: false
       }
     },
     components: {
@@ -61,28 +69,45 @@
       pcpaging
     },
     created() {
-      this.city = this.$com.getCookies('pccity') || '北京'
+      this.city = this.$com.getCookies('pccity') || '北京';
+      this._Category();
       this._ClubIndex()
     },
     methods: {
+      _Category() {
+        this.$api.Category().then(res => {
+          if (res.code == 1) {
+            this.catelist = res.data;
+          }
+        })
+      },
       // 获取俱乐部列表
       _ClubIndex() {
         this.$api.ClubIndex(
           this.page,
           this.category_id,
-          this.district,
+          this.district || this.$com.getCookies('pccity'),
           this.keyword,
         ).then(res => {
+          this.cshow = true;
           if (res.code == 1) {//请求成功
             this.clublist = res.data.data;
+            this.totalPages = res.data.total / this.per_page;
           }
         })
+      },
+      allcate(id, index) {
+        this.category_id = id;
+        this.ind = index;
+        this.page = 1;
+        this._ClubIndex();
       },
       // 分页
       getPresentPage(val) {
         this.page = val;
         this._ClubIndex();
       },
+
       // 选中服务标签
       labeledfn(val) {
         this.showlist = true;
@@ -156,10 +181,21 @@
       /*margin: 26px 27px;*/
       border-bottom: 1px solid #eee;
       background-color: #fff;
+
+      span {
+        margin-right: 20px;
+        cursor: pointer;
+
+        &.activeacate {
+          color: $baseRed;
+        }
+      }
     }
 
     .jlist {
       background-color: #fff;
+      position: relative;
+      min-height: 300px;
 
       .jitem {
         margin: 0 17px 17px 17px;

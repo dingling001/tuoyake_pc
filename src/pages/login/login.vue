@@ -14,13 +14,13 @@
       </el-form-item>
       <el-form-item prop="password">
         <el-input v-model="ruleForm.password" placeholder="请输入密码" type="password" clearable
-                  autocomplete="off" maxlength="12" minlength="6"></el-input>
+                  autocomplete="off" maxlength="12" minlength="6" @keyup.enter.native="loginpass"></el-input>
       </el-form-item>
       <div class="btns">
         <router-link tag="span" to="/forgotpass">忘记密码?</router-link>
       </div>
       <!--<div  :loading="loginstatus"></div>-->
-      <el-button type="primary" class="login_btn" @click="loginpass" :loading="loginstatus">登录</el-button>
+      <el-button type="primary" class="login_btn" @click.stop="loginpass"  :loading="loginstatus">登录</el-button>
       <div class="tips">
         <router-link class="reg" to="/reg" tag="span">免费注册</router-link>
         <span class="iconfont iconjiantou"></span>
