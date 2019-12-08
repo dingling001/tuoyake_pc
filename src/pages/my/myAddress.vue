@@ -21,6 +21,7 @@
       :data="tableData"
       center
       border
+      v-loading="showloading"
     >
       <el-table-column
         property="name"
@@ -50,8 +51,8 @@
         align="center"
       >
         <template slot-scope="scope">
-          <el-button type="text" size="small">编辑</el-button>
-          <el-button type="text" size="small" @click="_addressDel(scope.row.id)">删除</el-button>
+          <el-button type="text" size="small" @click="onEdit(scope.row.id)">编辑</el-button>
+          <el-button type="text" class="del" size="small" @click="_addressDel(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
       <el-table-column
@@ -70,7 +71,7 @@
       <NoData :text="'还没有添加地址'"></NoData>
     </div>
     <el-button type="primary" class="add_btn" @click="dialogFormVisible=true">+新建地址</el-button>
-    <Taddress :show.sync="dialogFormVisible" @add="add"></Taddress>
+    <Taddress :show.sync="dialogFormVisible" @add="add" :id="aid"></Taddress>
   </div>
 </template>
 
@@ -83,7 +84,9 @@
       return {
         tableData: [],
         tabelshow: false,
-        dialogFormVisible: false
+        dialogFormVisible: false,
+        aid: null,
+        showloading:true
       }
     },
     components: {
@@ -96,13 +99,15 @@
       _AddressIndex() {
         this.$api.AddressIndex().then(res => {
           this.tabelshow = true;
+          this.showloading=false;
           if (res.code == 1) {
             this.tableData = res.data;
           }
         })
       },
-      onEdit() {
-
+      onEdit(id) {
+        this.aid = id;
+        this.dialogFormVisible = true;
       },
       // 选择默认地址
       choosedefault(item, index) {
@@ -213,6 +218,10 @@
         &.iconxuanzhong {
           color: $baseBlue;
         }
+      }
+
+      .del {
+        color: $baseRed;
       }
     }
 

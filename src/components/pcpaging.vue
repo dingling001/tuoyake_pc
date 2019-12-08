@@ -2,7 +2,7 @@
   <div id="page" class="page">
     <el-pagination
       background
-      layout="prev, pager, next,jumper"
+      layout="prev, pager, next"
       @current-change="handleCurrentChange"
       :page-size="1"
       :total="totalPages">

@@ -121,14 +121,14 @@ export default (url = '', data = {}, type = 'GET', isRepeat = false) => {
         resolve(res);
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error.status)
         if (error.status === 401) {
           localStorage.removeItem("user_tpc");
           localStorage.removeItem('showneterror');
           $com.removeCookie('user_tpc');
           // 暂时缓存地址，授权成功后回跳这个地址
-          localStorage.url = window.location.href;
-          // window.location.href = window.location.origin + "/login";
+          // localStorage.url = window.location.href;
+          window.location.href = window.location.origin + "/login";
         }
       });
   });

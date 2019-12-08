@@ -1,10 +1,11 @@
 <template>
   <el-tabs v-model="active" @tab-click="changetype" class="coupbox">
-    <el-tab-pane v-for="(item,index) in navs" :key="index" :name="JSON.stringify(index)" :label="item" class="tab">
-    </el-tab-pane>
+    <el-tab-pane name="0" :label="'待使用优惠券（'+num+'）'" class="tab"></el-tab-pane>
+    <el-tab-pane name="1" label="已使用优惠券" class="tab"></el-tab-pane>
     <div v-show="active==0">
       <div class="couponlist">
         <div :class="['coupitem',item.status==3||item.status==4?'used':'']" v-for="(item,index) in couplist"
+             :key="item.id"
              @click="godetail(item.id)">
           <span class="leftcricle"></span>
           <span class="rightcricle"></span>
@@ -30,7 +31,9 @@
                                                      class="iconfont iconcaret-right"></span></div>
         </div>
       </div>
-      <div class="nodata" v-else>暂无数据</div>
+      <div class="couponlist" v-if="couplist.length==0">
+        <NoData :text="'暂无相关优惠券'"></NoData>
+      </div>
     </div>
   </el-tabs>
 </template>
@@ -42,9 +45,10 @@
       return {
         active: 0,
         page: 0,
-        navs: ['待使用优惠券', '已使用优惠券'],
+        navs: ['', ''],
         couplist: [],
-        type: 1
+        type: 1,
+        num: 0
       }
     },
     created() {
@@ -54,12 +58,17 @@
       // 获取列表
       _GetCouponList() {
         this.$api.GetCouponList(this.type, this.page).then(res => {
-          this.couplist = res.data.data;
+          if (res.code == 1) {
+            this.couplist = res.data.data;
+            if (this.active == 0) {
+              this.num = res.data.total
+            }
+          }
         })
       },
       // 切换
       changetype() {
-        this.type = parseInt()+ 1;
+        this.type = parseInt(this.active) + 1;
         this.page = 0;
         this._GetCouponList()
       },
@@ -77,12 +86,13 @@
 
   .coupbox {
     background-color: #ffff;
+    padding: 30px 0;
 
     /deep/ .el-tabs__nav {
       border-radius: 5px;
       margin: 0 auto;
       float: none;
-      width: 500px;
+      width: 312px;
 
       .el-tabs__item {
         font-size: 16px;
@@ -97,6 +107,8 @@
     .couponlist {
       padding: 44px 55px;
       overflow: hidden;
+      min-height: 300px;
+      position: relative;
 
       .coupitem {
         /*background: linear-gradient(90deg, rgba(252, 208, 116, 1), rgba(255, 85, 73, 1));*/

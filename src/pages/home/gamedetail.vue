@@ -108,7 +108,6 @@
             }
           } else {
             this.$com.showToast(res.msg, 'error')
-
           }
           // this._GetBarInfo()
         })
@@ -213,6 +212,7 @@
           border-bottom: 1px solid #eee;
           /*px*/
           width: 800px;
+          line-height: 20px;
         }
 
         .btnbox {

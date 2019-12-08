@@ -47,16 +47,6 @@ export default [
     }
   },
   {
-    path: '/changepass',
-    component: resolve => require(["../../pages/login/changepass"], resolve),
-    meta: {
-      title: "设置/修改密码",
-      showF: false,
-      showH: true,
-      needLogin: true
-    }
-  },
-  {
     path: '/changephone',
     component: resolve => require(["../../pages/login/changephone"], resolve),
     meta: {

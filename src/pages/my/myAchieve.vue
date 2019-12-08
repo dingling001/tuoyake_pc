@@ -170,18 +170,7 @@
       this._AddressIndex();
     },
     methods: {
-      gomychieve() {
-        this.$router.push('/my/myApplication')
-      },
-      // 添加成功
-      add(val) {
-        this._AddressIndex();
-      },
-      // 打开地址编辑
-      openaddress() {
-        // this.dialogTableVisible = false;
-        this.dialogFormVisible = true;
-      },
+
       // 获取我获奖次数
       _SignIndex() {
         this.$api.SignIndex().then(res => {
@@ -197,6 +186,7 @@
           }
         })
       },
+      // 获取列表
       _SignGoods() {
         this.$api.SignGoods().then(res => {
           console.log(res)
@@ -205,16 +195,24 @@
           }
         })
       },
+      // 去我的报名
+      gomychieve() {
+        this.$router.push('/my/myApplication')
+      },
+
+      // 获取奖励
       _SignAchievement() {
         this.$api.SignAchievement().then(res => {
           console.log(res)
           this.user_times = res.data.user_times;
         })
       },
+
       gogift(item) {
         this.dialogTableVisible = true;
         this.ginfo = item;
       },
+      // 获取配置
       _getConfig() {
         this.$api.getConfig().then(res => {
           if (res.code == 1) {
@@ -222,6 +220,7 @@
           }
         })
       },
+      // 获取地址
       _AddressIndex() {
         this.$api.AddressIndex().then(res => {
           console.log(res)
@@ -230,12 +229,9 @@
           }
         })
       },
-      // 返回上一页
-      backmy() {
-        this.$router.go(-1)
-      },
+      // 选中地址
       handleCurrentChange(val) {
-        console.log(val)
+        // console.log(val)
         this.currentRow = val;
       },
       // 立即领取
@@ -243,12 +239,22 @@
         this.$api.signReceive(this.ginfo.id, this.currentRow.id).then(res => {
           this.dialogTableVisible = false;
           if (res.code == 1) {
-            this.$com.showToast('领取成功，等待工作人员处理...', 'success')
+            this.$com.showToast('领取成功，等待工作人员处理...', 'success');
+            this._SignGoods();
           } else {
             this.$com.showToast(res.msg)
           }
         })
-      }
+      },
+      // 添加成功
+      add(val) {
+        this._AddressIndex();
+      },
+      // 打开地址编辑
+      openaddress() {
+        // this.dialogTableVisible = false;
+        this.dialogFormVisible = true;
+      },
     }
   }
 </script>

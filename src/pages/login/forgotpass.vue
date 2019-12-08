@@ -1,7 +1,7 @@
 <template>
   <div class="login_box">
     <div class="login_head" @click="$router.push('/')">
-      <img src="../../img/index/index_logo.png" alt="">
+      <img src="../../img/index/logo_login.png" alt="">
     </div>
     <el-form class="loginform" ref="form" :model="ruleForm">
       <div class="logintitle">
@@ -155,8 +155,8 @@
     background: url("../../img/index/login_bg.jpg") no-repeat 100% 100%;
 
     .login_head {
-      width: 88px;
-      height: 83px;
+      width: 207px;
+      height: 64px;
       margin: 0 auto;
       padding: 130px 0 49px 0;
       display: flex;

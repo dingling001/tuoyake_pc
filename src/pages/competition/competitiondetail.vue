@@ -28,11 +28,12 @@
               <!--                :preview-src-list="comdata.info.album_images">-->
               <!--              </el-image>-->
               <img :src="item" alt="">
-              <div class="mask animated zoomIn faster" @click="onPreview">
-                <i class="el-icon-zoom-in"></i> <span>全部相册</span>
-              </div>
+
             </swiper-slide>
           </swiper>
+          <div class="mask animated zoomIn faster" @click="onPreview">
+            <i class="el-icon-zoom-in"></i> <span>全部相册</span>
+          </div>
         </div>
         <div class="swiper2">
           <swiper :options="swiperOption1" ref="mySwiper1" v-if="comdata.info.album_images.length">
@@ -83,65 +84,6 @@
       v-if="showViewer"
       :on-close="closeViewer"
       :url-list="comdata.info.album_images"/>
-    <!--    <div class="comitem">-->
-    <!--      <div class="comnanme">{{comdata.info.name}}</div>-->
-    <!--      <div class="starbox">-->
-    <!--        <div class="iconfont iconstar-fill star" v-for="item in Number(comdata.info.star)"></div>-->
-    <!--        <div class="iconfont iconstar-fill" v-if="Number(comdata.info.star)<5"-->
-    <!--             v-for="item in 5-Number(comdata.info.star)"></div>-->
-    <!--      </div>-->
-    <!--      <div class="comaddress">-->
-    <!--        <div class="adressitem">-->
-    <!--          <span class="iconfont icondingweiweizhi"></span>-->
-    <!--          <div class="address">{{comdata.info.address}}-->
-    <!--            <div class="juli">距您{{comdata.info.distance}}</div>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--        <a class="phonecall" :href="'tel:'+comdata.info.contact_number"><span-->
-    <!--          class="iconfont iconphone-fill"></span></a>-->
-    <!--      </div>-->
-    <!--      <div class="hr"></div>-->
-    <!--      <div class="comlist" v-if="comdata.goods.length">-->
-    <!--        <div class="taocan">-->
-    <!--          <div class="spanbox"><span class="span">惠</span> <span>套餐</span></div>-->
-    <!--        </div>-->
-    <!--        <div class="jitem van-row&#45;&#45;flex" v-for="(item,index) in comdata.goods" :key="item.id"-->
-    <!--             @click="gotaocandetail(item.id)">-->
-    <!--          <div class="jimg"><img :src="item.image" alt=""></div>-->
-    <!--          <div class="jright">-->
-    <!--            <div class="jname van-ellipsis">{{item.name}}</div>-->
-    <!--            &lt;!&ndash;<div class="jinfo"><span class="name">{{item.contact}}</span><span class="tel">{{item.contact_number}}</span>&ndash;&gt;-->
-    <!--            &lt;!&ndash;</div>&ndash;&gt;-->
-    <!--            <div class="jaddress van-ellipsis">{{item.content}}</div>-->
-    <!--            <div class="price">￥{{item.price}}</div>-->
-    <!--          </div>-->
-    <!--          <div class="jbtn">抢购</div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--      <div class="hr"></div>-->
-    <!--      <div class="comlist" v-if="comdata.match.length">-->
-    <!--        <div class="taocan">-->
-    <!--          <div class="spanbox"><span class="span">赛</span><span>赛事</span></div>-->
-    <!--          <div class="all" v-if="comdata.match.length>1">全部 <span class="iconfont iconjiantou"></span></div>-->
-    <!--        </div>-->
-    <!--        <div class="jitem van-row&#45;&#45;flex" v-for="(item,index) in comdata.match" :key="item.id"-->
-    <!--             @click="gossdetail(item.id)">-->
-    <!--          <div class="jimg"><img :src="item.image" alt="">-->
-    <!--            <span v-if="item.recommend==1">精选</span>-->
-    <!--          </div>-->
-    <!--          <div class="jright">-->
-    <!--            <div class="jname van-ellipsis">{{item.league_name}}</div>-->
-    <!--            &lt;!&ndash;<div class="jinfo"><span class="name">{{item.contact}}</span><span class="tel">{{item.contact_number}}</span>&ndash;&gt;-->
-    <!--            &lt;!&ndash;</div>&ndash;&gt;-->
-    <!--            <div class="jaddress van-ellipsis"><span class="iconfont icontime-circle"></span>-->
-    <!--              {{item.start_time}} ~ {{item.end_time}}-->
-    <!--            </div>-->
-    <!--            <div class="synopsis van-ellipsis">{{item.synopsis}}</div>-->
-    <!--          </div>-->
-    <!--          <div class="jbtn s_jbtn">报名</div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
   </div>
 </template>
 
@@ -212,7 +154,8 @@
     },
     methods: {
       onPreview() {
-        this.showViewer = true
+        this.showViewer = true;
+        console.log(this.comdata.info.album_images)
       },
       // 关闭查看器
       closeViewer() {
@@ -382,9 +325,41 @@
           max-height: 256px;
           height:147px;
           float: left;
+          position: relative;
+          &:hover .mask {
+            display: block;
+          }
 
+          .mask {
+            display: none;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            color: #fff;
+            background-color: rgba(0, 0, 0, .3);
+            text-align: center;
+            line-height: 192px;
+            cursor: pointer;
+            font-size: 12px;
+            align-items: center;
+            /*transition: ease-in-out .2s;*/
+            /*&:hover{*/
+            /*  color: #ccc;*/
+            /*}*/
+            z-index: 10;
+            .el-icon-zoom-in {
+              font-size: 30px;
+            }
+
+            span {
+            }
+          }
           .swiper-container {
             height: 147px;
+
 
             .swiper-slide {
               background-color: #f5f5f5;
@@ -394,36 +369,6 @@
               /*height: 256px;*/
               cursor: pointer;
 
-              &:hover .mask {
-                display: block;
-              }
-
-              .mask {
-                display: none;
-                position: absolute;
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                margin: auto;
-                color: #fff;
-                background-color: rgba(0, 0, 0, .3);
-                text-align: center;
-                line-height: 192px;
-                cursor: pointer;
-                font-size: 12px;
-                align-items: center;
-                /*transition: ease-in-out .2s;*/
-                /*&:hover{*/
-                /*  color: #ccc;*/
-                /*}*/
-                .el-icon-zoom-in {
-                  font-size: 30px;
-                }
-
-                span {
-                }
-              }
 
               img {
                 width: 100%;

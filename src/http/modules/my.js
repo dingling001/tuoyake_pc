@@ -47,6 +47,20 @@ export const SetFeedback = (content, images) =>
   );
 
 /**
+ * 意见反馈
+ */
+export const CommonUpload = (file) =>
+  axios(
+    "/api/common/upload", {
+      token: $com.getCookies('user_tpc'),
+      file
+    },
+    "FORMDATA",
+    true
+  );
+
+
+/**
  * 获取我的优惠券
  */
 export const GetCouponList = (type = 1, page = 0) =>
@@ -114,14 +128,29 @@ export const ScoreIndex = () =>
 /**
  * 积分规则说明
  */
-export const ScoreRule = () =>
+export const ScoreRule = (goods_id, address_id) =>
   axios(
     "/api/score/rule", {
+      token: $com.getCookies('user_tpc'),
+      goods_id,
+      address_id
+    },
+    "POST",
+    true
+  );
+/**
+ * 积分领取奖励
+ */
+export const ScoreReceive = () =>
+  axios(
+    "/api/score/receive", {
       token: $com.getCookies('user_tpc'),
     },
     "POST",
     true
   );
+
+
 /**
  * 报名规则说明
  */
@@ -157,6 +186,21 @@ export const ScoreMyReceived = () =>
     "POST",
     true
   );
+/**
+ * 领取奖品
+ */
+export const ScoreReceived = (goods_id, address_id) =>
+  axios(
+    "/api/score/receive", {
+      token: $com.getCookies('user_tpc'),
+      goods_id,
+      address_id
+    },
+    "POST",
+    true
+  );
+
+
 /**
  * 地址列表
  */
@@ -223,7 +267,7 @@ export const SignAchievement = () =>
     "POST",
     true
   );
-export const signReceive = (goods_id,address_id) =>
+export const signReceive = (goods_id, address_id) =>
   axios(
     "/api/sign/receive", {
       token: $com.getCookies('user_tpc'),
@@ -233,7 +277,6 @@ export const signReceive = (goods_id,address_id) =>
     "POST",
     true
   );
-
 // 添加地址
 export const AddressSetAddress = (name, mobile, province, city, district, address, is_default, id) =>
   axios(
@@ -263,6 +306,16 @@ export const addressSingle = () =>
 export const addressDel = (id) =>
   axios(
     "/api/address/del", {
+      token: $com.getCookies('user_tpc'),
+      id
+    },
+    "POST",
+    true
+  );
+//地址详情
+export const AddressDetail = (id) =>
+  axios(
+    "/api/address/detail", {
       token: $com.getCookies('user_tpc'),
       id
     },
