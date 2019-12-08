@@ -17,57 +17,55 @@
       </div>
     </div>
     <el-table
-      ref="multipleTable"
+      v-if="tableData.length"
       :data="tableData"
-      tooltip-effect="dark"
+      center
       border
-      v-if="falg&&tableData.length"
-      v-loading="showdata"
-      @selection-change="handleSelectionChange">
+    >
       <el-table-column
+        property="name"
         label="联系人"
-        width="91"
+        width="120"
         align="center"
       >
-        <template slot-scope="scope">{{ scope.row.date }}</template>
       </el-table-column>
       <el-table-column
-        prop="name"
+        property="mobile"
         label="电话"
+        width="120"
         align="center"
-        width="130">
+      >
       </el-table-column>
       <el-table-column
-        prop="address"
+        property="address"
         label="地址"
         align="center"
-        width="436"
-        show-overflow-tooltip>
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="操作"
-        align="center"
-        width="109"
-        show-overflow-tooltip>
-      </el-table-column>
-      <el-table-column
-        type="selection"
-        label="默认地址"
-        width="103"
-        align="center"
-        class="selectbtn"
       >
+      </el-table-column>
+      <el-table-column
+        label="操作"
+        width="120"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <el-button type="text" size="small">编辑</el-button>
+          <el-button type="text" size="small">删除</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="默认地址"
+        width="120"
+        align="center"
+      >
+        <template slot-scope="scope">
+         <span :class="['iconfont', scope.$index==ind?'iconxuanzhong':'iconweixuanzhong']" @click="choosedefault(scope.row.id,scope.$index)"></span>
+        </template>
       </el-table-column>
     </el-table>
     <div class="nodata" v-else>
       <NoData :text="'还没有添加地址'"></NoData>
     </div>
-    <el-button type="primary" class="add_btn" >+新建地址</el-button>
-    <div style="margin-top: 20px">
-      <el-button @click="toggleSelection([tableData[1], tableData[2]])">切换第二、第三行的选中状态</el-button>
-      <el-button @click="toggleSelection()">取消选择</el-button>
-    </div>
+    <el-button type="primary" class="add_btn">+新建地址</el-button>
   </div>
 </template>
 
@@ -107,8 +105,10 @@
             address: '上海市普陀区金沙江路 1518 弄'
           }],
         multipleSelection: [],
-        showdata:true,
-        falg:false,
+        showdata: true,
+        falg: false,
+        currentRow: null,
+        ind: -1
       }
     },
     created() {
@@ -125,20 +125,17 @@
       onAdd() {
         this.$router.push({path: '/editAddress', query: {add: 0}})
       },
+      handleCurrentChange(val) {
+        this.currentRow = val;
+      },
       onEdit() {
 
       },
-      toggleSelection(rows) {
-        if (rows) {
-          rows.forEach(row => {
-            this.$refs.multipleTable.toggleRowSelection(row);
-          });
-        } else {
-          this.$refs.multipleTable.clearSelection();
-        }
-      },
-      handleSelectionChange(val) {
-        this.multipleSelection = val;
+      choosedefault(id, index) {
+        console.log(id)
+        console.log(index)
+        this.ind = index;
+        // this.tableData[index].is_defalut = 1;
       }
     }
   }
@@ -192,7 +189,14 @@
       .selectbtn {
 
       }
+      .checkbox{
+        display: block;
+        width: 10px;
+        height: 10px;
+        border: 1px solid $baseBlue;
+      }
     }
+
     .nodata {
       color: #eee;
       text-align: center;
@@ -201,7 +205,8 @@
       min-height: 300px;
       position: relative;
     }
-    .add_btn{
+
+    .add_btn {
       width: 139px;
       margin: 0 auto;
       display: block;

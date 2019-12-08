@@ -239,3 +239,13 @@ export const AddressSetAddress = (name, mobile, province, city, district, addres
     "POST",
     true
   );
+// 默认地址
+export const addressSingle = () =>
+  axios(
+    "/api/address/single", {
+      token: $com.getCookies('user_tpc'),
+    },
+    "POST",
+    true
+  );
+
