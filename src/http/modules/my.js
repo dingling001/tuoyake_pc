@@ -223,10 +223,10 @@ export const SignAchievement = () =>
     "POST",
     true
   );
+// 添加地址
 export const AddressSetAddress = (name, mobile, province, city, district, address, is_default, id) =>
   axios(
     "/api/address/setAddress", {
-      token: $com.getCookies('user_tpc'),
       name,
       mobile,
       province,

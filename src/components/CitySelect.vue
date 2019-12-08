@@ -118,7 +118,6 @@
         }
         this.cityindex = this.einfo[1];
         this.$emit('cityarea', this.cityarea)
-
       },
       // 触发下拉的行为
       getchildlist(e, index) {

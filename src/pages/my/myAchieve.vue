@@ -34,13 +34,13 @@
     </div>
     <div class="hr"></div>
     <div class="mlink">
-      <div class="mitem" v-for="(item,index) in sglist" :key="item.id" @click="gogift(item)">
+      <div class="mitem" v-for="(item,index) in sglist" :key="item.id" >
         <div class="listimg"><img :src="item.image" alt=""></div>
         <div class="title">累计获奖<span>{{item.times}}</span>次可领取</div>
         <div class="listitem">{{item.goods_name}}</div>
         <div :class="['btn',item.status!=1?'disabled':''] ">
           <span v-if="item.status==0">未达成</span>
-          <span v-else-if="item.status ==1">立即领取</span>
+          <span v-else-if="item.status ==1" @click="gogift(item)">立即领取</span>
           <span v-else-if="item.status==2">已领取</span>
         </div>
       </div>
@@ -71,20 +71,15 @@
         >
         </el-table-column>
         <el-table-column
-          property="date"
+          property="mobile"
           label="联系方式"
           width="120">
         </el-table-column>
         <el-table-column
-          property="date"
           label="操作"
           width="80">
           <template slot-scope="scope">
-            <el-button
-              type="text"
-              size="small">
-              编辑
-            </el-button>
+            <el-button type="text" size="small" @click.stop="bianji(scope.row.id)">编辑</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -102,9 +97,9 @@
       </div>
       <div class="title"><span>领取说明</span><span class="line"></span></div>
       <div class="content" v-html="winning_receive_explain"></div>
-      <el-button type="primary" class="btn">立即领取</el-button>
+      <el-button type="primary" class="btn" v-if="ginfo.status==1" @click="gogetgift">立即领取</el-button>
     </el-dialog>
-    <Taddress :show.sync="dialogFormVisible"></Taddress>
+    <Taddress :show.sync="dialogFormVisible" @add="add"></Taddress>
   </div>
 </template>
 
@@ -161,7 +156,7 @@
         currentRow: null,
         ginfo: {},
         winning_receive_explain: '',
-        addshow: false
+        addshow: false,
       }
     },
     components: {
@@ -175,6 +170,11 @@
       this._AddressIndex();
     },
     methods: {
+      // 添加成功
+      add(val) {
+        this._AddressIndex();
+      },
+      // 打开地址编辑
       openaddress() {
         // this.dialogTableVisible = false;
         this.dialogFormVisible = true;
@@ -234,6 +234,10 @@
       handleCurrentChange(val) {
         console.log(val)
         this.currentRow = val;
+      },
+      // 立即领取
+      gogetgift() {
+
       }
     }
   }

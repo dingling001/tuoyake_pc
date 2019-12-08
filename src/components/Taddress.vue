@@ -67,7 +67,7 @@
         cvalue: '',
         dvalue: '',
         district: [],
-        is_default:0,
+        is_default: 0,
         id: ''
       };
     },
@@ -139,7 +139,13 @@
           this.is_default,
           this.id
         ).then(res => {
-          console.log(res)
+          if(res.code==1){
+            this.visible=false;
+            this.$emit('add',1)
+          }else{
+            this.$com.showToast(res.msg||'稍后再试！')
+          }
+
         })
       }
     }

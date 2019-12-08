@@ -99,7 +99,7 @@ export default (url = '', data = {}, type = 'GET', isRepeat = false) => {
         data: qs.stringify(data),
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-          Accept: 'application/json',
+          'token':$com.getCookies('user_tpc')
         },
       });
     } else if (type === 'FORMDATA') {
