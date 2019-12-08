@@ -24,7 +24,7 @@
               <div>1次</div>
             </div>
             <div class="timeitem" v-for="(item,index) in  tags">
-              <img :src="item.status?item.icon1:item.icon" alt="" class="animated zoomIn delay-1s">
+              <img :src="item.status?item.icon1:item.icon" alt="" class="animated zoomIn">
               <div>{{item.item}}次</div>
             </div>
           </div>

@@ -17,7 +17,7 @@
       </div>
     </div>
     <el-table
-      v-if="tableData.length"
+      v-if="tabelshow&&tableData.length"
       :data="tableData"
       center
       border
@@ -37,10 +37,12 @@
       >
       </el-table-column>
       <el-table-column
-        property="address"
         label="地址"
         align="center"
       >
+        <template slot-scope="scope">
+          {{scope.row.province}}{{scope.row.city}}{{scope.row.district}}{{scope.row.address}}
+        </template>
       </el-table-column>
       <el-table-column
         label="操作"
@@ -49,7 +51,7 @@
       >
         <template slot-scope="scope">
           <el-button type="text" size="small">编辑</el-button>
-          <el-button type="text" size="small">删除</el-button>
+          <el-button type="text" size="small" @click="_addressDel(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
       <el-table-column
@@ -58,58 +60,34 @@
         align="center"
       >
         <template slot-scope="scope">
-         <span :class="['iconfont', scope.$index==ind?'iconxuanzhong':'iconweixuanzhong']" @click="choosedefault(scope.row.id,scope.$index)"></span>
+          <span
+            :class="['checkbox iconfont', scope.row.is_default==1?'iconxuanzhong':'iconweixuanzhong']"
+            @click="choosedefault(scope.row,scope.$index)"></span>
         </template>
       </el-table-column>
     </el-table>
-    <div class="nodata" v-else>
+    <div class="nodata" v-if="tabelshow&&tableData.length==0">
       <NoData :text="'还没有添加地址'"></NoData>
     </div>
-    <el-button type="primary" class="add_btn">+新建地址</el-button>
+    <el-button type="primary" class="add_btn" @click="dialogFormVisible=true">+新建地址</el-button>
+    <Taddress :show.sync="dialogFormVisible" @add="add"></Taddress>
   </div>
 </template>
 
 <script>
+  import Taddress from '../../components/Taddress'
+
   export default {
     name: "myAddress",
     data() {
       return {
-        tableData: [
-          {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 上海市普陀区金沙江路上海市普陀区金沙江路'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-08',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-06',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-07',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }],
-        multipleSelection: [],
-        showdata: true,
-        falg: false,
-        currentRow: null,
-        ind: -1
+        tableData: [],
+        tabelshow: false,
+        dialogFormVisible: false
       }
+    },
+    components: {
+      Taddress
     },
     created() {
       this._AddressIndex();
@@ -117,26 +95,65 @@
     methods: {
       _AddressIndex() {
         this.$api.AddressIndex().then(res => {
+          this.tabelshow = true;
           if (res.code == 1) {
             this.tableData = res.data;
           }
         })
       },
-      onAdd() {
-        this.$router.push({path: '/editAddress', query: {add: 0}})
-      },
-      handleCurrentChange(val) {
-        this.currentRow = val;
-      },
       onEdit() {
 
       },
-      choosedefault(id, index) {
-        console.log(id)
-        console.log(index)
-        this.ind = index;
-        // this.tableData[index].is_defalut = 1;
-      }
+      // 选择默认地址
+      choosedefault(item, index) {
+        // this.tableData[index].is_default = 1;
+        this.$api.AddressSetAddress(
+          item.name,
+          item.mobile,
+          item.province,
+          item.city,
+          item.district,
+          item.address,
+          1,
+          item.id
+        ).then(res => {
+          if (res.code == 1) {
+            this.$com.showToast('已设置为默认地址', 'success')
+            this._AddressIndex();
+          } else {
+            this.$com.showToast(res.msg || '稍后再试！')
+          }
+        })
+        // this.$set(this.tableData[index],'is_default',1)
+      },
+      // 删除地址
+      _addressDel(id) {
+        this.$confirm('此操作将删除该地址, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.delconfirm(id)
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+      },
+      // 确认删除
+      delconfirm(id) {
+        this.$api.addressDel(id).then(res => {
+          if (res.code == 1) {
+            this.$com.showToast('删除成功', 'success');
+            this._AddressIndex();
+          }
+        })
+      },
+      // 添加成功
+      add(val) {
+        this._AddressIndex();
+      },
     }
   }
 </script>
@@ -183,17 +200,19 @@
     }
 
     /deep/ .el-table {
-      margin: 0 auto;
+      margin: 34px auto;
       width: 870px;
 
       .selectbtn {
 
       }
-      .checkbox{
-        display: block;
-        width: 10px;
-        height: 10px;
-        border: 1px solid $baseBlue;
+
+      .checkbox {
+        cursor: pointer;
+
+        &.iconxuanzhong {
+          color: $baseBlue;
+        }
       }
     }
 
@@ -208,7 +227,7 @@
 
     .add_btn {
       width: 139px;
-      margin: 0 auto;
+      margin: 53px auto;
       display: block;
     }
   }

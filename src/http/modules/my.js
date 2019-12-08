@@ -223,6 +223,17 @@ export const SignAchievement = () =>
     "POST",
     true
   );
+export const signReceive = (goods_id,address_id) =>
+  axios(
+    "/api/sign/receive", {
+      token: $com.getCookies('user_tpc'),
+      goods_id,
+      address_id
+    },
+    "POST",
+    true
+  );
+
 // 添加地址
 export const AddressSetAddress = (name, mobile, province, city, district, address, is_default, id) =>
   axios(
@@ -244,6 +255,16 @@ export const addressSingle = () =>
   axios(
     "/api/address/single", {
       token: $com.getCookies('user_tpc'),
+    },
+    "POST",
+    true
+  );
+// 删除地址
+export const addressDel = (id) =>
+  axios(
+    "/api/address/del", {
+      token: $com.getCookies('user_tpc'),
+      id
     },
     "POST",
     true

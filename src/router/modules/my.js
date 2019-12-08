@@ -269,17 +269,17 @@ export default [
   //     needLogin: true,
   //   },
   // },
-  {
-    path: '/editAddress',
-    name: 'editAddress',
-    component: resolve => require(["../../pages/my/editAddress"], resolve),
-    meta: {
-      title: "添加地址",
-      showF: false,
-      showH: true,
-      needLogin: true,
-    },
-  },
+  // {
+  //   path: '/editAddress',
+  //   name: 'editAddress',
+  //   component: resolve => require(["../../pages/my/editAddress"], resolve),
+  //   meta: {
+  //     title: "添加地址",
+  //     showF: false,
+  //     showH: true,
+  //     needLogin: true,
+  //   },
+  // },
 
 
 ]

@@ -1,9 +1,9 @@
 <template>
   <div class="score_box">
     <div class="score_top">
-      <div class="iconbox">
-        <div class="name">我的报名</div>
-        <!--<div class="achieve_right">获奖成就 <span class="iconfont iconjiantou"></span></div>-->
+      <div class="iconbox" @click="gomychieve">
+        <div class="name">获奖成就</div>
+        <div class="achieve_right">我的报名<span class="iconfont iconjiantou"></span></div>
       </div>
       <div class="score_item">
         <!--<div class="item">-->
@@ -25,7 +25,7 @@
               <div>1次</div>
             </div>
             <div class="timeitem" v-for="(item,index) in  tags">
-              <img :src="item.status?item.icon1:item.icon" alt="" class="animated zoomIn delay-1s">
+              <img :src="item.status?item.icon1:item.icon" alt="" class="animated zoomIn">
               <div>{{item.item}}次</div>
             </div>
           </div>
@@ -34,7 +34,7 @@
     </div>
     <div class="hr"></div>
     <div class="mlink">
-      <div class="mitem" v-for="(item,index) in sglist" :key="item.id" >
+      <div class="mitem" v-for="(item,index) in sglist" :key="item.id">
         <div class="listimg"><img :src="item.image" alt=""></div>
         <div class="title">累计获奖<span>{{item.times}}</span>次可领取</div>
         <div class="listitem">{{item.goods_name}}</div>
@@ -170,6 +170,9 @@
       this._AddressIndex();
     },
     methods: {
+      gomychieve() {
+        this.$router.push('/my/myApplication')
+      },
       // 添加成功
       add(val) {
         this._AddressIndex();
@@ -237,7 +240,14 @@
       },
       // 立即领取
       gogetgift() {
-
+        this.$api.signReceive(this.ginfo.id, this.currentRow.id).then(res => {
+          this.dialogTableVisible = false;
+          if (res.code == 1) {
+            this.$com.showToast('领取成功，等待工作人员处理...', 'success')
+          } else {
+            this.$com.showToast(res.msg)
+          }
+        })
       }
     }
   }

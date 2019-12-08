@@ -85,8 +85,6 @@
   @import "../../style/reset";
 
   .fbox {
-    padding: 0 20px;
-
     .iconbox {
       line-height: 44px;
       padding: 0 32px;
@@ -96,8 +94,30 @@
       overflow: hidden;
       border-bottom: 1px solid #EEEEEE;
 
-    }
+      .name {
+        font-size: 18px;
+        color: #333;
+        float: left;
+      }
 
+      .iconfanhui {
+        font-weight: bold;
+      }
+
+      .achieve_right {
+        float: right;
+        cursor: pointer;
+
+        &:hover {
+          color: $baseRed;
+        }
+      }
+
+      .iconcaret-right {
+        font-size: 12px;
+        /*px*/
+      }
+    }
     /deep/ .el-textarea {
       width: 748px;
       height: 203px;
