@@ -2,21 +2,38 @@
   <div>
     <div class="thead">
       <div class="taddress">
-        <span class="iconfont iconchakantiezidingwei"></span>
-        <span class="city">{{city}}</span>
-        <span class="change" @click="changCity">[切换城市]</span>
-        <span class="login">
+        <div class="hleft">
+          <span class="iconfont icondingweiweizhi"></span>
+          <span class="city">{{city}}</span>
+          <span class="change" @click="changCity">[切换城市]</span>
+          <span class="login">
           <span class="loginbox" v-if="!tyktoken">
             <span class="reg" @click="login_fn">立即登录</span>
             <router-link to="/reg" tag="span">注册</router-link>
           </span>
-          <!--            <span class="loginbox" v-else v-loading="showuser">-->
+            <!--            <span class="loginbox" v-else v-loading="showuser">-->
           <span class="loginbox" v-else>
             <span class="reg" title="个人中心" @click="gomy" v-if="user_info.nickname">{{getTimeState}}，{{user_info.nickname}}</span>
             <span @click="loginout">退出</span>
           </span>
         </span>
-        <a class="business" href="http://admin.tuoyake.com/admin" target="_blank">商家中心</a>
+        </div>
+        <div class="hright">
+          <div class="menubox">
+            <router-link to="/my" tag="span">我的托亚克</router-link>
+            <ul v-show="showmenu" class="menu">
+              <router-link to="/my/myorder" tag="li">我的订单</router-link>
+              <router-link to="/my/myPoints" tag="li">我的积分</router-link>
+              <router-link to="/my/myApplication" tag="li">我的报名</router-link>
+              <router-link to="/my/myCoupon" tag="li">我的优惠券</router-link>
+              <router-link to="/my/myCollect" tag="li">我的收藏</router-link>
+              <router-link to="/my/myset" tag="li">账号设置</router-link>
+
+            </ul>
+          </div>
+          <a class="business" href="http://admin.tuoyake.com/admin" target="_blank">商家中心</a>
+        </div>
+
       </div>
     </div>
     <div class="tnav">
@@ -52,6 +69,7 @@
         top: 0,
         tyktoken: '',
         tkeyword: '',
+        showmenu: true,
         navs: [
           {
             name: '首页',
@@ -216,60 +234,133 @@
     .taddress {
       width: 1200px;
       margin: 0 auto;
-      padding: 13px 0;
       font-size: 12px;
       color: #777;
-      overflow: hidden;
+      /*overflow: hidden;*/
       position: relative;
 
-      .change {
-        cursor: pointer;
+      &:after {
+        content: " ";
+        visibility: hidden;
+        display: block;
+        height: 0;
+        clear: both;
+      }
 
-        &:hover {
-          color: $baseRed;
+      .hleft {
+        float: left;
+        line-height: 40px;
+
+        .change {
+          cursor: pointer;
+
+          &:hover {
+            color: $baseRed;
+          }
         }
-      }
 
-      .iconfont {
-        color: #999999;
-      }
+        .iconfont {
+          color: #999999;
+        }
 
-      .city {
-        padding: 0 6px;
-      }
+        .city {
+          /*padding: 0 6px;*/
+        }
 
-      .login {
-        margin-left: 30px;
+        .login {
+          margin-left: 30px;
 
-        .loginbox {
-          span {
-            cursor: pointer;
+          .loginbox {
+            span {
+              cursor: pointer;
 
-            &:hover {
+              &:hover {
+                color: $baseRed;
+              }
+            }
+
+            .reg {
               color: $baseRed;
+              padding: 0 5px;
             }
           }
 
-          .reg {
+        }
+
+      }
+
+      .hright {
+        float: right;
+
+        .menubox {
+          float: left;
+          position: relative;
+          padding: 0 14px;
+
+
+          &:hover {
+            background-color: #fff;
+
+          }
+
+          &:hover .menu {
+            display: block;
+
+          }
+
+          &:hover span {
             color: $baseRed;
-            padding: 0 5px;
+          }
+
+          span {
+            line-height: 40px;
+            cursor: pointer;
+            color: #777777;
+            font-size: 12px;
+          }
+
+          .menu {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            padding: 0;
+            background: #fff;
+            text-align: center;
+            z-index: 1000;
+            /*top: 95%;*/
+            display: none;
+            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
+
+            li {
+              cursor: pointer;
+              line-height: 40px;
+
+              &:hover {
+                color: $baseRed;
+              }
+            }
           }
         }
 
-      }
+        .business {
+          float: left;
+          /*position: absolute;*/
+          /*right: 0;*/
+          /*top: 0;*/
+          padding: 0 14px;
+          /*height: 100%;*/
+          line-height: 40px;
+          cursor: pointer;
+          color: #777777;
+          font-size: 12px;
 
-      .business {
-        position: absolute;
-        right: 0;
-        top: 0;
-        height: 100%;
-        line-height: 40px;
-        cursor: pointer;
-
-        &:hover {
-          color: $baseRed;
+          &:hover {
+            color: $baseRed;
+          }
         }
       }
+
+
     }
   }
 

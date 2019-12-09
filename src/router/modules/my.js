@@ -158,19 +158,21 @@ export default [
           cur: 3
         },
       },
-
+      {
+        path: '/my/myset',
+        name: 'myset',
+        component: resolve => require(["../../pages/my/myset"], resolve),
+        meta: {
+          title: "账号设置",
+          showF: false,
+          showH: true,
+          shownav: false,
+          needLogin: true,
+          keepAlive: true,
+          cur: 6
+        },
+      },
     ]
-  },
-  {
-    path: '/myset',
-    name: 'myset',
-    component: resolve => require(["../../pages/my/myset"], resolve),
-    meta: {
-      title: "个人设置",
-      showH: true,
-      showF: true,
-      needLogin: true
-    },
   },
 
 

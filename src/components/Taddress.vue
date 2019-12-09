@@ -138,12 +138,17 @@
       },
       id: {
         handler(val) {
-          if (val) {
-            this.id = val;
-            this._AddressDetail()
-          }
+          this.$nextTick(() => {
+            this.title = '新建地址';
+            this.$refs.ruleForm.resetFields();
+            if (val != null) {
+              this.title = '编辑地址';
+              this.id = val;
+              this._AddressDetail()
+            }
+          })
         },
-        immediate: true
+        // immediate: true
       }
     },
     methods: {
@@ -218,7 +223,7 @@
       },
       // 获取详情
       _AddressDetail() {
-        this.title = '编辑地址'
+        this.title = '编辑地址';
         this.$api.AddressDetail(this.id).then(res => {
           if (res.code == 1) {
             this.form = res.data;

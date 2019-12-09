@@ -28,6 +28,9 @@
         <div :class="['nav_item', cur==5?'active_item':'']" @click="gonav('myFeedback',5)"><span
           class="iconfont iconfeedback-center"></span>意见反馈
         </div>
+        <div :class="['nav_item', cur==6?'active_item':'']" @click="gonav('myset',6)"><span
+          class="iconfont iconshezhi1"></span>账号设置
+        </div>
       </div>
     </div>
     <div class="my_right">

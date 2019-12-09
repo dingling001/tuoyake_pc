@@ -19,13 +19,13 @@
     </div>
     <div class="hr"></div>
     <div class="mlink">
-      <div class="mitem" v-for="item in sglist" :key="item.id" @click="gogift(item)">
+      <div class="mitem" v-for="item in sglist" :key="item.id">
         <div class="listimg"><img :src="item.image" alt=""></div>
         <div class="title">累计有效积分<span>{{item.score}}</span>分可领取</div>
         <div class="listitem">{{item.goods_name}}</div>
         <div :class="['btn',item.status!=1?'disabled':''] ">
           <span v-if="item.status==0">未达成</span>
-          <span v-else-if="item.status ==1">立即领取</span>
+          <span v-else-if="item.status ==1" @click="gogift(item)">立即领取</span>
           <span v-else-if="item.status==2">已领取</span>
         </div>
       </div>
@@ -162,10 +162,10 @@
       },
       // 默认选中默认地址
       setCurrent() {
-        this.$nextTick(()=>{
-          if(this.addresslist.length>0&&this.dialogTableVisible){
-            for(var i in this.addresslist){
-              if(this.addresslist[i].is_default==1){
+        this.$nextTick(() => {
+          if (this.addresslist.length > 0 && this.dialogTableVisible) {
+            for (var i in this.addresslist) {
+              if (this.addresslist[i].is_default == 1) {
                 this.$refs.singleTable.setCurrentRow(this.addresslist[i]);
               }
             }
@@ -198,9 +198,11 @@
       openaddress() {
         // this.dialogTableVisible = false;
         this.dialogFormVisible = true;
+        this.aid = null;
       },
       // 编辑地址
       bianji(id) {
+        this.dialogFormVisible = true;
         this.aid = id;
       }
     }
