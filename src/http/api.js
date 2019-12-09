@@ -112,7 +112,7 @@ export default (url = '', data = {}, type = 'GET', isRepeat = false) => {
       options = Object.assign(options, {
         method: 'post',
         data: formData,
-        headers: {'Content-Type': 'multipart/form-data', Accept: 'application/json'},
+        headers: {'Content-Type': 'multipart/form-data', 'token':$com.getCookies('user_tpc'), Accept: 'application/json'},
       });
     }
     instance(options)

@@ -38,21 +38,20 @@ export const Platform = () =>
 export const SetFeedback = (content, images) =>
   axios(
     "/api/user/setFeedback", {
+      token: $com.getCookies('user_tpc'),
       content,
       images,
-      token: $com.getCookies('user_tpc'),
     },
     "POST",
     true
   );
 
 /**
- * 意见反馈
+ * 上传文件
  */
 export const CommonUpload = (file) =>
   axios(
     "/api/common/upload", {
-      token: $com.getCookies('user_tpc'),
       file
     },
     "FORMDATA",
@@ -199,8 +198,6 @@ export const ScoreReceived = (goods_id, address_id) =>
     "POST",
     true
   );
-
-
 /**
  * 地址列表
  */
