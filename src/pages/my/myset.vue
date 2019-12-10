@@ -136,7 +136,7 @@
       background-size: cover;
       background-repeat: no-repeat;
       position: relative;
-      padding: 0 0 50px 0;
+      /*padding: 0 0 50px 0;*/
 
       .iconbox {
         line-height: 44px;
@@ -183,45 +183,45 @@
 
     .setarea {
       padding: 0 25px;
-/deep/
-      .avatar-uploader .el-upload {
 
+      /deep/
+      .avatar-uploader .el-upload {
+        display: block;
         text-align: left;
         padding: 0 20px;
+
+        .avatar-uploader-icon {
+          font-size: 28px;
+          color: #8c939d;
+          width: 40px;
+          height: 40px;
+          line-height: 40px;
+          text-align: center;
+        }
+
+        .avatar {
+          width: 40px;
+          height: 40px;
+          display: inline-block;
+          margin-right: 54%;
+        }
       }
 
-      .avatar-uploader .el-upload:hover {
-        border-color: #409EFF;
-      }
-
-      .avatar-uploader-icon {
-        font-size: 28px;
-        color: #8c939d;
-        width: 40px;
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-      }
-
-      .avatar {
-        width: 40px;
-        height: 40px;
-        display: inline-block;
-        margin-right: 54%;
-      }
 
       /deep/ .el-row {
-        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
         padding: 30px 0;
         line-height: 40px;
-        .label{
+
+        .label {
           text-align: right;
           padding: 0 10px;
           border-right: 1px solid #ececec;
           font-size: 16px;
           color: #333333;
         }
-        .el-col-12{
+
+        .el-col-12 {
           padding: 0 20px;
           font-size: 12px;
           color: #666666;
