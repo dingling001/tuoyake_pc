@@ -14,7 +14,8 @@
           class="iconfont iconheart-fill"></span>我的收藏
         </div>
         <div :class="['nav_item', cur==1?'active_item':'']" @click="gonav('myOrder',1)"><span
-          class="iconfont iconicon"></span>我的订单
+          class="iconfont iconicon"></span><span><el-badge :value="onum" :max="99" v-if="onum>0">我的订单</el-badge><span v-else>我的订单</span>
+        </span>
         </div>
         <div :class="['nav_item', cur==2?'active_item':'']" @click="gonav('myApplication',2)"><span
           class="iconfont icontianxie"></span>我的报名
@@ -23,13 +24,13 @@
           class="iconfont iconjifen"></span>我的积分
         </div>
         <div :class="['nav_item', cur==4?'active_item':'']" @click="gonav('myCoupon',4)"><span
-          class="iconfont iconyouhuiquan"></span>我的优惠券
+          class="iconfont iconyouhuiquan"></span><el-badge :value="cnum" :max="99">我的优惠券</el-badge>
         </div>
         <div :class="['nav_item', cur==5?'active_item':'']" @click="gonav('myFeedback',5)"><span
           class="iconfont iconfeedback-center"></span>意见反馈
         </div>
         <div :class="['nav_item', cur==6?'active_item':'']" @click="gonav('myset',6)"><span
-          class="iconfont iconshezhi1"></span>账号设置
+          class="iconfont iconshezhi2"></span>账号设置
         </div>
       </div>
     </div>
@@ -47,7 +48,9 @@
         adinfo: {},
         user_tpc: '',
         user_info: {},
-        cur: 0
+        cur: 0,
+        onum:0,
+        cnum:0
       }
     },
     watch: {
@@ -70,7 +73,9 @@
       this._GetAdv();
       if (this.$com.getCookies('user_tpc')) {
         this.user_tpc = this.$com.getCookies('user_tpc');
-        this._GetUserInfo()
+        this._GetUserInfo();
+        this._OrderGetOrderNum();
+        this._GetCouponList();
       }
     },
     methods: {
@@ -98,7 +103,23 @@
       // 登录
       gologin() {
         this.$router.push({path: '/login'})
-      }
+      },
+      _OrderGetOrderNum() {
+        this.$api.OrderGetOrderNum().then(res => {
+          console.log(res)
+          if(res.code==1){
+            this.onum=res.data;
+
+          }
+        })
+      },
+      _GetCouponList() {
+        this.$api.GetCouponList(1, 0).then(res => {
+          if (res.code == 1) {
+              this.cnum = res.data.total
+          }
+        })
+      },
     }
 
   }
@@ -160,6 +181,7 @@
           padding: 0 0 0 52px;
           line-height: 65px;
           cursor: pointer;
+          /*height: 65px;*/
 
           .iconfont {
             width: 16px;
@@ -185,6 +207,11 @@
 
           &:hover .iconfont {
             background-image: -webkit-linear-gradient(136deg, $baseBlue, $baseRed);
+          }
+
+          /deep/ .el-badge {
+            display: inline-block;
+            line-height: 30px;
           }
         }
       }

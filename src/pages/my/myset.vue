@@ -1,168 +1,235 @@
 <template>
-    <!--<div class="setbox">-->
-    <!--<div class="setitem ">-->
-    <!--<div class="setleft">头像</div>-->
-    <!--<div class="setright"><img src="" alt=""><van-icon name="arrow" /></div>-->
-    <!--</div>-->
-    <!--<van-cell title="头像" value="游记战士" />-->
-    <van-cell-group class="setbox">
+  <div class="setbox">
+    <div class="score_top">
+      <div class="iconbox">
+        <div class="name">账户设置</div>
+      </div>
+    </div>
+    <div class="setarea">
+      <el-row>
+        <el-col :span="4" class="label">头像</el-col>
+        <el-col :span="20">
+          <el-upload
+            class="avatar-uploader"
+            action=""
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload"
+            :http-request="handleUpload"
+          >
+            <img v-if="user_info.avatar" :src="user_info.avatar" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            <el-button solt>修改</el-button>
+          </el-upload>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="4" class="label">昵称</el-col>
 
-        <van-cell is-link title="头像" class="headimg">
-            <!-- 使用 title 插槽来自定义标题 -->
-            <div class="imgbox">
-                <img :src="user_info.avatar" alt="">
-            </div>
-        </van-cell>
-        <van-cell title="昵称" :value="user_info.nickname" @click="showname=true"/>
-        <van-cell title="手机号" :value="user_info.mobile" to="changephone" is-link/>
-        <van-cell title="登录密码" is-link to="changepass"/>
-        <van-cell title="社交账号" is-link to="mySocial"/>
-        <van-dialog
-                v-model="showname"
-                title="修改昵称"
-                show-cancel-button
-                className="nickname"
-                @confirm="changename"
-        >
-            <input type="text" v-model="user_info.nickname">
-        </van-dialog>
-        <div class="mbnt" v-if="user_tpc" @click="loginout">退出登录</div>
+        <el-col :span="12">{{user_info.nickname}}</el-col>
+        <el-col :span="8">
+          <el-button @click="showname=true">修改</el-button>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="4" class="label">修改手机号</el-col>
 
-    </van-cell-group>
-    <!--</div>-->
+        <el-col :span="12">{{user_info.mobile}}</el-col>
+        <el-col :span="8">
+          <el-button @click="showname=true">修改</el-button>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="4" class="label">登录密码</el-col>
+        <el-col :span="12">更改密码</el-col>
 
+        <el-col :span="8">
+          <el-button @click="showname=true">修改</el-button>
+        </el-col>
+      </el-row>
+      <!--<div title="手机号" :value="user_info.mobile" to="changephone" is-link></div>-->
+      <!--<div title="登录密码" is-link to="changepass"/>-->
+      <!--<div title="社交账号" is-link to="mySocial"/>-->
+    </div>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "myset",
-        data() {
-            return {
-                user_info: {},
-                showname: false,
-                avatar: '',
-                user_tpc: ''
-            }
-        },
-        mounted() {
-            this.user_tpc = this.$com.getCookies('user_tpc');
-            this._GetUserInfo();
-        },
-        methods: {
-            // 获取个人信息
-            _GetUserInfo() {
-                this.$api.GetUserInfo().then(res => {
-                    // console.log(res)
-                    if (res.code == 1) {
-                        this.user_info = res.data;
-                    }
-                })
-            },
-            // 修改个人信息
-            _Profile() {
-                this.$api.Profile(this.avatar, this.user_info.nickname).then(res => {
-                    if (res.code == 1) {
-                        this.$com.showtoast('修改成功')
-                    } else {
-                        this.$com.showtoast(res.msg || '稍后在试')
-                    }
-                    this._GetUserInfo()
-                })
-            },
-            // 修改昵称
-            changename() {
-                if (this.user_info.nickname == '') {
-                    this.$com.showtoast('昵称不能为空')
-                } else {
-                    this._Profile()
-                }
-            },
-            // 退出登录
-            loginout() {
-                localStorage.removeItem('user_tpc')
-                this.$router.replace('/')
-            }
+  export default {
+    name: "myset",
+    data() {
+      return {
+        user_info: {},
+        showname: false,
+        avatar: '',
+        user_tpc: ''
+      }
+    },
+    mounted() {
+      this.user_tpc = this.$com.getCookies('user_tpc');
+      this._GetUserInfo();
+    },
+    methods: {
+      // 获取个人信息
+      _GetUserInfo() {
+        this.$api.GetUserInfo().then(res => {
+          // console.log(res)
+          if (res.code == 1) {
+            this.user_info = res.data;
+          }
+        })
+      },
+      // 修改个人信息
+      _Profile() {
+        this.$api.Profile(this.avatar, this.user_info.nickname).then(res => {
+          if (res.code == 1) {
+            this.$com.showtoast('修改成功')
+          } else {
+            this.$com.showtoast(res.msg || '稍后在试')
+          }
+          this._GetUserInfo()
+        })
+      },
+      // 修改昵称
+      changename() {
+        if (this.user_info.nickname == '') {
+          this.$com.showtoast('昵称不能为空')
+        } else {
+          this._Profile()
         }
+      },
+
+      handleAvatarSuccess(res, file) {
+        this.user_info.avatar = URL.createObjectURL(file.raw);
+      },
+
+      beforeAvatarUpload(file) {
+        const isJPG = file.type == 'image/jpeg' || file.type == 'image/png' || file.type == 'image/gif'
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG) {
+          this.$com.showToast('上传头像图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+          this.$com.showToast('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
+      },
+      handleUpload(file) {
+        this.$api.CommonUpload(file.file).then(res => {
+          if (res.code == 1) {
+            // this.$com.showToast('修改成功！', 'success');
+            this.user_info.avatar = res.data.url;
+          }
+        })
+      },
     }
+  }
 </script>
 
 <style scoped lang="scss">
-    .setbox {
-        .setitem {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 30px 17px 20px 1px;
-            color: #333333;
-            font-size: 16px;
-            border-bottom: 1px solid #E4E4E4;
+  @import "../../style/reset";
+
+  .setbox {
+    .score_top {
+      /*background-image: url("../../assets/img/wdbm.png");*/
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: relative;
+      padding: 0 0 50px 0;
+
+      .iconbox {
+        line-height: 44px;
+        padding: 0 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        overflow: hidden;
+        border-bottom: 1px solid #EEEEEE;
+
+        .name {
+          font-size: 18px;
+          color: #333;
+          float: left;
         }
 
-        /deep/ .van-cell {
-            padding: 32px 17px 19px 20px;
-            font-size: 16px;
-            /*px*/
-            &.headimg {
-                align-items: center;
-                padding: 20px 17px 20px 20px;
-
-                .van-cell__value {
-                    flex: unset;
-                    width: 40px;
-                    height: 40px;
-                }
-            }
-
-            .imgbox {
-                width: 40px;
-                height: 40px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 0;
-                border-radius: 50%;
-                overflow: hidden;
-
-                img {
-                    width: 100%;
-                }
-            }
-
-            .van-cell__title {
-                color: #333;
-                font-size: 16px;
-                /*px*/
-            }
-
-            &:not(:last-child):after {
-                left: 20px;
-            }
-
-
+        .iconfanhui {
+          font-weight: bold;
         }
 
-        /deep/ .nickname {
-            input {
-                padding: 10px;
-                outline: none;
-                border: none;
-                width: 100%;
+        .achieve_right {
+          float: right;
+          cursor: pointer;
+          line-height: 47px;
+
+          &:hover {
+            color: $baseRed;
+          }
+
+          span {
+            line-height: 47px;
+            display: inline-block;
+
+            &.iconfont {
+              font-size: 15px;
             }
+          }
         }
 
-        &:after {
-            border: 0;
-        }
+      }
 
-        .mbnt {
-            margin: 30px 14px;
-            border: 1px solid #E4E4E4;
-            line-height: 44px;
-            text-align: center;
-            font-size: 15px;
-            /*px*/
-            color: #999999;
-        }
+
     }
+
+    .setarea {
+      padding: 0 25px;
+/deep/
+      .avatar-uploader .el-upload {
+
+        text-align: left;
+        padding: 0 20px;
+      }
+
+      .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+      }
+
+      .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        margin-right: 54%;
+      }
+
+      /deep/ .el-row {
+        border-top: 1px solid #eee;
+        padding: 30px 0;
+        line-height: 40px;
+        .label{
+          text-align: right;
+          padding: 0 10px;
+          border-right: 1px solid #ececec;
+          font-size: 16px;
+          color: #333333;
+        }
+        .el-col-12{
+          padding: 0 20px;
+          font-size: 12px;
+          color: #666666;
+        }
+      }
+    }
+
+
+  }
 
 </style>

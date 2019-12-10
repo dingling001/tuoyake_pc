@@ -247,6 +247,16 @@ export const OrderIndex = (page = 0, status = 0) =>
     "POST",
     true
   );
+// 我的订单数量
+export const OrderGetOrderNum = () =>
+  axios(
+    "/api/order/getOrderNum", {
+      token: $com.getCookies('user_tpc'),
+    },
+    "POST",
+    true
+  );
+
 export const SignGoods = () =>
   axios(
     "/api/sign/goods", {
