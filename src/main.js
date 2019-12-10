@@ -21,7 +21,6 @@ Vue.use(api);
 Vue.use(Element);
 Vue.use(VideoPlayer)
 import AMap from 'vue-amap'
-
 Vue.use(AMap)
 // 初始化地图
 AMap.initAMapApiLoader({

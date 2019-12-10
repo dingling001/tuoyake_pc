@@ -82,7 +82,6 @@
       };
       return {
         visible: this.show,
-
         form: {
           name: '',
           address: '',

@@ -235,14 +235,14 @@
           .jname {
             font-size: 18px;
             /* px */
-            padding: 0 0 27px;
+            padding: 0 0 10px 0;
           }
 
           .jinfo {
             font-size: 14px;
             /*px*/
             color: #666666;
-            padding-bottom: 19px;
+            padding-bottom: 10px;
 
             .name {
               margin-right: 10px;
@@ -252,7 +252,7 @@
           .jaddress {
             color: #666666;
             font-size: 14px;
-            padding-bottom: 20px;
+            padding-bottom: 18px;
 
             &.van-ellipsis {
               padding: 0;
@@ -260,7 +260,6 @@
           }
         }
       }
-
     }
   }
 

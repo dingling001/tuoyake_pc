@@ -53,13 +53,12 @@
           </div>
           <div class="rec_address">
             <span class="single-line-text">{{item.address}}</span>
-            <!--<span @click.stop="showmap(index,item.lat,item.lng)"> <i class="iconfont iconlocation"></i> 查看地图</span>-->
+            <span @click.stop="showmap(index,item)"> <i class="iconfont iconlocation"></i> 查看地图</span>
           </div>
           <div class="sharebox"></div>
           <div class="rec_type" v-if="item.recommend">
             推荐
           </div>
-
         </div>
       </div>
       <div v-if="isload&&netlist.length==0" class="recommentlist">
@@ -68,16 +67,7 @@
       <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
                 :scrollTo="680" v-if="total>per_page"></pcpaging>
     </div>
-    <el-dialog
-      title=""
-      :visible.sync="showdialog"
-      center>
-      <amap
-        :width="960"
-        slot
-        :height="300"
-        :point="[lat,lng]"/>
-    </el-dialog>
+    <amap :show.sync="visibleMap" v-if="Object.keys(info).length" :info="info"></amap>
   </div>
 </template>
 <script>
@@ -91,6 +81,7 @@
     data() {
       var _ = this;
       return {
+        visibleMap: false,
         cur: 0,
         swiperlist: [],
         city: '',
@@ -133,7 +124,7 @@
           //循环
           // loop: true,
           //每张播放时长3秒，自动播放
-          autoplay:3000,
+          autoplay: 3000,
           disableOnInteraction: false,
           // autoplay: {
           //   delay: 3000,
@@ -197,7 +188,8 @@
         isload: false,
         showlist: true,
         showdialog: false,
-        mindex: -1
+        mindex: -1,
+        info: {}
       };
     },
 
@@ -251,11 +243,11 @@
       gosmdetail(type, id) {
         console.log(type)
       },
-      showmap(index, lat, lng) {
-        this.showdialog = true;
+      // 展示地图
+      showmap(index, item) {
+        this.visibleMap = true;
         this.mindex = index;
-        this.lat = lat;
-        this.lng = lng
+        this.info = item;
       },
       // 获取服务
       _GetLabelList() {
