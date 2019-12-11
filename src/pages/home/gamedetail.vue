@@ -10,7 +10,7 @@
 
     <!--</div>-->
     <div class="swiperbox">
-      <div class="swiperimg"><img :src="matchinfo.image" alt="">
+      <div class="swiperimg"><img :src="matchinfo.image" alt=""><span v-if="matchinfo.recommend==1" class="rec_type">精选</span>
       </div>
       <div class="taocaninfo">
         <div class="comnanme">{{matchinfo.name}}</div>
@@ -179,7 +179,18 @@
         position: relative;
         overflow: hidden;
         float: left;
-
+        .rec_type {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          font-size: 12px;
+          width: 60px;
+          line-height: 25px;
+          text-align: center;
+          color: #fff;
+          border-radius: 5px 0 0 0;
+          background: linear-gradient(90deg, #ec8215, #f0a532);
+        }
         img {
           width: 100%;
         }

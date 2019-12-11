@@ -12,7 +12,7 @@
         <el-input v-model="form.mobile" autocomplete="off" clearable maxlength="11" @input="accountinput"></el-input>
       </el-form-item>
       <el-form-item label="地址" required>
-        <el-col :span="3">
+        <el-col :span="4">
           <el-form-item prop="province">
             <el-select v-model="form.province" placeholder="省份" @change="changeprov">
               <el-option
@@ -24,7 +24,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="3">
+        <el-col :span="4">
           <el-form-item prop="city">
             <el-select v-model="form.city" :disabled="!citys.length" placeholder="城市" @change="changecity">
               <el-option
@@ -36,7 +36,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="3">
+        <el-col :span="5">
           <el-form-item prop="district">
             <el-select v-model="form.district" :disabled="!districts.length" placeholder="区"
                        @change="changedistrict">
@@ -241,10 +241,11 @@
       }
 
       .el-select {
-        width: 120px;
+        width: calc(100% / 2.5);
 
         .el-input {
-          width: 120px;
+          width: 160px;
+
         }
       }
     }

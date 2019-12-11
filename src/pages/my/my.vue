@@ -25,9 +25,7 @@
           class="iconfont iconjifen"></span>我的积分
         </div>
         <div :class="['nav_item', cur==4?'active_item':'']" @click="gonav('myCoupon',4)"><span
-          class="iconfont iconyouhuiquan"></span>
-          <el-badge :value="cnum" :max="99" v-if="cnum>0">我的优惠券</el-badge>
-          <span v-else>我的优惠券</span>
+          class="iconfont iconyouhuiquan"></span><el-badge :value="cnum" :max="99" v-if="cnum>0">我的优惠券</el-badge><span v-else>我的优惠券</span>
         </div>
         <div :class="['nav_item', cur==5?'active_item':'']" @click="gonav('myFeedback',5)"><span
           class="iconfont iconfeedback-center"></span>意见反馈
@@ -198,13 +196,17 @@
           /*height: 65px;*/
 
           .iconfont {
-            width: 16px;
+            width: 25px;
             font-size: 20px;
             color: #BBBCCB;
+            display: inline-block;
             background-image: -webkit-linear-gradient(right, #BBBCCB, #EAEAEA);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-right: 13px;
+            margin-right: 5px;
+            &.iconyouhuiquan{
+              font-size: 18px;
+            }
           }
 
           &.active_item {

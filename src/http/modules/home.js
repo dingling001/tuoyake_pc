@@ -246,3 +246,17 @@ export const GetRecommendBarByGoods = (goods_id) =>
     "POST",
     true
   );
+/**
+ * 赛事列表
+ */
+	// integer	是	状态:1=精选赛事,2=进行赛事,3=过往赛事
+
+export const GetMatchList = (bar_id,status=1) =>
+  axios(
+    "/api/index/getMatchList", {
+      bar_id,
+      status
+    },
+    "POST",
+    true
+  );

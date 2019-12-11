@@ -53,7 +53,7 @@
       </el-tab-pane>
       <el-tab-pane label="视频" name="3">
         <div class="vlist" v-if="isload&&list.length&&active==3">
-          <direc_typev class="videoitem" v-for="(item,index) in list" :key="item.id"
+          <div class="videoitem" v-for="(item,index) in list" :key="item.id"
                        @click="govdetail(item.id)">
             <div class="vimg">
               <img :src="item.poster" alt="">
@@ -64,7 +64,7 @@
               <div class="vtime"><span class="iconfont icontime-circle"></span><span>{{item.create_time}}</span></div>
               <div class="vsynopsis">{{item.synopsis}}</div>
             </div>
-          </direc_typev>
+          </div>
         </div>
         <NoData :text="'暂无收藏视频'" v-if="isload&&list.length==0&&active==3"></NoData>
       </el-tab-pane>
@@ -419,7 +419,7 @@
         cursor: pointer;
 
         .jimg {
-          width: 240px;
+          width: 135px;
           height: 135px;
           display: flex;
           align-items: center;
@@ -434,16 +434,15 @@
 
           .rec_type {
             position: absolute;
-            left: 0;
-            top: 0;
+            right: 0;
+            bottom: 0;
             font-size: 12px;
             width: 60px;
             line-height: 25px;
             text-align: center;
             color: #fff;
-            background-color: $baseRed;
-            /*border-radius: 15px 0 15px 0;*/
-            /*background: linear-gradient(90deg, , );*/
+            border-radius: 5px 0 0 0;
+            background: linear-gradient(90deg, #ec8215, #f0a532);
           }
 
           img {
@@ -611,7 +610,7 @@
             font-size: 14px;
             /*px*/
             color: #666666;
-            padding-bottom: 20px;
+            padding-bottom: 10px;
 
             .iconfont {
               color: #AAAAAA;
@@ -623,6 +622,8 @@
 
           .vsynopsis {
             font-size: 14px;
+            line-height: 20px;
+            color: #999;
 
           }
         }

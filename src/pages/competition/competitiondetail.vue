@@ -11,7 +11,8 @@
           </div>
           <div class="timeon"><span v-for="(item,index) in comdata.info.label_ids" :key="index">{{item}}</span></div>
         </div>
-        <div class="adressitem">地址： <span class="address">{{comdata.info.address}}</span></div>
+        <div class="adressitem">地址： <span class="address">{{comdata.info.address}}</span><span
+          class="iconfont iconlocation" @click="showmap"></span></div>
         <div class="phonecall">电话：{{comdata.info.contact_number}}</div>
         <div class="phonecall" v-if="comdata.info.synopsis">{{comdata.info.synopsis}}</div>
         <div class="iconbox" @click="clllection">
@@ -70,7 +71,7 @@
         <div class="sitem " v-for="(item,index) in comdata.match" :key="item.id"
              @click="gossdetail(item.id)">
           <div class="simg"><img :src="item.image" alt=""><span v-if="item.recommend==1" class="rec_type">精选</span>
-            </div>
+          </div>
           <div class="sright">
             <div class="sname van-ellipsis">{{item.league_name}}</div>
             <!--<div class="jinfo"><span class="name">{{item.contact}}</span><span class="tel">{{item.contact_number}}</span>-->
@@ -81,6 +82,8 @@
         </div>
       </div>
     </div>
+    <amap :show.sync="visibleMap" v-if="Object.keys(comdata.info).length" :info="comdata.info"></amap>
+
     <el-image-viewer
       v-if="showViewer"
       :on-close="closeViewer"
@@ -92,6 +95,7 @@
   import 'swiper/dist/css/swiper.css'
   import {swiper, swiperSlide} from 'vue-awesome-swiper'
   import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
+  import amap from '../../components/amap'
 
   export default {
     name: "competitiondetail",
@@ -137,13 +141,16 @@
         index: 0,
         collectiontext: '收藏',
         showViewer: false,
-        showdata: true
+        showdata: true,
+        info: {},
+        visibleMap: false
       }
     },
     components: {
       swiper,
       swiperSlide,
-      ElImageViewer
+      ElImageViewer,
+      amap
     },
     created() {
       if (this.$route.params.id) {
@@ -157,6 +164,11 @@
       onPreview() {
         this.showViewer = true;
         console.log(this.comdata.info.album_images)
+      },
+      // 展示地图
+      showmap(index, item) {
+        this.visibleMap = true;
+        this.info = item;
       },
       // 关闭查看器
       closeViewer() {
@@ -206,8 +218,8 @@
         })
       },
       // 全部赛事
-      goall(){
-        this.$router.push('/gameindex')
+      goall() {
+        this.$router.push({path: '/gameindex', query: {bar_id: this.id}})
       }
     }
   }
@@ -261,7 +273,7 @@
 
         .stars {
           overflow: hidden;
-          padding: 25px 0 20px;
+          padding: 20px 0;
 
           .starbox {
             display: flex;
@@ -282,6 +294,7 @@
           .timeon {
             float: left;
             line-height: 22px;
+            max-width: 500px;
 
             span {
               background-color: #FEEAEB;
@@ -292,7 +305,7 @@
               border-radius: 10px;
               display: inline-block;
               font-size: 13px;
-              margin-right: 5px;
+              margin: 0 5px 10px 0;
             }
           }
         }
@@ -302,6 +315,13 @@
           color: #333;
           padding: 34px 0 20px;
           border-top: 1px solid #EEEEEE;
+
+          .iconlocation {
+            color: $baseBlue;
+            font-size: 17px;
+            margin-left: 5px;
+            cursor: pointer;
+          }
         }
 
         .phonecall {
@@ -324,9 +344,10 @@
         .swiper1 {
           width: 256px;
           max-height: 256px;
-          height:147px;
+          height: 147px;
           float: left;
           position: relative;
+
           &:hover .mask {
             display: block;
           }
@@ -351,6 +372,7 @@
             /*  color: #ccc;*/
             /*}*/
             z-index: 10;
+
             .el-icon-zoom-in {
               font-size: 30px;
             }
@@ -358,6 +380,7 @@
             span {
             }
           }
+
           .swiper-container {
             height: 147px;
 
@@ -554,23 +577,23 @@
             height: 135px;
             overflow: hidden;
             margin-bottom: 20px;
-position: relative;
+            position: relative;
+
             img {
               width: 100%;
             }
+
             .rec_type {
               position: absolute;
-              left: 0;
-              top: 0;
+              right: 0;
+              bottom: 0;
               font-size: 12px;
               width: 60px;
               line-height: 25px;
               text-align: center;
               color: #fff;
-              height: 37px;
-              background-color: $baseRed;
-              /*border-radius: 15px 0 15px 0;*/
-              /*background: linear-gradient(90deg, , );*/
+              border-radius: 5px 0 0 0;
+              background: linear-gradient(90deg, #ec8215, #f0a532);
             }
           }
 
