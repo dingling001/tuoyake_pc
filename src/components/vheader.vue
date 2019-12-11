@@ -9,7 +9,7 @@
           <span class="login">
           <span class="loginbox" v-if="!tyktoken">
             <span class="reg" @click="login_fn">立即登录</span>
-            <div to="/reg" tag="span">注册</div>
+            <router-link to="/reg" tag="span">注册</router-link>
           </span>
             <!--            <span class="loginbox" v-else v-loading="showuser">-->
           <span class="loginbox" v-else>
