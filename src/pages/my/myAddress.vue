@@ -70,7 +70,7 @@
     <div class="nodata" v-if="tabelshow&&tableData.length==0">
       <NoData :text="'还没有添加地址'"></NoData>
     </div>
-    <el-button type="primary" class="add_btn" @click="dialogFormVisible=true">+新建地址</el-button>
+    <el-button type="primary" class="add_btn" @click="addnew">+新建地址</el-button>
     <Taddress :show.sync="dialogFormVisible" @add="add" :id="aid"></Taddress>
   </div>
 </template>
@@ -86,7 +86,7 @@
         tabelshow: false,
         dialogFormVisible: false,
         aid: null,
-        showloading:true
+        showloading: true
       }
     },
     components: {
@@ -99,7 +99,7 @@
       _AddressIndex() {
         this.$api.AddressIndex().then(res => {
           this.tabelshow = true;
-          this.showloading=false;
+          this.showloading = false;
           if (res.code == 1) {
             this.tableData = res.data;
           }
@@ -159,6 +159,10 @@
       add(val) {
         this._AddressIndex();
       },
+      addnew() {
+        this.dialogFormVisible = true;
+        this.aid = null;
+      }
     }
   }
 </script>

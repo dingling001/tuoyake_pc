@@ -4,14 +4,16 @@
       <el-tab-pane label="网吧" name="1">
         <div class="recommentlist" v-if="isload&&list.length&&active==1">
           <div class="recmmentitem" v-for="(item ,index) in list" :key="item.id" @click="godetail(item.id)">
-            <div class="rec_img" v-if="item.image"><img :src="item.image" alt=""></div>
+            <div class="rec_img" v-if="item.image"><img :src="item.image" alt="">
+              <div class="rec_type" v-if="item.recommend==1">推荐</div>
+            </div>
             <div class="rec_name">{{item.name}}</div>
             <div class="rec_type">
               <div class="starbox" v-if="item.star&&item.star.length">
                 <span class="iconfont iconstar-fill iconactive" v-for="i in parseInt(item.star)"></span>
               </div>
               <!--<div class="typebox" v-if="item.label_ids.length">-->
-                <!--<span v-for="c in item.label_ids">{{c}}</span>-->
+              <!--<span v-for="c in item.label_ids">{{c}}</span>-->
               <!--</div>-->
             </div>
             <div class="typebox ">
@@ -33,6 +35,7 @@
                @click="gossdetail(item.id)">
             <div class="jimg">
               <img :src="item.image" alt="">
+              <div v-if="item.recommend==1" class="rec_type">精选</div>
               <!--<video :src="item.file" preload="auto" controls></video>-->
               <!--<span>12:30</span>-->
             </div>
@@ -50,8 +53,8 @@
       </el-tab-pane>
       <el-tab-pane label="视频" name="3">
         <div class="vlist" v-if="isload&&list.length&&active==3">
-          <div class="videoitem" v-for="(item,index) in list" :key="item.id"
-               @click="govdetail(item.id)">
+          <direc_typev class="videoitem" v-for="(item,index) in list" :key="item.id"
+                       @click="govdetail(item.id)">
             <div class="vimg">
               <img :src="item.poster" alt="">
               <span class="view_num"><span class="iconfont iconbofang1"></span>{{s_to_hs(item.duration)}}</span>
@@ -61,7 +64,7 @@
               <div class="vtime"><span class="iconfont icontime-circle"></span><span>{{item.create_time}}</span></div>
               <div class="vsynopsis">{{item.synopsis}}</div>
             </div>
-          </div>
+          </direc_typev>
         </div>
         <NoData :text="'暂无收藏视频'" v-if="isload&&list.length==0&&active==3"></NoData>
       </el-tab-pane>
@@ -152,7 +155,7 @@
       },
       // 去网吧详情
       godetail(id) {
-        this.$router.push({path: '/competitiondetail/'+id})
+        this.$router.push({path: '/competitiondetail/' + id})
       },
       // 去赛事详情
       gossdetail(id) {
@@ -255,11 +258,25 @@
         .rec_img {
           width: 240px;
           height: 240px;
-          border-radius: 5px;
+          border-radius: 15px;
           overflow: hidden;
+          position: relative;
 
           img {
             width: 100%;
+          }
+
+          .rec_type {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 12px;
+            width: 60px;
+            line-height: 25px;
+            text-align: center;
+            color: #fff;
+            border-radius: 15px 0 15px 0;
+            background: linear-gradient(90deg, #ec8215, #f0a532);
           }
         }
 
@@ -306,6 +323,7 @@
           }
 
         }
+
         .typebox {
           /*float: left;*/
           margin: 5px 0 0 0;
@@ -413,6 +431,20 @@
           overflow: hidden;
           position: relative;
           float: left;
+
+          .rec_type {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 12px;
+            width: 60px;
+            line-height: 25px;
+            text-align: center;
+            color: #fff;
+            background-color: $baseRed;
+            /*border-radius: 15px 0 15px 0;*/
+            /*background: linear-gradient(90deg, , );*/
+          }
 
           img {
             height: 100%;

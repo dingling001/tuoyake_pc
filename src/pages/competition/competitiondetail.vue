@@ -69,7 +69,8 @@
       <div class="slist">
         <div class="sitem " v-for="(item,index) in comdata.match" :key="item.id"
              @click="gossdetail(item.id)">
-          <div class="simg"><img :src="item.image" alt=""></div>
+          <div class="simg"><img :src="item.image" alt=""><span v-if="item.recommend==1" class="rec_type">精选</span>
+            </div>
           <div class="sright">
             <div class="sname van-ellipsis">{{item.league_name}}</div>
             <!--<div class="jinfo"><span class="name">{{item.contact}}</span><span class="tel">{{item.contact_number}}</span>-->
@@ -553,9 +554,23 @@
             height: 135px;
             overflow: hidden;
             margin-bottom: 20px;
-
+position: relative;
             img {
               width: 100%;
+            }
+            .rec_type {
+              position: absolute;
+              left: 0;
+              top: 0;
+              font-size: 12px;
+              width: 60px;
+              line-height: 25px;
+              text-align: center;
+              color: #fff;
+              height: 37px;
+              background-color: $baseRed;
+              /*border-radius: 15px 0 15px 0;*/
+              /*background: linear-gradient(90deg, , );*/
             }
           }
 

@@ -9,7 +9,9 @@
       </div>
       <div class="list" v-if="showdata&&netlist.length">
         <div class="recmmentitem" v-for="(item ,index) in netlist" :key="item.id" @click="go_detail(item.id)">
-          <div class="rec_img"><img :src="item.image" alt=""></div>
+          <div class="rec_img"><img :src="item.image" alt="">
+            <div class="rec_type" v-if="item.recommend">推荐</div>
+          </div>
           <div class="rec_right">
             <div class="rec_name">{{item.name}}</div>
             <!--            <div class="rec_type">-->
@@ -20,7 +22,9 @@
               <span v-for="c in item.label_ids">{{c}}</span>
             </div>
             <!--            </div>-->
-            <div class="rec_address single-line-text"><span class="el-icon-location-outline"></span>{{item.address}}</div>
+
+            <div class="rec_address single-line-text"><span class="el-icon-location-outline"></span>{{item.address}}
+            </div>
             <div class="rec_address map" @click.stop="showmap(index,item)">查看地图</div>
           </div>
         </div>
@@ -39,6 +43,7 @@
   import CitySelect from '../../components/CitySelect'
   import pcpaging from '../../components/pcpaging'
   import amap from '../../components/amap'
+
   export default {
     name: "competition",
     data() {
@@ -71,8 +76,8 @@
         order: 1,
         showdata: false,
         showlist: true,
-        visibleMap:false,
-        info:{}
+        visibleMap: false,
+        info: {}
       }
     },
     components: {
@@ -81,7 +86,7 @@
       amap
     },
     created() {
-      this.city=this.$com.getCookies('pccity')||'北京';
+      this.city = this.$com.getCookies('pccity') || '北京';
       this._GetBarList()
     },
     methods: {
@@ -239,20 +244,36 @@
             height: 220px;
             text-align: center;
             line-height: 220px;
-            border-radius: 5px;
+            border-radius: 15px;
             overflow: hidden;
             float: left;
             background-color: #f8f8f8;
+            position: relative;
 
             img {
               width: 100%;
               vertical-align: middle;
+
+            }
+
+            .rec_type {
+              position: absolute;
+              left: 0;
+              top: 0;
+              font-size: 12px;
+              width: 60px;
+              line-height: 25px;
+              text-align: center;
+              color: #fff;
+              border-radius: 15px 0 15px 0;
+              background: linear-gradient(90deg, #ec8215, #f0a532);
             }
           }
 
           .rec_right {
             float: left;
             margin-left: 34px;
+            position: relative;
 
             .rec_name {
               padding: 18px 0;
@@ -291,18 +312,17 @@
               }
             }
 
-            .rec_type {
-              overflow: hidden;
-            }
 
             .rec_address {
               color: #999999;
               font-size: 16px;
-&.map{
-  line-height: 30px;
-  font-size: 12px;
-  color: $baseBlue;
-}
+
+              &.map {
+                line-height: 30px;
+                font-size: 12px;
+                color: $baseBlue;
+              }
+
               .el-icon-location-outline {
                 margin-right: 5px;
               }

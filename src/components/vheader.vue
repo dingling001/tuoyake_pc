@@ -44,6 +44,7 @@
           <el-input
             placeholder="搜索网吧或相关赛事"
             v-model="tkeyword"
+            @keyup.enter.native="gosearch"
           >
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
           </el-input>

@@ -11,7 +11,7 @@
         <div class="btnbox">
           <div class="price">套餐价<span><span>¥ </span>{{goodinfo.price}}</span></div>
           <div class="numbox">
-            <span :class="['iconfont iconminus-circle' ,num<=0? 'disicon':'']" @click="nminus"></span>
+            <span :class="['iconfont iconminus-circle' ,num<=1? 'disicon':'']" @click="nminus"></span>
             <input type="number" v-model="num" placeholder="">
             <span class="iconfont iconplus-circle" @click="plus"></span>
           </div>
@@ -79,7 +79,7 @@
         },
         cid: '',
         goods_id: '',
-        num: 0,
+        num: 1,
         is_share: 0,
         recommendlist: []
       }
@@ -146,7 +146,7 @@
       },
       // 减法
       nminus() {
-        if (this.num > 0) {
+        if (this.num > 1) {
           this.num -= 1;
         }
       },

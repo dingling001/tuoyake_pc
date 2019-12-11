@@ -46,10 +46,9 @@
               <div class="jname van-ellipsis">{{item.league_name}}</div>
               <!--<div class="jinfo"><span class="name">{{item.contact}}</span><span class="tel">{{item.contact_number}}</span>-->
               <!--</div>-->
-              <div class="jaddress van-ellipsis">
-                赛事时间：{{item.start_time}} ~ {{item.end_time}}
-              </div>
-              <div class="synopsis van-ellipsis">{{item.remark}}</div>
+              <div class="jaddress van-ellipsis">赛事时间：{{item.start_time}} ~ {{item.end_time}}</div>
+              <div class="bar_name">所属网吧：{{item.bar_name}}</div>
+              <div class="synopsis moreline">赛事简介：{{item.remark}}</div>
             </div>
           </div>
         </div>
@@ -418,6 +417,7 @@
             /*justify-content: space-between;*/
             float: left;
             height: 150px;
+            width: calc(100% - 300px);
 
             &:hover .jname {
               color: $baseBlue;
@@ -441,16 +441,21 @@
             }
 
             .jaddress {
-              color: #666666;
+              color: #333;
               font-size: 14px;
-              padding: 20px 0;
+              padding: 10px 0;
               /*px*/
 
               .icontime-circle {
                 font-size: 12px;
                 /*px*/
-                color: #666666;
+                color: #333;
               }
+            }
+
+            .bar_name {
+              font-size: 13px;
+              color: #333;
             }
 
             .price {
@@ -461,9 +466,10 @@
             }
 
             .synopsis {
-              max-width: 200px;
-              font-size: 14px;
-              color: #666666;
+              font-size: 13px;
+              padding-top: 10px;
+              color: #333;
+              line-height: 20px;
             }
           }
 
