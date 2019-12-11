@@ -41,7 +41,7 @@ instance.interceptors.response.use(
   function (error) {
     console.log(error)
     // console.log(error.response.status)
-    if (error == 'Error: timeout of 10000ms exceeded') {
+    if (error == 'Error: timeout of 20000ms exceeded') {
       console.log('网络超时了')
       localStorage.showneterror = true;
       window.location.reload();

@@ -39,9 +39,8 @@ export const Login = (account, password) =>
     "POST",
     true
   );
-
 /**
- * 忘记密码 /api/common/mobilelogin
+ * 忘记密码
  */
 export const ResetPwd = (mobile, captcha, newpassword, repassword) =>
   axios(
@@ -54,8 +53,32 @@ export const ResetPwd = (mobile, captcha, newpassword, repassword) =>
     "POST",
     true
   );
-// 注册
+/**
+ * 重置密码
+ */
+export const ResetPassword = ( password, repassword) =>
+  axios(
+    "/api/user/resetPassword", {
+      password,
+      repassword
+    },
+    "POST",
+    true
+  );
+/**
+ * 改变手机号
+ */
+export const ChangeMobile = ( mobile, captcha) =>
+  axios(
+    "/api/user/changemobile", {
+      mobile,
+      captcha
+    },
+    "POST",
+    true
+  );
 
+// 注册
 export const Register = (mobile, captcha, password, repassword) =>
   axios(
     "/api/common/register", {
@@ -67,6 +90,7 @@ export const Register = (mobile, captcha, password, repassword) =>
     "POST",
     true
   );
+// 退出登录
 export const Logout = (token) =>
   axios(
     "/api/user/logout", {

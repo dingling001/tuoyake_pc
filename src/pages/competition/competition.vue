@@ -21,6 +21,7 @@
             </div>
             <!--            </div>-->
             <div class="rec_address single-line-text"><span class="el-icon-location-outline"></span>{{item.address}}</div>
+            <div class="rec_address map" @click.stop="showmap(index,item)">查看地图</div>
           </div>
         </div>
       </div>
@@ -30,13 +31,14 @@
       <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
                 :scrollTo="200" v-if="netlist.length"></pcpaging>
     </div>
+    <amap :show.sync="visibleMap" v-if="Object.keys(info).length" :info="info"></amap>
   </div>
 </template>
 
 <script>
   import CitySelect from '../../components/CitySelect'
   import pcpaging from '../../components/pcpaging'
-
+  import amap from '../../components/amap'
   export default {
     name: "competition",
     data() {
@@ -68,12 +70,15 @@
         tab: '',
         order: 1,
         showdata: false,
-        showlist: true
+        showlist: true,
+        visibleMap:false,
+        info:{}
       }
     },
     components: {
       CitySelect,
-      pcpaging
+      pcpaging,
+      amap
     },
     created() {
       this.city=this.$com.getCookies('pccity')||'北京';
@@ -167,7 +172,12 @@
       },
       go_detail(id) {
         this.$router.push({path: '/competitiondetail/' + id})
-      }
+      },
+      // 展示地图
+      showmap(index, item) {
+        this.visibleMap = true;
+        this.info = item;
+      },
     }
   }
 </script>
@@ -288,7 +298,11 @@
             .rec_address {
               color: #999999;
               font-size: 16px;
-
+&.map{
+  line-height: 30px;
+  font-size: 12px;
+  color: $baseBlue;
+}
               .el-icon-location-outline {
                 margin-right: 5px;
               }

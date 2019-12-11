@@ -3,7 +3,7 @@
     <div class="my_left">
       <div class="my_head">
         <div class="my_img">
-          <el-avatar shape="circle" :size="80" fit="contain" :key="user_info.avatar"
+          <el-avatar shape="circle" :size="80" fit="cover" :class="{noimg:user_info.avatar}" :key="user_info.avatar"
                      :src="user_info.avatar"></el-avatar>
         </div>
         <div class="my_nickname">{{user_info.nickname}}</div>
@@ -14,7 +14,8 @@
           class="iconfont iconheart-fill"></span>我的收藏
         </div>
         <div :class="['nav_item', cur==1?'active_item':'']" @click="gonav('myOrder',1)"><span
-          class="iconfont iconicon"></span><span><el-badge :value="onum" :max="99" v-if="onum>0">我的订单</el-badge><span v-else>我的订单</span>
+          class="iconfont iconicon"></span><span><el-badge :value="onum" :max="999" v-if="onum>0">我的订单</el-badge><span
+          v-else>我的订单</span>
         </span>
         </div>
         <div :class="['nav_item', cur==2?'active_item':'']" @click="gonav('myApplication',2)"><span
@@ -24,7 +25,9 @@
           class="iconfont iconjifen"></span>我的积分
         </div>
         <div :class="['nav_item', cur==4?'active_item':'']" @click="gonav('myCoupon',4)"><span
-          class="iconfont iconyouhuiquan"></span><el-badge :value="cnum" :max="99">我的优惠券</el-badge>
+          class="iconfont iconyouhuiquan"></span>
+          <el-badge :value="cnum" :max="99" v-if="cnum>0">我的优惠券</el-badge>
+          <span v-else>我的优惠券</span>
         </div>
         <div :class="['nav_item', cur==5?'active_item':'']" @click="gonav('myFeedback',5)"><span
           class="iconfont iconfeedback-center"></span>意见反馈
@@ -49,9 +52,14 @@
         user_tpc: '',
         user_info: {},
         cur: 0,
-        onum:0,
-        cnum:0
+        onum: 0,
+        cnum: 0,
       }
+    },
+    provide() {
+      return {
+        app: this
+      };
     },
     watch: {
       $route: {
@@ -106,9 +114,9 @@
       },
       _OrderGetOrderNum() {
         this.$api.OrderGetOrderNum().then(res => {
-          console.log(res)
-          if(res.code==1){
-            this.onum=res.data;
+          // console.log(res)
+          if (res.code == 1) {
+            this.onum = res.data;
 
           }
         })
@@ -116,7 +124,7 @@
       _GetCouponList() {
         this.$api.GetCouponList(1, 0).then(res => {
           if (res.code == 1) {
-              this.cnum = res.data.total
+            this.cnum = res.data.total
           }
         })
       },
@@ -151,6 +159,12 @@
 
           img {
             width: 100%;
+          }
+
+          /deep/ .el-avatar {
+            &.noimg {
+              background: none;
+            }
           }
         }
 

@@ -1,15 +1,15 @@
 <template>
-  <el-dialog title="地图"
+  <el-dialog title="网咖地图"
              :visible.sync="visible"
-             width="1140px"
+             width="1200px"
              @close="$emit('update:show', false)"
              :show="show" center>
-    　　
-    <el-amap vid="amapDemo" class="amap" zoom="12" :center=" [info.lng,info.lat]" :plugin="plugin">
-      <el-amap-info-window :position="window.position" :content="window.content"></el-amap-info-window>
-      <el-amap-marker vid="component-marker" :position="componentMarker.position"
-                      :content-render="componentMarker.contentRender"></el-amap-marker>
-    </el-amap>
+<!--    <el-amap vid="amapDemo" class="amap" zoom="12" :center=" [info.lng,info.lat]" :plugin="plugin">-->
+<!--      <el-amap-info-window :position="window.position" :content="window.content"></el-amap-info-window>-->
+<!--      <el-amap-marker vid="component-marker" :position="componentMarker.position"-->
+<!--                      :content-render="componentMarker.contentRender"></el-amap-marker>-->
+<!--    </el-amap>-->
+    <iframe class="amap" :src="'https://uri.amap.com/marker?position='+info.lng+','+info.lat+'&name='+info.name+'&src='+info.address+'&coordinate=gaode&callnative=0'" frameborder="0"></iframe>
   </el-dialog>
 </template>
 <!--https://www.amap.com/search?query=%E5%8D%8E%E8%8B%91%E5%9C%B0%E9%93%81%E7%AB%99&city=120000&geoobj=116.601453%7C38.803689%7C117.590247%7C39.207617&zoom=11-->
@@ -114,7 +114,7 @@
         lat: 0,
         windows: [
           {
-            position: [this.info.lng,this.info.lat],
+            position: [this.info.lng, this.info.lat],
             content: 'Hi! I am here!',
             visible: true,
             events: {
@@ -125,10 +125,10 @@
           },
         ],
         slotWindow: {
-          position:  [this.info.lng,this.info.lat],
+          position: [this.info.lng, this.info.lat],
         },
         currentWindow: {
-          position: [this.info.lng,this.info.lat],
+          position: [this.info.lng, this.info.lat],
           content: '',
           events: {},
           visible: false
@@ -153,7 +153,7 @@
           }
         ],
         componentMarker: {
-          position:  [this.info.lng,this.info.lat],
+          position: [this.info.lng, this.info.lat],
           contentRender: (h, instance) => {
             // if use jsx you can write in this
             // return <div style={{background: '#80cbc4', whiteSpace: 'nowrap', border: 'solid #ddd 1px', color: '#f00'}} onClick={() => ...}>marker inner text</div>
@@ -173,17 +173,17 @@
           }
         },
         window: {
-          position: [this.info.lng,this.info.lat],
+          position: [this.info.lng, this.info.lat],
           content: `<div class="markerbox">
 <div class="name">${this.info.name}</div>
 <div class="address">${this.info.address}</div>
 <div class="address synopsis">${this.info.synopsis}</div>
-<div class="goto"><a href="">公交/驾车路线查询»</a></div>
+<div class="goto"><a href="" target="_blank">公交/驾车路线查询»</a></div>
 </div>`
         },
       };
     },
-    created(){
+    created() {
       console.log(this.info)
     },
     watch: {
@@ -210,34 +210,41 @@
 </script>
 <style lang="scss" scoped>
   @import "../style/reset";
+
   /deep/ .el-dialog {
     .amap {
       width: 1140px;
       height: 692px;
-      .markerbox{
+
+      .markerbox {
         width: 248px;
         min-height: 82px;
         cursor: pointer;
-        .name{
+
+        .name {
           font-size: 14px;
           font-weight: 900;
           line-height: 25px;
         }
-        .address{
+
+        .address {
           font-size: 12px;
           color: #999;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          &.synopsis{
+
+          &.synopsis {
             color: #666;
             line-height: 30px;
             min-height: 25px;
           }
         }
-        .goto{
+
+        .goto {
           line-height: 30px;
-          a{
+
+          a {
             color: $baseBlue;
           }
         }

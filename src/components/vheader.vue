@@ -9,7 +9,7 @@
           <span class="login">
           <span class="loginbox" v-if="!tyktoken">
             <span class="reg" @click="login_fn">立即登录</span>
-            <router-link to="/reg" tag="span">注册</router-link>
+            <div to="/reg" tag="span">注册</div>
           </span>
             <!--            <span class="loginbox" v-else v-loading="showuser">-->
           <span class="loginbox" v-else>
@@ -19,16 +19,15 @@
         </span>
         </div>
         <div class="hright">
-          <div class="menubox">
-            <router-link to="/my" tag="span">我的托亚克</router-link>
+          <div class="menubox" @mousemove="showmenu=true" @mouseleave="showmenu=false">
+            <span @click="gourl('/my')">我的托亚克</span>
             <ul v-show="showmenu" class="menu">
-              <router-link to="/my/myorder" tag="li">我的订单</router-link>
-              <router-link to="/my/myPoints" tag="li">我的积分</router-link>
-              <router-link to="/my/myApplication" tag="li">我的报名</router-link>
-              <router-link to="/my/myCoupon" tag="li">我的优惠券</router-link>
-              <router-link to="/my/myCollect" tag="li">我的收藏</router-link>
-              <router-link to="/my/myset" tag="li">账号设置</router-link>
-
+              <li @click="gourl('/my/myorder')">我的订单</li>
+              <li @click="gourl('/my/myPoints')">我的积分</li>
+              <li @click="gourl('/my/myApplication')">我的报名</li>
+              <li @click="gourl('/my/myCoupon')">我的优惠券</li>
+              <li @click="gourl('/my/myCollect')">我的收藏</li>
+              <li @click="gourl('/my/myset')">账号设置</li>
             </ul>
           </div>
           <a class="business" href="http://admin.tuoyake.com/admin" target="_blank">商家中心</a>
@@ -69,7 +68,7 @@
         top: 0,
         tyktoken: '',
         tkeyword: '',
-        showmenu: true,
+        showmenu: false,
         navs: [
           {
             name: '首页',
@@ -207,7 +206,10 @@
         this.$router.push({path: '/download'})
       },
       // 商家中心
-
+      gourl(url) {
+        this.$router.push({path: url});
+        this.showmenu = false;
+      }
     },
     beforeRouteEnter(to, form, next) {
       console.log(this)
@@ -296,22 +298,16 @@
           float: left;
           position: relative;
           padding: 0 14px;
-
-
           &:hover {
             background-color: #fff;
-
           }
-
           &:hover .menu {
             display: block;
-
           }
 
           &:hover span {
             color: $baseRed;
           }
-
           span {
             line-height: 40px;
             cursor: pointer;
@@ -328,7 +324,7 @@
             text-align: center;
             z-index: 1000;
             /*top: 95%;*/
-            display: none;
+            /*display: none;*/
             box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
 
             li {

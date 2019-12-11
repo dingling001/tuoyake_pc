@@ -86,9 +86,6 @@
           }, 1000)
         }
       },
-      backlogin() {
-        this.$router.go(-1)
-      },
       // 登录
       gonext() {
         if (this.ruleForm.mobile == '') {
@@ -115,7 +112,10 @@
       },
       captchainput(){
         this.ruleForm.captcha = this.ruleForm.captcha.replace(/[^\d]/g, '');
-      }
+      },
+      backlogin() {
+        this.$router.go(-1)
+      },
     }
   }
 </script>

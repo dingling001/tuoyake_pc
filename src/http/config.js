@@ -9,7 +9,7 @@ export default {
     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
   },
   // 设置超时时间
-  timeout: 10000,
+  timeout: 20000,
   // 返回数据类型
   responseType: "json",
   // withCredentials: true,
