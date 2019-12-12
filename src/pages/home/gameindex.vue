@@ -6,7 +6,7 @@
       <el-tab-pane label="过往赛事"></el-tab-pane>
       <div class="comlist" v-if="sing&&singList.length">
         <div class="jitem van-row--flex" v-for="(item,index) in singList" :key="item.id"
-             @click="gossdetail(item.match_id)">
+             @click="gossdetail(item.id)">
           <div class="jimg"><img :src="item.image" alt="">
             <!--<span v-if="item.recommend==1">精选</span>-->
           </div>
