@@ -17,7 +17,7 @@
             <span class="label1">
                <span class="time">{{item.create_time}}</span>
             <span>订单状态：
-              <span>{{item.status_text}}</span>
+              <span :class="[item.status==1?'nopay':'']">{{item.status_text}}</span>
             </span>
             </span>
             <span class="price">单价</span>
@@ -45,7 +45,7 @@
               <!--                  <el-button type="info" size="mini" v-if="item.status==1||item.status==2">取消订单</el-button>-->
               <!--                  <el-button type="info" size="mini" v-if="item.status==3">删除订单</el-button>-->
               <!--                  <el-button type="info" size="mini" v-if="item.status==8">已取消</el-button>-->
-                <el-button type="primary" size="mini">查看详情</el-button>
+                <el-button type="default" size="mini">查看详情</el-button>
             </span>
           </div>
         </div>
@@ -202,6 +202,7 @@
 
       .listitem {
         cursor: pointer;
+        margin-bottom: 20px;
 
         .statusbox {
           background-color: #F8F8F8;
@@ -212,6 +213,10 @@
 
           span {
             display: inline-block;
+          }
+
+          .nopay {
+            color: $baseRed;
           }
 
           .label1 {
@@ -265,6 +270,7 @@
               text-align: center;
               background-color: #f5f5f5;
               margin-right: 18px;
+              flex-shrink: 0;
 
               img {
                 width: 100%;
@@ -283,14 +289,19 @@
                 color: #333333;
                 font-size: 16px;
                 padding: 7px 0;
+                font-weight: bold;
 
               }
 
               .labeldes {
                 display: block;
-                font-size: 12px;
-                color: #999999;
-                white-space: pre-wrap;
+                font-size: 13px;
+                text-indent: 2em;
+                color: #666;
+                text-align: justify;
+                line-height: 18px;
+                padding: 0 15px;
+                /*white-space: pre-wrap;*/
               }
             }
           }
