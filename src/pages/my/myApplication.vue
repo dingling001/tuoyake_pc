@@ -257,9 +257,7 @@
           transition: ease-in-out .3s;
 
           .label {
-            background-size: cover;
-            background-image: url("../../img/my/jindu.png");
-            background-repeat: no-repeat;
+
             height: 14px;
             position: absolute;
             left: 0;
@@ -267,6 +265,9 @@
             border-radius: 7px;
             z-index: 1;
             transition: ease-in-out 2s;
+            background-size: cover;
+            background-image: url("../../img/my/jindu.png");
+            background-repeat: no-repeat;
           }
 
           .timesbox {
