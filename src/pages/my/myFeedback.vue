@@ -99,17 +99,12 @@
         const isJPG = file.type == 'image/jpeg' || file.type == 'image/png' || file.type == 'image/gif'
         let isLt2M = file.size / 1024 / 1024 < 2;
         if (!isJPG) {
-          this.$message({
-            message: '请上传 png、jpg格式!',
-            type: 'warning'
-          });
+          this.$com.showToast('请上传 png、jpg格式!', 'warning')
+
           return;
         }
         if (!isLt2M) {
-          this.$message({
-            message: '上传文件大小不能超过 2MB!',
-            type: 'warning'
-          });
+          this.$com.showToast('上传文件大小不能超过 2MB！', 'warning')
           return;
         }
         this._CommonUpload(file)

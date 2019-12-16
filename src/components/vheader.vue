@@ -167,7 +167,7 @@
       // 切换城市
       changCity() {
         // console.log('切换城市')
-        this.$router.push({path: '/changecity/'})
+        this.$router.push({path: '/changecity'})
       },
       // 跳转
       gonav(index, path) {

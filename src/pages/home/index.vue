@@ -325,7 +325,7 @@
       padding: 25px 0 0 0;
       /*}*/
       /deep/ .swiper-container {
-        /*overflow: hidden;*/
+        overflow: hidden;
         width: 1200px;
         /*margin: 40px auto 18px auto;*/
         margin: 0 auto;
