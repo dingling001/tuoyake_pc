@@ -382,7 +382,9 @@
         overflow: hidden;
         width: 1200px;
         margin: 0 auto;
-        padding: 24px 30px;
+        /*padding: 24px 30px;*/
+        padding: 24px 0;
+
         border-bottom: 1px solid #EEEEEE;
 
         .recommentleft {
@@ -438,12 +440,15 @@
 
       .recommentlist {
         overflow: hidden;
-        padding: 40px 48px 0 48px;
+        /*padding: 40px 48px 0 48px;*/
+        padding: 40px 0 0 0;
+
         min-height: 300px;
 
         .recmmentitem {
           float: left;
-          width: 240px;
+          /*width: 240px;*/
+          width: 264px;
           margin-bottom: 50px;
           margin-right: 48px;
           /*padding: 0 48px 50px 0;*/
@@ -478,7 +483,7 @@
           }
 
           .rec_img {
-            width: 240px;
+            width: 264px;
             height: 240px;
             border-radius: 15px;
             overflow: hidden;
@@ -494,7 +499,9 @@
           }
 
           .rec_name {
-            padding: 20px 0 10px;
+            /*padding: 20px 0 10px;*/
+            padding: 20px 10px;
+
             font-size: 16px;
             color: #333333;
           }
@@ -505,8 +512,9 @@
 
           .starbox {
             /*float: left;*/
-            width: 60px;
+            /*width: 60px;*/
             margin: 0 0 10px 0;
+            padding: 0 10px;
 
             .iconfont {
               color: #c3c3c3;
@@ -523,6 +531,7 @@
             margin: 5px 0 0 0;
             min-height: 22px;
             position: relative;
+            padding: 0 10px;
 
             span {
               background-color: #FEEAEB;
@@ -552,7 +561,7 @@
 
           .rec_address {
             font-size: 12px;
-            padding-top: 10px;
+            padding: 10px 10px 0 10px;
             overflow: hidden;
 
             span {
