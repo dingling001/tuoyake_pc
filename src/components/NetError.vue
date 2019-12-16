@@ -1,7 +1,8 @@
 <template>
   <div class="netbox">
     <div class="netitem">
-      <span class="iconfont iconzanwushuju"></span>
+      <!--      <span class="iconfont iconzanwushuju"></span>-->
+      <div class="netimg"><img src="../img/index/nonet.png" alt=""></div>
       <div class="text">网络连接超时了</div>
       <a href="">
         <el-button type="warning" plain>刷新</el-button>
@@ -29,13 +30,23 @@
 
     .netitem {
       position: absolute;
-      width: 300px;
+      /*width: 300px;*/
       height: 300px;
       left: 0;
       right: 0;
       bottom: 0;
       top: 0;
       margin: auto;
+
+      .netimg {
+        display: block;
+        width: 600px;
+        margin: 0 auto;
+
+        img {
+          width: 100%;
+        }
+      }
 
       .iconfont {
         font-size: 70px;

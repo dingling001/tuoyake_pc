@@ -19,14 +19,19 @@
       <div class="score_label" :title="'已获奖'+user_times+'次'">
         <div class="label_process">
           <div class="label" :style="{width: pro_width}"></div>
-          <div class="timesbox">
-            <div class="timeitem1">
-              <span></span>
-              <div>1次</div>
-            </div>
-            <div class="timeitem" v-for="(item,index) in  tags">
-              <img :src="item.status?item.icon1:item.icon" alt="" class="animated zoomIn">
-              <div>{{item.item}}次</div>
+          <div class="timesbox" v-if="tags.length">
+            <!--            <div class="timeitem1">-->
+            <!--              <span></span>-->
+            <!--              <div>1次</div>-->
+            <!--            </div>-->
+            <!--            <div class="timeitem" v-for="(item,index) in  tags" :style="{width: tagwidth+'%'}" >-->
+            <!--&lt;!&ndash;              <img :src="item.status?item.icon1:item.icon" alt="" class="animated zoomIn">&ndash;&gt;-->
+            <!--            </div>-->
+            <div class="itembox">
+              <div class="item" v-for="item in tags" :style="{left:(1/(achievement_times.length-1))*100+'%'} ">
+                <img :src="item.status?item.icon1:item.icon" alt="" class="animated zoomIn">
+                <div class="t">{{item.item}}次</div>
+              </div>
             </div>
           </div>
         </div>
@@ -40,7 +45,7 @@
         <div class="listitem">{{item.goods_name}}</div>
         <div :class="['btn',item.status!=1?'disabled':''] ">
           <span v-if="item.status==0">未达成</span>
-          <span v-else-if="item.status ==1" >立即领取</span>
+          <span v-else-if="item.status ==1">立即领取</span>
           <span v-else-if="item.status==2">已领取</span>
         </div>
       </div>
@@ -118,7 +123,7 @@
         nav_active: 0,
         sing: false,
         pro_width: 0,
-        tags: [
+        tagss: [
           {
             item: 5,
             icon: require('../../img/my/icon2.png'),
@@ -136,18 +141,21 @@
             icon: require('../../img/my/icon2.png'),
             icon1: require('../../img/my/icon1.png'),
             status: false
-          }, {
+          },
+          {
             item: 25,
             icon: require('../../img/my/icon2.png'),
             icon1: require('../../img/my/icon1.png'),
             status: false
-          }, {
+          },
+          {
             item: 30,
             icon: require('../../img/my/icon2.png'),
             icon1: require('../../img/my/icon1.png'),
             status: false
           },
         ],
+        tags: [],
         sglist: [],
         user_times: 0,
         dialogTableVisible: false,
@@ -157,7 +165,9 @@
         ginfo: {},
         winning_receive_explain: '',
         addshow: false,
-        aid: null
+        aid: null,
+        tagwidth: 0,
+        achievement_times: []
       }
     },
     components: {
@@ -165,7 +175,7 @@
     },
     created() {
       this._SignAchievement();
-      this._SignIndex();
+      // this._SignIndex();
       this._SignGoods();
       this._getConfig();
       this._AddressIndex();
@@ -204,8 +214,28 @@
       // 获取奖励
       _SignAchievement() {
         this.$api.SignAchievement().then(res => {
-          console.log(res)
-          this.user_times = res.data.user_times;
+          // console.log(res)
+          var tag = [];
+          var tags = res.data.achievement_times;
+          this.achievement_times = res.data.achievement_times;
+
+          for (var i in tags) {
+            tag.push({
+              item: tags[i],
+              icon: require('../../img/my/icon2.png'),
+              icon1: require('../../img/my/icon1.png'),
+              status: false
+            })
+          }
+          this.user_times = parseInt(res.data.user_times, 10);
+          this.tagwidth = 1 / tag.length * 100;
+          this.tags = tag;
+          for (var i in this.tags) {
+            if (this.user_times >= parseInt(this.tags[i].item)) {
+              this.tags[i].status = true;
+            }
+          }
+          this.pro_width = this.user_times >= parseInt(this.tags[this.tags.length - 1].item) ? '100%' : (this.user_times / parseInt(this.tags[this.tags.length - 1].item)) * 100 + '%'
         })
       },
 
@@ -377,10 +407,11 @@
 
             .timeitem {
               float: left;
-              width: 20%;
+              width: 0;
               text-align: right;
               color: #fff;
               font-size: 12px;
+              transition: ease-in-out .2s;
 
               img {
                 width: 27px;
@@ -400,6 +431,25 @@
                 width: 27px;
                 height: 28px;
                 margin-bottom: 3px;
+              }
+            }
+
+            .itembox {
+              position: relative;
+              left: -10px;
+
+              .item {
+                position: absolute;
+                left: 0;
+
+                .t {
+                  color: #fff;
+                  font-size: 12px;
+                }
+
+                &:first-child {
+                  left: 0 !important;
+                }
               }
             }
           }

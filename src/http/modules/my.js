@@ -210,7 +210,7 @@ export const AddressIndex = () =>
     true
   );
 /**
- * 地址列表
+ * 报名获奖情况
  */
 export const SignIndex = () =>
   axios(
