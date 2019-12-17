@@ -44,7 +44,7 @@
           },
           {
             name: '青岛',
-            id: 800
+            id: 801
           },
           {
             name: '武汉',
@@ -156,14 +156,18 @@
       color: #333;
       font-weight: 600;
     }
+
     dl {
       display: flex;
       flex-wrap: wrap;
       padding-left: 50px;
+
       dd {
-        margin: 0 20px;
+        /*margin: 0 20px;*/
+        min-width: 70px;
+        text-align: center;
         color: #666;
-        line-height: 22px;
+        line-height: 30px;
         cursor: pointer;
 
         &:hover {

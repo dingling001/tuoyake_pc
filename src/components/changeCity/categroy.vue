@@ -10,9 +10,7 @@
     <dl v-for="item in blocks" :key="item.title" class="m-categroy-section">
       <dt :id="'city-'+item.title">{{item.title}}</dt>
       <dd>
-        <span v-for="c in item.city" :key="c" @click="changecity(c)">
-          {{c}}
-        </span>
+        <span v-for="c in item.city" :key="c" @click="changecity(c)">{{c}}</span>
       </dd>
     </dl>
   </div>
