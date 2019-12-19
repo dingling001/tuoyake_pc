@@ -12,7 +12,8 @@
   <!--<meta name="description"-->
   <!--content="国家海洋博物馆以“海洋与人类”为主题，具有中国海洋文化特色，以收藏、研究、展示、教育为主要功能，是一座融展示与教育、收藏与研究、文化与休闲、科学与艺术于一体的现代化、综合性海洋类博物馆。">-->
   <link rel="stylesheet" href="http://at.alicdn.com/t/font_1340030_z6d4xb01mqj.css"/>
-    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=dbb6340c583ea1540f036e1172329854"></script>
+  <script type="text/javascript"
+          src="https://webapi.amap.com/maps?v=1.4.15&key=dbb6340c583ea1540f036e1172329854"></script>
 </head>
 
 <body>
@@ -22,8 +23,16 @@
 </body>
 </html>
 <script type="text/javascript">
-  window.onresize = function () {
+  window.onload = function () {
+    // console.log(bodywidth)
     var bodywidth = document.body.scrollWidth;
+    if (/Android|webOS| iPhone | iPad | iPod |BlackBerry|opera mini|opera mobile|appleWebkit.*mobile|mobile/i.test(navigator.userAgent)) {
+      window.location.replace('http://mobile.tuoyake.com');
+    } else if (bodywidth < 960) {
+      window.location.replace('http://mobile.tuoyake.com');
+    }
+  }
+  window.onresize = function () {
     // console.log(bodywidth)
     if (/Android|webOS| iPhone | iPad | iPod |BlackBerry|opera mini|opera mobile|appleWebkit.*mobile|mobile/i.test(navigator.userAgent)) {
       window.location.replace('http://mobile.tuoyake.com');

@@ -24,9 +24,7 @@
           <span class="iconfont iconguankancishu"></span>
           <span>{{videoinfo.view_num}}人观看</span>
         </div>
-        <div class="nright" @click="clllection" title="收藏我吧">
-
-        </div>
+        <div class="nright" @click="clllection" title="收藏我吧"> </div>
 
       </div>
       <div class="hr"></div>
