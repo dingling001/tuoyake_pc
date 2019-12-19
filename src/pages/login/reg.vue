@@ -112,7 +112,7 @@
         } else if (this.ruleForm.password == '') {
           this.$com.showToast('请输入密码')
         } else if (this.ruleForm.repassword == '') {
-          this.$com.showToast('请输入重复码')
+          this.$com.showToast('请输入重复密码')
         } else if (this.ruleForm.password.length < 6 || this.ruleForm.password.length > 12) {
           this.$com.showToast('密码长度介于6～12位之间')
         } else if (this.ruleForm.password != this.ruleForm.repassword) {
