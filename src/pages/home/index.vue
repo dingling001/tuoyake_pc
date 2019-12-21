@@ -23,8 +23,18 @@
       <swiper :options="swiperOption" ref="mySwiper" v-if="swipershow&&swiperlist.length">
         <!-- slides -->
         <swiper-slide v-for="(item,index) in swiperlist" :key="index">
-          <img :src="item.image" :alt="item.type_text" v-if="item.image">
-          <span v-else>加载中……</span>
+<!--          <img :src="item.image" :alt="item.type_text" v-if="item.image">-->
+          <el-image
+            style="width: 1200px; height: 420px"
+            :src="item.image"
+            v-if="item.image"
+            fit="cover"
+          >
+            <div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline"></i>
+            </div>
+          </el-image>
+<!--          <span v-else>{{item.type_text}}</span>-->
         </swiper-slide>
         <!-- Optional controls -->
         <div class="swiper-pagination" slot="pagination" v-if="swiperlist.length>1"></div>

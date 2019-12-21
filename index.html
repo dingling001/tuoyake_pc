@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
   <title>托亚克</title>
+  <link rel="icon" href="./favicon.ico">
   <meta name="referrer" content="never">
   <!--<Meta http-equiv="Set-Cookie" Content="uuid=; expires=1; Max-Age=0; path=/">-->
   <!--<meta name="keywords"-->
@@ -23,9 +24,9 @@
 </body>
 </html>
 <script type="text/javascript">
+  var bodywidth = document.body.scrollWidth;
   window.onload = function () {
     // console.log(bodywidth)
-    var bodywidth = document.body.scrollWidth;
     if (/Android|webOS| iPhone | iPad | iPod |BlackBerry|opera mini|opera mobile|appleWebkit.*mobile|mobile/i.test(navigator.userAgent)) {
       window.location.replace('http://mobile.tuoyake.com');
     } else if (bodywidth < 960) {
