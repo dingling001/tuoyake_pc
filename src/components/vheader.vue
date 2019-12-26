@@ -41,13 +41,21 @@
           <img src="../img/index/index_logo.png" alt="">
         </div>
         <div class="tinput">
-          <el-input
-            placeholder="搜索网吧或相关赛事"
+          <!--          <el-input-->
+          <!--            placeholder="搜索网吧或相关赛事"-->
+          <!--            v-model="tkeyword"-->
+          <!--            @keyup.enter.native="gosearch"-->
+          <!--          >-->
+          <el-autocomplete
             v-model="tkeyword"
-            @keyup.enter.native="gosearch"
+            :fetch-suggestions="querySearchAsync"
+            :placeholder="placeholders[ind]"
+            @select="handleSelect"
           >
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
-          </el-input>
+          </el-autocomplete>
+
+          <!--          </el-input>-->
           <el-button type="primary" @click="gosearch">搜索</el-button>
         </div>
         <el-button type="danger" @click="godownload"><i class="iconfont iconshouji"></i> 下载APP</el-button>
@@ -93,7 +101,12 @@
           },
         ],
         user_info: {},
-        showuser: true
+        showuser: true,
+        // placeholder:'搜索网吧或相关赛事',
+        placeholders: ['搜索网吧或相关赛事', '搜索俱乐部名称/地址', '搜索学院名称/地址'],
+        ind: 0,
+        restaurants: [],
+        timeout: null
       };
     },
     props: {
@@ -184,7 +197,7 @@
       // 搜索
       gosearch() {
         if (this.tkeyword) {
-          this.$router.push({path: `/search/${this.tkeyword}`})
+          this.$router.push({path: `/search/${this.tkeyword}?type=${this.cur}`})
         }
       },
       // 退出登录
@@ -210,10 +223,30 @@
       gourl(url) {
         this.$router.push({path: url});
         this.showmenu = false;
+      },
+      querySearchAsync(queryString, cb) {
+        var restaurants = this.restaurants;
+        var results = queryString ? restaurants.filter(this.createStateFilter(queryString)) : restaurants;
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
+          cb(results);
+        }, 3000 * Math.random());
+      },
+      createStateFilter(queryString) {
+        return (state) => {
+          return (state.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        };
+      },
+      handleSelect(item) {
+        console.log(item);
+      },
+      loadAll() {
+        return []
+        // return [{"value": "三全鲜食（北新泾店）", "address": "长宁区新渔路144号"}]
       }
     },
     beforeRouteEnter(to, form, next) {
-      console.log(this)
+      // console.log(this)
       if (to.meta.cur) {
         next.cur = to.cur;
       }
@@ -222,8 +255,8 @@
     mounted() {
       window.addEventListener("scroll", this.handleScroll);
       document.title = '托亚克 | ' + this.city;
-    },
-
+      this.restaurants = this.loadAll();
+    }
   };
 </script>
 
@@ -299,9 +332,11 @@
           float: left;
           position: relative;
           padding: 0 14px;
+
           &:hover {
             background-color: #fff;
           }
+
           &:hover .menu {
             display: block;
           }
@@ -309,6 +344,7 @@
           &:hover span {
             color: $baseRed;
           }
+
           span {
             line-height: 40px;
             cursor: pointer;

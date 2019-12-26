@@ -24,8 +24,8 @@
             <!--            </div>-->
 
             <div class="rec_address single-line-text"><span class="el-icon-location-outline"></span>{{item.address}}
+              <span class="rec_address map" @click.stop="showmap(index,item)">查看地图</span>
             </div>
-            <div class="rec_address map" @click.stop="showmap(index,item)">查看地图</div>
           </div>
         </div>
       </div>

@@ -46,7 +46,7 @@ instance.interceptors.response.use(
       localStorage.showneterror = true;
       window.location.reload();
     }
-    switch (error.response.status) {
+    switch (error.response.data.code) {
       case 400:
         console.log('请求错误');
         break;
@@ -71,7 +71,7 @@ instance.interceptors.response.use(
         break;
       default:
     }
-    error.status = error.response.status;
+    error.status = error.response.data.code;
     return Promise.reject(error);
   }
 );

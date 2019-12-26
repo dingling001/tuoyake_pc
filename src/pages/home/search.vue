@@ -76,9 +76,10 @@
     },
     watch: {
       '$route': {
-        handler(val) {
+        handler(val,oldval) {
           this.keyword = val.params.tkeyword;
           this._GetBarList();
+          console.log(oldval)
         },
         immediate: true,
       }
@@ -86,7 +87,6 @@
     methods: {
       // 获取列表
       _GetBarList() {
-
         this.$api.GetBarList(
           this.page,
           this.keyword,
