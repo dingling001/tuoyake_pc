@@ -99,6 +99,10 @@
             name: '关于我们',
             path: '/about'
           },
+          {
+            name: '有偿资讯',
+            path: '/free'
+          },
         ],
         user_info: {},
         showuser: true,
