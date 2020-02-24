@@ -24,7 +24,7 @@
             <ul v-show="showmenu" class="menu">
               <li @click="gourl('/my/myorder')">我的订单</li>
               <li @click="gourl('/my/myPoints')">我的积分</li>
-              <li @click="gourl('/my/myApplication')">我的报名</li>
+              <!--<li @click="gourl('/my/myApplication')">我的报名</li>-->
               <li @click="gourl('/my/myCoupon')">我的优惠券</li>
               <li @click="gourl('/my/myCollect')">我的收藏</li>
               <li @click="gourl('/my/myset')">账号设置</li>
@@ -88,7 +88,7 @@
             path: '/competition'
           },
           {
-            name: '电竞学院',
+            name: '酒店',
             path: '/school'
           },
           {
@@ -107,7 +107,7 @@
         user_info: {},
         showuser: true,
         // placeholder:'搜索网吧或相关赛事',
-        placeholders: ['搜索网吧或相关赛事', '搜索俱乐部名称/地址', '搜索学院名称/地址'],
+        placeholders: ['搜索网吧或相关赛事', '搜索俱乐部名称/地址', '搜索酒店名称/地址'],
         ind: 0,
         restaurants: [],
         timeout: null

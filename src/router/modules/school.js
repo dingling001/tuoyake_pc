@@ -3,7 +3,7 @@ const School = [
     path: '/school',
     meta: {
       cur: 2,
-      title: "电竞学院",
+      title: "酒店",
       building: false,
       showH: true,
       showF: true,
@@ -17,7 +17,7 @@ const School = [
     name: 'schooldetail',
     meta: {
       cur: 2,
-      title: "电竞学院",
+      title: "酒店",
       building: false,
       showH: true,
       showF: true,

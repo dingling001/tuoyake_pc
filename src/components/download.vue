@@ -4,7 +4,7 @@
     <div class="tipitem">下单支付流程已调到手机端</div>
     <div class="downloadbox">
       <div class="downloaditem">
-        <a href="/"><span class="iconfont iconiconfontanzhuo"></span>Android下载</a>
+        <a href="https://android.myapp.com/myapp/detail.htm?apkName=com.yt.tyk"><span class="iconfont iconiconfontanzhuo"></span>Android下载</a>
       </div>
       <div class="downloaditem">
         <a href="/"><span class="iconfont iconpingguo"></span>iPhone下载</a>

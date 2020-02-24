@@ -18,9 +18,9 @@
           v-else>我的订单</span>
         </span>
         </div>
-        <div :class="['nav_item', cur==2?'active_item':'']" @click="gonav('myApplication',2)"><span
-          class="iconfont icontianxie"></span>我的报名
-        </div>
+        <!--<div :class="['nav_item', cur==2?'active_item':'']" @click="gonav('myApplication',2)"><span-->
+          <!--class="iconfont icontianxie"></span>我的报名-->
+        <!--</div>-->
         <div :class="['nav_item', cur==3?'active_item':'']" @click="gonav('myPoints',3)"><span
           class="iconfont iconjifen"></span>我的积分
         </div>

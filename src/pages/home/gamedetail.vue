@@ -24,8 +24,8 @@
           <!--<input type="number" v-model="num" placeholder="">-->
           <!--<span class="iconfont iconplus-circle" @click="plus"></span>-->
           <!--</div>-->
-          <div class="taocan_btn" @click="goapp" v-if="matchinfo.is_sign==0">立即报名</div>
-          <div class="taocan_btn" @click="gomy" v-else>我的报名</div>
+          <!--<div class="taocan_btn" @click="goapp" v-if="matchinfo.is_sign==0">立即报名</div>-->
+          <!--<div class="taocan_btn" @click="gomy" v-else>我的报名</div>-->
         </div>
         <div class="nright" @click="clllection" title="收藏我吧">
           <div :class="['iconfont iconheart-fill', matchinfo.is_collection==1? 'iconactive':'']"></div>

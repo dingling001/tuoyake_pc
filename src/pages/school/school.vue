@@ -3,7 +3,7 @@
     <city-select @removeall="removeAll" @cityarea="cityareafn" @removecity="removecity" @allarea="allarea"
                  :showlabel="false"></city-select>
     <div class="listbox">
-      <div class="allschool"><span @click="allcate('',-1)" :class="{'activeacate':ind==-1}">全部学院</span><span
+      <div class="allschool"><span @click="allcate('',-1)" :class="{'activeacate':ind==-1}">全部酒店</span><span
         @click="allcate(item.id,index)" :class="{'activeacate':ind==index}" v-for="(item,index) in catelist"
         :key="index">{{item.name}}</span>
       </div>
@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="list" v-if="cshow&&clublist.length==0">
-        <NoData :text="'暂无学院'"></NoData>
+        <NoData :text="'暂无酒店'"></NoData>
       </div>
       <pcpaging class="pcpaging" :totalPages="totalPages" @presentPage="getPresentPage" :pageSize="per_page"
                 :scrollTo="200" v-if="clublist.length&&totalPages>per_page"></pcpaging>
