@@ -4,10 +4,12 @@
     <div class="tipitem">下单支付流程已调到手机端</div>
     <div class="downloadbox">
       <div class="downloaditem">
-        <a href="https://android.myapp.com/myapp/detail.htm?apkName=com.yt.tyk"><span class="iconfont iconiconfontanzhuo"></span>Android下载</a>
+        <img src="../img/index/android.png" alt="">
+        <a href="https://android.myapp.com/myapp/detail.htm?apkName=com.yt.tyk" target="_blank"><span class="iconfont iconiconfontanzhuo"></span>Android下载</a>
       </div>
       <div class="downloaditem">
-        <a href="/"><span class="iconfont iconpingguo"></span>iPhone下载</a>
+        <img src="../img/index/ios.png" alt="">
+        <a href="https://apps.apple.com/cn/app/%E6%89%98%E4%BA%9A%E5%85%8B/id1486551960" target="_blank"><span class="iconfont iconpingguo"></span>iPhone下载</a>
       </div>
     </div>
   </el-card>
@@ -50,11 +52,13 @@
         width: 300px;
         text-align: center;
         border: 1px solid #CCCCCC;
-
+overflow: hidden;
         &:last-child {
           float: right;
         }
-
+img{
+  width: 100%;
+}
         a {
           line-height: 60px;
           display: inline-block;

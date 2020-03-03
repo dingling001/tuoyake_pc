@@ -100,6 +100,7 @@ export const Profile = (avatar, nickname) =>
 /**
  * 收藏列表
  */
+// 类型:1=网吧,2=赛事,3=视频,4=套餐
 export const CollectionIndex = (type, page, lat = 0, lng = 0, per_page) =>
   axios(
     "/api/collection/index", {

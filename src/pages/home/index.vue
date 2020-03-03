@@ -57,8 +57,8 @@
             <span class="iconfont iconstar-fill iconactive" v-for="i in parseInt(item.star)"></span>
           </div>
           <div class="typebox ">
-            <span class="single-line-text" :style="{maxWidth:(1/item.label_ids.length)*100+'%'}"
-                  v-for="(c,cindex) in item.label_ids" :key="cindex">{{c}}</span>
+            <span class="single-line-text" :style="{maxWidth:item.label_ids.length==3?' 33%':''}"
+                  v-for="(c,cindex) in item.label_ids.slice(0,3)" :key="cindex">{{c}}</span>
             <!--<span v-if="item.label_ids.length>3" class="more">更多</span>-->
           </div>
           <div class="rec_address">
@@ -66,9 +66,7 @@
             <span @click.stop="showmap(index,item)"> <i class="iconfont iconlocation"></i> 查看地图</span>
           </div>
           <div class="sharebox"></div>
-          <div class="rec_type" v-if="item.recommend">
-            推荐
-          </div>
+          <div class="rec_type" v-if="item.recommend">推荐</div>
         </div>
       </div>
       <div v-if="isload&&netlist.length==0" class="recommentlist">
@@ -501,6 +499,7 @@
 
             img {
               width: 100%;
+              height: 100%;
             }
 
             &:hover {

@@ -29,45 +29,45 @@
                   :scrollTo="680" v-if="totalPages>per_page"></pcpaging>
 
       </el-tab-pane>
-      <el-tab-pane label="赛事" name="2">
-        <div class="comlist" v-if="isload&&list.length&&active==2">
-          <div class="jitem " v-for="(item,index) in list" :key="item.id"
-               @click="gossdetail(item.id)">
-            <div class="jimg">
-              <img :src="item.image" alt="">
-              <div v-if="item.recommend==1" class="rec_type">精选</div>
-              <!--<video :src="item.file" preload="auto" controls></video>-->
-              <!--<span>12:30</span>-->
-            </div>
-            <div class="jright">
-              <div class="jname van-ellipsis">{{item.name}}</div>
-              <!--<div class="jinfo"><span class="name">{{item.contact}}</span><span class="tel">{{item.contact_number}}</span>-->
-              <!--</div>-->
-              <div class="jaddress van-ellipsis"><span>赛事时间：</span>{{item.start_time}} <b>~</b> {{item.end_time}}</div>
-              <div class="synopsis van-ellipsis">{{item.synopsis}}</div>
-              <el-button type="primary" size="small">立即报名</el-button>
-            </div>
-          </div>
-        </div>
-        <NoData :text="'暂无收藏赛事'" v-if="isload&&list.length==0&&active==2"></NoData>
-      </el-tab-pane>
-      <el-tab-pane label="视频" name="3">
-        <div class="vlist" v-if="isload&&list.length&&active==3">
-          <div class="videoitem" v-for="(item,index) in list" :key="item.id"
-                       @click="govdetail(item.id)">
-            <div class="vimg">
-              <img :src="item.poster" alt="">
-              <span class="view_num"><span class="iconfont iconbofang1"></span>{{s_to_hs(item.duration)}}</span>
-            </div>
-            <div class="vright">
-              <div class="vname van-ellipsis">{{item.name}}</div>
-              <div class="vtime"><span class="iconfont icontime-circle"></span><span>{{item.create_time}}</span></div>
-              <div class="vsynopsis">{{item.synopsis}}</div>
-            </div>
-          </div>
-        </div>
-        <NoData :text="'暂无收藏视频'" v-if="isload&&list.length==0&&active==3"></NoData>
-      </el-tab-pane>
+      <!--<el-tab-pane label="赛事" name="2">-->
+        <!--<div class="comlist" v-if="isload&&list.length&&active==2">-->
+          <!--<div class="jitem " v-for="(item,index) in list" :key="item.id"-->
+               <!--@click="gossdetail(item.id)">-->
+            <!--<div class="jimg">-->
+              <!--<img :src="item.image" alt="">-->
+              <!--<div v-if="item.recommend==1" class="rec_type">精选</div>-->
+              <!--&lt;!&ndash;<video :src="item.file" preload="auto" controls></video>&ndash;&gt;-->
+              <!--&lt;!&ndash;<span>12:30</span>&ndash;&gt;-->
+            <!--</div>-->
+            <!--<div class="jright">-->
+              <!--<div class="jname van-ellipsis">{{item.name}}</div>-->
+              <!--&lt;!&ndash;<div class="jinfo"><span class="name">{{item.contact}}</span><span class="tel">{{item.contact_number}}</span>&ndash;&gt;-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+              <!--<div class="jaddress van-ellipsis"><span>赛事时间：</span>{{item.start_time}} <b>~</b> {{item.end_time}}</div>-->
+              <!--<div class="synopsis van-ellipsis">{{item.synopsis}}</div>-->
+              <!--<el-button type="primary" size="small">立即报名</el-button>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<NoData :text="'暂无收藏赛事'" v-if="isload&&list.length==0&&active==2"></NoData>-->
+      <!--</el-tab-pane>-->
+      <!--<el-tab-pane label="视频" name="3">-->
+        <!--<div class="vlist" v-if="isload&&list.length&&active==3">-->
+          <!--<div class="videoitem" v-for="(item,index) in list" :key="item.id"-->
+                       <!--@click="govdetail(item.id)">-->
+            <!--<div class="vimg">-->
+              <!--<img :src="item.poster" alt="">-->
+              <!--<span class="view_num"><span class="iconfont iconbofang1"></span>{{s_to_hs(item.duration)}}</span>-->
+            <!--</div>-->
+            <!--<div class="vright">-->
+              <!--<div class="vname van-ellipsis">{{item.name}}</div>-->
+              <!--<div class="vtime"><span class="iconfont icontime-circle"></span><span>{{item.start_time}}</span></div>-->
+              <!--<div class="vsynopsis">{{item.synopsis}}</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<NoData :text="'暂无收藏视频'" v-if="isload&&list.length==0&&active==3"></NoData>-->
+      <!--</el-tab-pane>-->
       <el-tab-pane label="套餐" name="4">
         <div class="comlist" v-if="isload&&list.length">
           <div class="jitem van-row--flex" v-for="(item,index) in list" :key="item.id"
@@ -83,7 +83,7 @@
             </div>
           </div>
         </div>
-        <NoData :text="'暂无收藏视频'" v-if="isload&&list.length==0&&active==4"></NoData>
+        <NoData :text="'暂无收藏套餐'" v-if="isload&&list.length==0&&active==4"></NoData>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -147,8 +147,9 @@
       },
       // 改变类型
       changetype(val, event) {
+        console.log(val)
         this.page = 0;
-        this.type = parseInt(val.index) + 1;
+        this.type = parseInt(val.name);
         this.list = [];
         this.isload = false;
         this._CollectionIndex()

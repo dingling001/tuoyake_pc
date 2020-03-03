@@ -48,7 +48,7 @@
             <div class="sname van-ellipsis">{{item.name}}</div>
             <!--<div class="jinfo"><span class="name">{{item.contact}}</span><span class="tel">{{item.contact_number}}</span>-->
             <!--</div>-->
-            <div class="stime ">{{item.create_time}}</div>
+            <!--<div class="stime ">{{item.create_time}}</div>-->
             <!--<div class="sbtn">立即报名</div>-->
             <div class="synopsis">{{item.synopsis}}</div>
           </div>

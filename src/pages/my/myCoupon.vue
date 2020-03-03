@@ -3,7 +3,7 @@
     <el-tab-pane name="0" :label="'待使用优惠券（'+num+'）'" class="tab"></el-tab-pane>
     <el-tab-pane name="1" label="已使用优惠券" class="tab"></el-tab-pane>
     <div v-show="active==0">
-      <div class="couponlist">
+      <div class="couponlist" v-if="couplist.length">
         <div :class="['coupitem',item.status==3||item.status==4?'used':'']" v-for="(item,index) in couplist"
              :key="item.id"
              @click="godetail(item.id)">
@@ -16,6 +16,9 @@
           <div class="cr">{{item.status_text}} <span v-if="item.status==1||item.status==2"
                                                      class="iconfont iconcaret-right"></span></div>
         </div>
+      </div>
+      <div class="couponlist" v-if="couplist.length==0">
+        <NoData :text="'暂无相关优惠券'"></NoData>
       </div>
     </div>
     <div v-show="active==1">

@@ -65,7 +65,7 @@
     <div class="comlist" v-if="comdata.match.length">
       <div class="taocan">
         <!--<div class="spanbox">赛事列表</div>-->
-        <div class="spanbox">酒店介绍</div>
+        <div class="spanbox">商家介绍</div>
         <!--<div class="all" @click="goall">全部赛事 <span class="iconfont iconjiantou"></span></div>-->
       </div>
       <div class="slist">
@@ -77,7 +77,7 @@
             <div class="sname van-ellipsis">{{item.league_name}}</div>
             <!--<div class="jinfo"><span class="name">{{item.contact}}</span><span class="tel">{{item.contact_number}}</span>-->
             <!--</div>-->
-            <div class="stime ">赛事时间：{{item.start_time}} ~ {{item.end_time}}</div>
+            <!--<div class="stime ">赛事时间：{{item.start_time}} ~ {{item.end_time}}</div>-->
             <!--<div class="sbtn">立即报名</div>-->
           </div>
         </div>

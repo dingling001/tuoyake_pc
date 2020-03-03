@@ -253,7 +253,7 @@
             img {
               width: 100%;
               vertical-align: middle;
-
+height: 100%;
             }
 
             .rec_type {
